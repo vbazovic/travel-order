@@ -27,3 +27,8 @@ ignoreNewlinesInTextObjects = "off"
 url = "jdbc:mysql://localhost"
 user = "root"
 schemas = [ "travel_test" ]
+
+[environments.travelorder]
+url = "jdbc:mysql://localhost"
+schemas = [ "travel_order" ]
+displayName = "Travel Order"
