@@ -42,7 +42,7 @@ function authenticate(req, res, next) {
   next();
 }
 
-// Vehicle routes
+//-------------------------Vehicle routes
 
 // GET all vehicles
 app.get('/vehicle', authenticate, (req, res) => {
@@ -92,7 +92,7 @@ app.delete('/vehicle/:id', authenticate, (req, res) => {
   });
 });
 
-// Employee routes
+//-------------------------------Employee routes
 
 // GET all employees
 app.get('/employee', authenticate, (req, res) => {
@@ -139,6 +139,56 @@ app.delete('/employee/:id', authenticate, (req, res) => {
   db.query('DELETE FROM employee WHERE id = ?', [id], (err) => {
     if (err) throw err;
     res.json({ message: 'Employee deleted' });
+  });
+});
+
+// ---------------------------------Organisation routes
+
+// GET all organisations
+app.get('/organisation', authenticate, (req, res) => {
+  db.query('SELECT * FROM organisation', (err, results) => {
+    if (err) throw err;
+    res.json(results);
+  });
+});
+
+// GET one organisation by ID
+app.get('/organisation/:id', authenticate, (req, res) => {
+  const { id } = req.params;
+  db.query('SELECT * FROM organisation WHERE id = ?', [id], (err, results) => {
+    if (err) throw err;
+    if (results.length === 0) {
+      return res.status(404).json({ error: 'Organisation not found' });
+    }
+    res.json(results[0]);
+  });
+});
+
+// POST add organisation
+app.post('/organisation', authenticate, (req, res) => {
+  const jsonData = req.body;  
+  db.query('INSERT INTO travel_order.organisation (resp_person, seal, name, address, issuer) VALUES(?, ?, ?, ?, ?)', [jsonData.respPerson, jsonData.seal, jsonData.name, jsonData.address, jsonData.issuer], (err) => {
+    if (err) throw err;
+    res.json({ message: 'Organisation added' });
+  });
+});
+
+// PUT update organisation
+app.put('/organisation/:id', authenticate, (req, res) => {
+  const jsonData = req.body;
+  const { id }= req.params;
+  db.query('UPDATE organisation SET resp_person = ?, seal = ?, name = ?, address = ?, issuer = ? WHERE id = ?', [jsonData.respPerson, jsonData.seal, jsonData.name, jsonData.address, jsonData.issuer, id], (err) => {
+    if (err) throw err;
+    res.json({ message: 'Organisation updated' });
+  });
+});
+
+// DELETE organisation
+app.delete('/organisation/:id', authenticate, (req, res) => {
+  const { id } = req.params;
+  db.query('DELETE FROM organisation WHERE id = ?', [id], (err) => {
+    if (err) throw err;
+    res.json({ message: 'Organisation deleted' });
   });
 });
 

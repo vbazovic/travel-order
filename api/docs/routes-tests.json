@@ -1,16 +1,16 @@
 {
-  "info": {
-    "_postman_id": "657acd7b-cee2-4ed6-8b62-dabb9900f625",
-    "name": "travel_order",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "45994787",
-    "_collection_link": "https://lunar-space-1359353.postman.co/workspace/Aleksa-Milo%C5%A1evi%C4%87's-Workspace~1190b988-fdba-455d-8a82-c0d29371b83c/collection/45994787-657acd7b-cee2-4ed6-8b62-dabb9900f625?action=share&source=collection_link&creator=45994787"
-  },
-  "item": [
-    {
-      "name": "vehicle",
-      "item": [
-        {
+	"info": {
+		"_postman_id": "657acd7b-cee2-4ed6-8b62-dabb9900f625",
+		"name": "travel_order",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45994787",
+		"_collection_link": "https://lunar-space-1359353.postman.co/workspace/Aleksa-Milo%C5%A1evi%C4%87's-Workspace~1190b988-fdba-455d-8a82-c0d29371b83c/collection/45994787-657acd7b-cee2-4ed6-8b62-dabb9900f625?action=share&source=collection_link&creator=45994787"
+	},
+	"item": [
+		{
+			"name": "vehicle",
+			"item": [
+				{
           "name": "GET all vehicles",
           "request": {
             "auth": {
@@ -192,12 +192,12 @@
             }
           ]
         }
-      ]
-    },
-    {
-      "name": "employee",
-      "item": [
-        {
+			]
+		},
+		{
+			"name": "employee",
+			"item": [
+				{
           "name": "GET all employees",
           "request": {
             "auth": {
@@ -375,7 +375,154 @@
             }
           ]
         }
-      ]
-    }
-  ]
+			]
+		},
+		{
+			"name": "organisation",
+			"item": [
+				{
+					"name": "GET all organisations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/organisation",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"organisation"
+							]
+						}
+					},
+					"response": [
+                {
+                  "id": 1,
+                  "resp_person": "aleksa",
+                  "seal": "pecat",
+                  "name": "org1",
+                  "address": "adresa123",
+                  "issuer": "blabla"
+              },
+              {
+                  "id": 2,
+                  "resp_person": "Marko",
+                  "seal": "pecat123",
+                  "name": "firma123",
+                  "address": "adresa123",
+                  "issuer": "nekoneko"
+              }
+          ]
+				},
+				{
+					"name": "GET organisation by ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+            {
+                "id": 1,
+                "resp_person": "aleksa",
+                "seal": "pecat",
+                "name": "org1",
+                "address": "adresa123",
+                "issuer": "blabla"
+            }
+          ]
+				},
+				{
+					"name": "POST add organisation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/organisation",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"organisation"
+							]
+						}
+					},
+					"response": [
+            {
+              "message": "Organisation added"
+            }
+          ]
+				},
+				{
+					"name": "PUT update organisation",
+					"request": {
+						"method": "PUT",
+						"header": []
+					},
+					"response": [
+            {
+                "message": "Organisation updated"
+            }
+          ]
+				},
+				{
+					"name": "DELETE organisation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/organisation/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"organisation",
+								"3"
+							]
+						}
+					},
+					"response": [
+            {
+                "message": "Organisation deleted"
+            }
+          ]
+				}
+			]
+		}
+	]
 }
