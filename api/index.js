@@ -92,6 +92,56 @@ app.delete('/vehicle/:id', authenticate, (req, res) => {
   });
 });
 
+// Employee routes
+
+// GET all employees
+app.get('/employee', authenticate, (req, res) => {
+  db.query('SELECT * FROM employee', (err, results) => {
+    if (err) throw err;
+    res.json(results);
+  });
+});
+
+// GET one employee by ID
+app.get('/employee/:id', authenticate, (req, res) => {
+  const { id } = req.params;
+  db.query('SELECT * FROM employee WHERE id = ?', [id], (err, results) => {
+    if (err) throw err;
+    if (results.length === 0) {
+      return res.status(404).json({ error: 'Employee not found' });
+    }
+    res.json(results[0]);
+  });
+});
+
+// POST add employee
+app.post('/employee', authenticate, (req, res) => {
+  const jsonData = req.body;  
+  db.query('INSERT INTO travel_order.employee (name, surname, position, card_id_num) VALUES(?, ?, ?, ?)', [jsonData.name, jsonData.surname, jsonData.position, jsonData.cardIdNum], (err) => {
+    if (err) throw err;
+    res.json({ message: 'Employee added' });
+  });
+});
+
+// PUT update employee
+app.put('/employee/:id', authenticate, (req, res) => {
+  const jsonData = req.body;
+  const { id }= req.params;
+  db.query('UPDATE employee SET name = ?, surname = ?, position = ?, card_id_num = ? WHERE id = ?', [jsonData.name, jsonData.surname, jsonData.position, jsonData.cardIdNum, id], (err) => {
+    if (err) throw err;
+    res.json({ message: 'Employee updated' });
+  });
+});
+
+// DELETE employee
+app.delete('/employee/:id', authenticate, (req, res) => {
+  const { id } = req.params;
+  db.query('DELETE FROM employee WHERE id = ?', [id], (err) => {
+    if (err) throw err;
+    res.json({ message: 'Employee deleted' });
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server running at http://${appHost}:${port}`);
 });

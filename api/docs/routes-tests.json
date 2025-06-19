@@ -1,0 +1,381 @@
+{
+  "info": {
+    "_postman_id": "657acd7b-cee2-4ed6-8b62-dabb9900f625",
+    "name": "travel_order",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "45994787",
+    "_collection_link": "https://lunar-space-1359353.postman.co/workspace/Aleksa-Milo%C5%A1evi%C4%87's-Workspace~1190b988-fdba-455d-8a82-c0d29371b83c/collection/45994787-657acd7b-cee2-4ed6-8b62-dabb9900f625?action=share&source=collection_link&creator=45994787"
+  },
+  "item": [
+    {
+      "name": "vehicle",
+      "item": [
+        {
+          "name": "GET all vehicles",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/vehicle",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["vehicle"]
+            }
+          },
+          "response": [
+            {
+              "id": 1,
+              "name": "opel",
+              "avg_consumption": 20
+            },
+            {
+              "id": 2,
+              "name": "BMW",
+              "avg_consumption": 15.2
+            },
+            {
+              "id": 6,
+              "name": "lada",
+              "avg_consumption": 100
+            },
+            {
+              "id": 7,
+              "name": "ferrari",
+              "avg_consumption": 22.7
+            }
+          ]
+        },
+        {
+          "name": "GET vehicle by ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/vehicle/2",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["vehicle", "2"]
+            }
+          },
+          "response": [
+            {
+              "id": 2,
+              "name": "BMW",
+              "avg_consumption": 15.2
+            }
+          ]
+        },
+        {
+          "name": "POST create vehicle",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"ferrari\",\r\n    \"avgConsumption\":22.7\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/vehicle",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["vehicle"]
+            }
+          },
+          "response": [
+            {
+              "message": "Vehicle created"
+            }
+          ]
+        },
+        {
+          "name": "PUT update vehicle",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"BMW\",\r\n    \"avgConsumption\": 15.2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/vehicle/2",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["vehicle", "2"]
+            }
+          },
+          "response": [
+            {
+              "message": "Vehicle updated"
+            }
+          ]
+        },
+        {
+          "name": "DELETE vehicle",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/vehicle/4",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["vehicle", "4"]
+            }
+          },
+          "response": [
+            {
+              "message": "Vehicle deleted"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "employee",
+      "item": [
+        {
+          "name": "GET all employees",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/employee",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["employee"]
+            }
+          },
+          "response": [
+            {
+              "id": 1,
+              "name": "aleksa",
+              "surname": "milosevic",
+              "position": "fe dev",
+              "card_id_num": 123
+            },
+            {
+              "id": 3,
+              "name": "ruzica",
+              "surname": "milosevic",
+              "position": "yettel",
+              "card_id_num": 12345
+            }
+          ]
+        },
+        {
+          "name": "GET employee by ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/employee/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["employee", "1"]
+            }
+          },
+          "response": [
+            {
+              "id": 3,
+              "name": "ruzica",
+              "surname": "milosevic",
+              "position": "yettel",
+              "card_id_num": 12345
+            }
+          ]
+        },
+        {
+          "name": "POST add employee",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"ruzica\",\r\n    \"surname\":\"milosevic\",\r\n    \"position\":\"yettel\",\r\n    \"cardIdNum\":12345\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/employee",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["employee"]
+            }
+          },
+          "response": [
+            {
+              "message": "Employee added"
+            }
+          ]
+        },
+        {
+          "name": "PUT update employee",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"ruzica\",\r\n    \"surname\":\"milosevic\",\r\n    \"position\":\"SSB\",\r\n    \"cardIdNum\":12345\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/employee/2",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["employee", "2"]
+            }
+          },
+          "response": [
+            {
+              "message": "Employee updated"
+            }
+          ]
+        },
+        {
+          "name": "DELETE employee",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/employee/2",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["employee", "2"]
+            }
+          },
+          "response": [
+            {
+              "message": "Employee deleted"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
