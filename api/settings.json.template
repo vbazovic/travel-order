@@ -1,0 +1,11 @@
+{   
+    "app_host": "localhost",
+	"app_token": "APP_TOKEN",
+	"app_port" : 3000,
+    "app_user" : "APP_USER",
+    "app_passwd" : "APP_PASSWD",
+	"db_host": "localhost",
+	"db_user": "DB_USERNAME",
+	"db_passwd" : "DB_PASSWD",
+	"db_name": "travel_order"
+}
