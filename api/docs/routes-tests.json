@@ -665,6 +665,155 @@
           ]
 				}
 			]
+		},
+		{
+			"name": "travel_order",
+			"item": [
+				{
+					"name": "GET all travel orders",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+            {
+                "id": 1,
+                "start_date": "2017-06-14T22:00:00.000Z",
+                "end_date": "2017-06-16T22:00:00.000Z",
+                "task": "zad",
+                "location": "bg",
+                "per_diem": 120,
+                "report": "izvestaj",
+                "state": "u toku",
+                "adv_payment": 100,
+                "fk_vehicle": 1,
+                "fk_organisation": 1
+            }
+          ]
+				},
+				{
+					"name": "GET travel order by ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+            {
+                "id": 1,
+                "start_date": "2017-06-14T22:00:00.000Z",
+                "end_date": "2017-06-16T22:00:00.000Z",
+                "task": "zad",
+                "location": "bg",
+                "per_diem": 120,
+                "report": "izvestaj",
+                "state": "u toku",
+                "adv_payment": 100,
+                "fk_vehicle": 1,
+                "fk_organisation": 1
+            }
+          ]
+				},
+				{
+					"name": "POST add travel order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/travel_order",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"travel_order"
+							]
+						}
+					},
+					"response": [
+            {
+                "message": "Travel order added"
+            }
+          ]
+				},
+				{
+					"name": "PUT update travel order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"startDate\":\"tip1\",\r\n    \"endDate\":\"mld\",\r\n    \"task\":\"bg\",\r\n    \"location\":\"40\",\r\n    \"perDiem\":\"racun\",\r\n    \"report\":\"55555\",\r\n    \"state\":\"zavrseno\",\r\n    \"advPayment\":\"ne\",\r\n    \"fkVehicle\":2,\r\n    \"fkOrganisation\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/travel_order/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"travel_order",
+								"2"
+							]
+						}
+					},
+					"response": [
+            {
+                "message": "Travel order updated"
+            }
+          ]
+				},
+				{
+					"name": "DELETE travel order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/travel_order/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"travel_order",
+								"2"
+							]
+						}
+					},
+					"response": [
+            {
+                "message": "Travel order deleted"
+            }
+          ]
+				}
+			]
 		}
 	]
 }

@@ -214,7 +214,7 @@ app.get('/travel_expence/:id', authenticate, (req, res) => {
   });
 });
 
-// POST add travel_expence
+// POST add travel expence
 app.post('/travel_expence', authenticate, (req, res) => {
   const jsonData = req.body;  
   db.query('INSERT INTO travel_order.travel_expence (expence_type, start_location, end_location, distance, receipt, price) VALUES(?, ?, ?, ?, ?, ?)', [jsonData.expenceType, jsonData.startLocation, jsonData.endLocation, jsonData.distance, jsonData.receipt, jsonData.price], (err) => {
@@ -223,7 +223,7 @@ app.post('/travel_expence', authenticate, (req, res) => {
   });
 });
 
-// PUT update travel_expence
+// PUT update travel expence
 app.put('/travel_expence/:id', authenticate, (req, res) => {
   const jsonData = req.body;
   const { id }= req.params;
@@ -233,12 +233,62 @@ app.put('/travel_expence/:id', authenticate, (req, res) => {
   });
 });
 
-// DELETE travel_expence
+// DELETE travel expence
 app.delete('/travel_expence/:id', authenticate, (req, res) => {
   const { id } = req.params;
   db.query('DELETE FROM travel_expence WHERE id = ?', [id], (err) => {
     if (err) throw err;
     res.json({ message: 'Travel expence deleted' });
+  });
+});
+
+// ---------------------------------travel_order routes
+
+// GET all travel orders
+app.get('/travel_order', authenticate, (req, res) => {
+  db.query('SELECT * FROM travel_order', (err, results) => {
+    if (err) throw err;
+    res.json(results);
+  });
+});
+
+// GET one travel order by ID
+app.get('/travel_order/:id', authenticate, (req, res) => {
+  const { id } = req.params;
+  db.query('SELECT * FROM travel_order WHERE id = ?', [id], (err, results) => {
+    if (err) throw err;
+    if (results.length === 0) {
+      return res.status(404).json({ error: 'Travel order not found' });
+    }
+    res.json(results[0]);
+  });
+});
+
+// POST add travel order
+app.post('/travel_order', authenticate, (req, res) => {
+  const jsonData = req.body;  
+  db.query('INSERT INTO travel_order.travel_order (start_date, end_date, task, location, per_diem, report, state, adv_payment, fk_vehicle, fk_organisation) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [jsonData.startDate, jsonData.endDate, jsonData.task, jsonData.location, jsonData.perDiem, jsonData.report, jsonData.state, jsonData.advPayment, jsonData.fkVehicle, jsonData.fkOrganisation], (err) => {
+    if (err) throw err;
+    res.json({ message: 'Travel order added' });
+  });
+});
+
+// PUT update travel order
+app.put('/travel_order/:id', authenticate, (req, res) => {
+  const jsonData = req.body;
+  const { id }= req.params;
+  db.query('UPDATE travel_order SET start_date = ?, end_date = ?, task = ?, location = ?, per_diem = ?, report = ?, state = ?, adv_payment = ?, fk_vehicle = ?, fk_organisation = ?  WHERE id = ?', [jsonData.startDate, jsonData.endDate, jsonData.task, jsonData.location, jsonData.perDiem, jsonData.report, jsonData.state, jsonData.advPayment, jsonData.fkVehicle, jsonData.fkOrganisation, id], (err) => {
+    if (err) throw err;
+    res.json({ message: 'Travel order updated' });
+  });
+});
+
+// DELETE travel order
+app.delete('/travel_order/:id', authenticate, (req, res) => {
+  const { id } = req.params;
+  db.query('DELETE FROM travel_order WHERE id = ?', [id], (err) => {
+    if (err) throw err;
+    res.json({ message: 'Travel order deleted' });
   });
 });
 
