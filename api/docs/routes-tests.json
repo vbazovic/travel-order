@@ -523,6 +523,148 @@
           ]
 				}
 			]
+		},
+		{
+			"name": "travel_expence",
+			"item": [
+				{
+					"name": "GET all travel expences",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+            {
+                "id": 2,
+                "expence_type": "tip2",
+                "start_location": "mld",
+                "end_location": "bg",
+                "distance": 40,
+                "receipt": "racun",
+                "price": 55555
+            }
+          ]
+				},
+				{
+					"name": "GET travel expence by ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+            {
+                "id": 2,
+                "expence_type": "tip2",
+                "start_location": "mld",
+                "end_location": "bg",
+                "distance": 40,
+                "receipt": "racun",
+                "price": 55555
+            }
+          ]
+				},
+				{
+					"name": "POST add travel expence",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/travel_expence",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"travel_expence"
+							]
+						}
+					},
+					"response": [
+            {
+                "message": "Travel expence added"
+            }
+          ]
+				},
+				{
+					"name": "PUT update travel expence",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/travel_expence/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"travel_expence",
+								"1"
+							]
+						}
+					},
+					"response": [
+            {
+                "message": "Travel expence updated"
+            }
+          ]
+				},
+				{
+					"name": "DELETE travel expence",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/travel_expence/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"travel_expence",
+								"1"
+							]
+						}
+					},
+					"response": [
+            {
+                "message": "Travel expence deleted"
+            }
+          ]
+				}
+			]
 		}
 	]
 }

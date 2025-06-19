@@ -192,6 +192,56 @@ app.delete('/organisation/:id', authenticate, (req, res) => {
   });
 });
 
+// ---------------------------------travel_expence routes
+
+// GET all travel expences
+app.get('/travel_expence', authenticate, (req, res) => {
+  db.query('SELECT * FROM travel_expence', (err, results) => {
+    if (err) throw err;
+    res.json(results);
+  });
+});
+
+// GET one travel expence by ID
+app.get('/travel_expence/:id', authenticate, (req, res) => {
+  const { id } = req.params;
+  db.query('SELECT * FROM travel_expence WHERE id = ?', [id], (err, results) => {
+    if (err) throw err;
+    if (results.length === 0) {
+      return res.status(404).json({ error: 'Travel expence not found' });
+    }
+    res.json(results[0]);
+  });
+});
+
+// POST add travel_expence
+app.post('/travel_expence', authenticate, (req, res) => {
+  const jsonData = req.body;  
+  db.query('INSERT INTO travel_order.travel_expence (expence_type, start_location, end_location, distance, receipt, price) VALUES(?, ?, ?, ?, ?, ?)', [jsonData.expenceType, jsonData.startLocation, jsonData.endLocation, jsonData.distance, jsonData.receipt, jsonData.price], (err) => {
+    if (err) throw err;
+    res.json({ message: 'Travel expence added' });
+  });
+});
+
+// PUT update travel_expence
+app.put('/travel_expence/:id', authenticate, (req, res) => {
+  const jsonData = req.body;
+  const { id }= req.params;
+  db.query('UPDATE travel_expence SET expence_type = ?, start_location = ?, end_location = ?, distance = ?, receipt = ?, price = ? WHERE id = ?', [jsonData.expenceType, jsonData.startLocation, jsonData.endLocation, jsonData.distance, jsonData.receipt, jsonData.price, id], (err) => {
+    if (err) throw err;
+    res.json({ message: 'Travel expence updated' });
+  });
+});
+
+// DELETE travel_expence
+app.delete('/travel_expence/:id', authenticate, (req, res) => {
+  const { id } = req.params;
+  db.query('DELETE FROM travel_expence WHERE id = ?', [id], (err) => {
+    if (err) throw err;
+    res.json({ message: 'Travel expence deleted' });
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server running at http://${appHost}:${port}`);
 });
