@@ -1,0 +1,216 @@
+{
+	"info": {
+		"_postman_id": "657acd7b-cee2-4ed6-8b62-dabb9900f625",
+		"name": "travel_order",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45994787",
+		"_collection_link": "https://lunar-space-1359353.postman.co/workspace/1190b988-fdba-455d-8a82-c0d29371b83c/collection/45994787-657acd7b-cee2-4ed6-8b62-dabb9900f625?action=share&source=collection_link&creator=45994787"
+	},
+	"item": [
+		{
+			"name": "GET all vehicles",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/vehicle",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"vehicle"
+					]
+				}
+			},
+			"response": [	
+					{
+						"id": 1,
+						"name": "opel",
+						"avg_consumption": 20
+					},
+					{
+						"id": 2,
+						"name": "BMW",
+						"avg_consumption": 15.2
+					},
+					{
+						"id": 6,
+						"name": "lada",
+						"avg_consumption": 100
+					},
+					{
+						"id": 7,
+						"name": "ferrari",
+						"avg_consumption": 22.7
+					}
+			]
+		},
+		{
+			"name": "GET vehicle by ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/vehicle/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"vehicle",
+						"2"
+					]
+				}
+			},
+			"response": [
+				{
+					"id": 2,
+					"name": "BMW",
+					"avg_consumption": 15.2
+				}	
+			]
+		},
+		{
+			"name": "POST create vehicle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"ferrari\",\r\n    \"avgConsumption\":22.7\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/vehicle",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"vehicle"
+					]
+				}
+			},
+			"response": [
+				{
+					"message": "Vehicle created"
+				}
+			]
+		},
+		{
+			"name": "PUT update vehicle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"BMW\",\r\n    \"avgConsumption\": 15.2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/vehicle/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"vehicle",
+						"2"
+					]
+				}
+			},
+			"response": [
+				{
+					"message": "Vehicle updated"
+				}
+			]
+		},
+		{
+			"name": "DELETE vehicle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/vehicle/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"vehicle",
+						"4"
+					]
+				}
+			},
+			"response": [
+				{
+					"message": "Vehicle deleted"
+				}
+			]
+		}
+	]
+}
