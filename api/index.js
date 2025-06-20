@@ -292,6 +292,55 @@ app.delete('/travel_order/:id', authenticate, (req, res) => {
   });
 });
 
+// ---------------------------------order employee routes
+
+// GET all order employees
+app.get('/order_employee', authenticate, (req, res) => {
+  db.query('SELECT * FROM order_employee', (err, results) => {
+    if (err) throw err;
+    res.json(results);
+  });
+});
+
+// GET one order employee by ID
+app.get('/order_employee/:fkOrder/:fkEmployee', authenticate, (req, res) => {
+  const { fkEmployee } = req.params;
+  const { fkOrder } = req.params;
+  db.query('SELECT * FROM order_employee WHERE fk_order = ? AND fk_employee = ?', [fkOrder, fkEmployee], (err, results) => {
+    if (err) throw err;
+    if (results.length === 0) {
+      return res.status(404).json({ error: 'Order employee not found' });
+    }
+    res.json(results[0]);
+  });
+});
+
+// POST add order employee
+app.post('/order_employee', authenticate, (req, res) => {
+  const jsonData = req.body;  
+  db.query('INSERT INTO travel_order.order_employee (fk_order, fk_employee) VALUES(?, ?)', [jsonData.fkOrder, jsonData.fkEmployee], (err) => {
+    if (err) throw err;
+    res.json({ message: 'Order employee added' });
+  });
+});
+
+// PUT update order employee
+// Update order employee - doesn't make sense
+
+// DELETE order employee
+app.delete('/order_employee/:fkOrder/:fkEmployee', authenticate, (req, res) => {
+  const { fkOrder } = req.params;
+  const { fkEmployee } = req.params;
+  db.query('DELETE FROM order_employee WHERE fk_order = ? AND fk_employee = ?', [fkOrder, fkEmployee], (err, results) => {
+    if (err) throw err;
+    res.json({ message: 'Order employee deleted' });
+    if (results.length === 0) {
+      return res.status(404).json({ error: 'Order employee not found' });
+    }
+    res.json(results[0]);
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server running at http://${appHost}:${port}`);
 });
