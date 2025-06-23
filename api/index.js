@@ -1,3 +1,4 @@
+var cors = require('cors')
 const express = require('express');
 const mysql = require('mysql2');
 
@@ -7,6 +8,7 @@ const app = express();
 const appHost = settings.app_host;
 const port = settings.app_port;
 
+app.use(cors())
 app.use(express.json());
 
 const AUTH_TOKEN = settings.app_token;
