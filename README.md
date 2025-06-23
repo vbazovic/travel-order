@@ -17,3 +17,12 @@ From api folder run app:
 ````
 node index.js
 ```
+
+## frontend
+
+Go to web folder and run:
+
+```
+npm ci
+```
+

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vue CRUD with REST API</title>
+  <script src="node_modules/vue/dist/vue.js"></script>
+  <script src="node_modules/axios/dist/axios.js"></script>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 2rem auto; }
+    input, button { margin: 0.5rem; padding: 0.5rem; }
+    .user { display: flex; justify-content: space-between; margin: 0.5rem 0; }
+  </style>
+</head>
+<body>
+<div id="travel order">
+  <h1>Vehicle</h1>
+
+  <div v-if="!token">
+    <h3>Login</h3>
+    <input v-model="loginForm.username" placeholder="Username" />
+    <input v-model="loginForm.password" type="password" placeholder="Password" />
+    <button @click="login">Login</button>
+  </div>
+
+  <div v-else>
+    <button @click="logout">Logout</button>
+
+    <h3>Add Vehicle</h3>
+    <input v-model="newVehicle" placeholder="Vehicle" />
+    <button @click="createVehicle">Add</button>
+
+    <h3>Vehicles</h3>
+    <div v-for="vehicle in vehicles" :key="vehicle.id" class="vehicle">
+      <input v-model="vehicle.name" />
+      <div>
+        <button @click="updateVehicle(vehicle)">Update</button>
+        <button @click="deleteVehicle(vehicle.id)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const { createApp, ref } = Vue;
+
+createApp({
+  setup() {
+    const apiBase = 'http://localhost:3000'; // or 3000 for Node.js
+    const token = ref(localStorage.getItem('token'));
+    const vehicles = ref([]);
+    const newVehicle = ref('');
+    const loginForm = ref({ username: '', password: '' });
+
+    const authHeaders = () => ({ headers: { Authorization: `Bearer ${token.value}` } });
+
+    const fetchVehicles = async () => {
+      const res = await axios.get(`${apiBase}/vehicle`, authHeaders());
+      vehicles.value = res.data;
+    };
+
+    const login = async () => {
+      try {
+        const res = await axios.post(`${apiBase}/login`, loginForm.value);
+        token.value = res.data.token;
+        localStorage.setItem('token', token.value);
+        fetchVehicles();
+      } catch {
+        alert('Login failed');
+      }
+    };
+
+    const logout = () => {
+      token.value = null;
+      localStorage.removeItem('token');
+      vehicles.value = [];
+    };
+
+    const createVehicle = async () => {
+      if (!newVehicle.value) return;
+      await axios.post(`${apiBase}/vehicle`, { name: newVehicle.value }, authHeaders());
+      newVehicle.value = '';
+      fetchVehicles();
+    };
+
+    const updateVehicle = async (vehicle) => {
+      await axios.put(`${apiBase}/vehicle/${vehicle.id}`, { name: vehicle.name }, authHeaders());
+      fetchVehicles();
+    };
+
+    const deleteVehicle = async (id) => {
+      await axios.delete(`${apiBase}/vehicle/${id}`, authHeaders());
+      fetchVehicles();
+    };
+
+    if (token.value) fetchVehicles();
+
+    return { token, vehicles, newVehicle, loginForm, login, logout, createVehicle, updateVehicle, deleteVehicle };
+  }
+}).mount('#app');
+</script>
+</body>
+</html>
