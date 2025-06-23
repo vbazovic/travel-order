@@ -89,8 +89,10 @@ app.put('/vehicle/:id', authenticate, (req, res) => {
 app.delete('/vehicle/:id', authenticate, (req, res) => {
   const { id } = req.params;
   db.query('DELETE FROM vehicle WHERE id = ?', [id], (err) => {
-    if (err) throw err;
-    res.json({ message: 'Vehicle deleted' });
+    if(err) 
+      res.json({ message: 'Cannot delete, selected vehicle is in travel_order!' });
+    else
+      res.json({ message: 'Vehicle deleted' });
   });
 });
 

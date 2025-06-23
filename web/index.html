@@ -7,15 +7,15 @@
   <script src="node_modules/vue/dist/vue.global.js"></script>
   <script src="node_modules/axios/dist/axios.js"></script>
   <style>
-    body { font-family: sans-serif; max-width: 800px; margin: 2rem auto; }
+    body { font-family: sans-serif; max-width: 800px; margin: 2rem auto; background-color: rgb(230, 230, 230);}
     input, button { margin: 0.5rem; padding: 0.5rem; }
     .user { display: flex; justify-content: space-between; margin: 0.5rem 0; }
+    button{cursor: pointer;}
   </style>
 </head>
 <body>
-<div id="app">
-  <h1>Vehicle</h1>
-
+<div id="app" style="user-select: none;">
+  
   <div v-if="!token">
     <h3>Login</h3>
     <input v-model="loginForm.username" placeholder="Username" />
@@ -23,22 +23,76 @@
     <button @click="login">Login</button>
   </div>
 
-  <div v-else>
-    <button @click="logout">Logout</button>
+  <div v-else style="padding: 40px; background-color: white; border-radius: 20px;">
+
+    <!--VEHICLES-->
+
+    <div style="display: flex; justify-content: space-between;">
+      <h1 style="display: inline;">Vehicle</h1>
+      <button @click="logout">Logout</button>
+    </div>
+    <hr>
+
+    
+    <h3>Vehicles</h3>    
+      <div v-for="vehicle in vehicles" :key="vehicle.id" class="vehicle" style="display: flex; justify-content: space-between;">
+        <div>
+          <input v-model="vehicle.name" />
+          <input v-model="vehicle.avg_consumption" />
+        </div>
+        
+        <div style="display: inline;">
+          <button @click="updateVehicle(vehicle)">Update</button>
+          <button @click="deleteVehicle(vehicle.id)">Delete</button>
+        </div>
+      </div>
+    <br>
 
     <h3>Add Vehicle</h3>
-    <input v-model="newVehicle" placeholder="Vehicle" />
-    <button @click="createVehicle">Add</button>
-
-    <h3>Vehicles</h3>
-    <div v-for="vehicle in vehicles" :key="vehicle.id" class="vehicle">
-      <input v-model="vehicle.name" />
+    <div style="display: flex; justify-content: space-between;">
       <div>
-        <button @click="updateVehicle(vehicle)">Update</button>
-        <button @click="deleteVehicle(vehicle.id)">Delete</button>
+        <input v-model="newVehicleName" placeholder="Vehicle" />
+        <input v-model="newVehicleConsumption" placeholder="Consumption" />
       </div>
+      
+      <button @click="createVehicle">Add</button>
     </div>
+    <br>
+
+    <!--EMPLOYEES-->
+    <h1>Employees</h1>
+    <hr>
+
+    <h3>Employees</h3>    
+      <div v-for="vehicle in vehicles" :key="vehicle.id" class="vehicle" style="display: flex; justify-content: space-between;">
+        <div>
+          <input v-model="vehicle.name" />
+          <input v-model="vehicle.avg_consumption" />
+          <input v-model="vehicle.name" />
+          <input v-model="vehicle.avg_consumption" />
+          <input v-model="vehicle.name" />
+        </div>
+        
+        <div style="display: inline;">
+          <button @click="updateVehicle(vehicle)">Update</button>
+          <button @click="deleteVehicle(vehicle.id)">Delete</button>
+        </div>
+      </div>
+    <br>
+
+    <h3>Add Employee</h3>
+    <div style="display: flex; justify-content: space-between;">
+      <div>
+        <input v-model="newVehicleName" placeholder="Vehicle" />
+        <input v-model="newVehicleConsumption" placeholder="Consumption" />
+        <input v-model="newVehicleName" placeholder="Vehicle" />
+        <input v-model="newVehicleConsumption" placeholder="Consumption" />
+        <input v-model="newVehicleName" placeholder="Vehicle" />
+      </div>
+
+      <button @click="createVehicle">Add</button>
   </div>
+  <br>
 </div>
 
 <script>
@@ -49,7 +103,8 @@ createApp({
     const apiBase = 'http://localhost:3000'; // or 3000 for Node.js
     const token = ref(localStorage.getItem('token'));
     const vehicles = ref([]);
-    const newVehicle = ref('');
+    const newVehicleName = ref('');
+    const newVehicleConsumption = ref('');
     const loginForm = ref({ username: '', password: '' });
 
     const authHeaders = () => ({ headers: { Authorization: `Bearer ${token.value}` } });
@@ -77,25 +132,27 @@ createApp({
     };
 
     const createVehicle = async () => {
-      if (!newVehicle.value) return;
-      await axios.post(`${apiBase}/vehicle`, { name: newVehicle.value }, authHeaders());
-      newVehicle.value = '';
+      if (!newVehicleName.value || !newVehicleConsumption.value) return;
+      await axios.post(`${apiBase}/vehicle`, { name: newVehicleName.value, avgConsumption:newVehicleConsumption.value}, authHeaders());
+      newVehicleName.value = '';
+      newVehicleConsumption.value = '';
       fetchVehicles();
     };
 
     const updateVehicle = async (vehicle) => {
-      await axios.put(`${apiBase}/vehicle/${vehicle.id}`, { name: vehicle.name }, authHeaders());
+      await axios.put(`${apiBase}/vehicle/${vehicle.id}`, { name: vehicle.name, avgConsumption: vehicle.avg_consumption }, authHeaders());
       fetchVehicles();
     };
 
     const deleteVehicle = async (id) => {
-      await axios.delete(`${apiBase}/vehicle/${id}`, authHeaders());
+      const res = await axios.delete(`${apiBase}/vehicle/${id}`, authHeaders());
+      alert(res.data.message);
       fetchVehicles();
     };
 
     if (token.value) fetchVehicles();
 
-    return { token, vehicles, newVehicle, loginForm, login, logout, createVehicle, updateVehicle, deleteVehicle };
+    return { token, vehicles, newVehicleName, newVehicleConsumption, loginForm, login, logout, createVehicle, updateVehicle, deleteVehicle };
   }
 }).mount('#app');
 </script>
