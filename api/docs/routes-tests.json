@@ -942,6 +942,44 @@
           ]
 				}
 			]
+		},
+    {
+			"name": "login",
+			"item": [
+				{
+					"name": "POST login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": [
+            {
+                "token": "530422ed-fa13-4697-9a74-1be8d7b5f45e"
+            }
+          ]
+				}
+			]
 		}
 	]
 }
