@@ -91,8 +91,44 @@
       </div>
 
       <button @click="createEmployee">Add</button>
-  </div>
+    </div>
   <br>
+  
+  <!-- ORAGNISATIONS -->
+   <h1>Organisations</h1>
+    <hr>
+
+    <h3>Organisations</h3>    
+      <div v-for="organisation in organisations" :key="organisation.id" class="oragnisation" style="display: flex; justify-content: space-between;">
+        <div>
+          <input v-model="organisation.resp_person" />
+          <input v-model="organisation.seal" />
+          <input v-model="organisation.name" />
+          <input v-model="organisation.address" />
+          <input v-model="organisation.issuer" />
+        </div>
+        
+        <div style="display: inline;">
+          <button @click="updateOrganisation(organisation)">Update</button>
+          <button @click="deleteOrganisation(organisation.id)">Delete</button>
+        </div>
+      </div>
+    <br>
+
+    <h3>Add Organisation</h3>
+    <div style="display: flex; justify-content: space-between;">
+      <div>
+        <input v-model="newOrganisationRespPerson" placeholder="Responsible person" />
+        <input v-model="newOrganisationSeal" placeholder="Seal" />
+        <input v-model="newOrganisationName" placeholder="Name" />
+        <input v-model="newOrganisationAddress" placeholder="Address" />
+        <input v-model="newOrganisationIssuer" placeholder="Issuer" />
+      </div>
+
+      <button @click="createOrganisation">Add</button>
+    </div>
+  <br>
+
 </div>
 
 <script>
@@ -102,9 +138,10 @@ createApp({
   setup() {
     const apiBase = 'http://localhost:3000'; // or 3000 for Node.js
     const token = ref(localStorage.getItem('token'));
+
     const vehicles = ref([]);
-    
     const employees = ref([]);
+    const organisations = ref([]);
 
     const newVehicleName = ref('');
     const newVehicleConsumption = ref('');
@@ -114,6 +151,12 @@ createApp({
     const newEmployeePosition = ref('');
     const newEmployeeCardNum = ref('');
     const newEmployeeSSN = ref('');
+
+    const newOrganisationRespPerson = ref('');
+    const newOrganisationSeal = ref('');
+    const newOrganisationName = ref('');
+    const newOrganisationAddress = ref('');
+    const newOrganisationIssuer = ref('');
 
     const loginForm = ref({ username: '', password: '' });
 
@@ -129,6 +172,11 @@ createApp({
       employees.value = res.data;
     };
 
+    const fetchOrganisations = async () => {
+      const res = await axios.get(`${apiBase}/organisation`, authHeaders());
+      organisations.value = res.data;
+    };
+
     const login = async () => {
       try {
         const res = await axios.post(`${apiBase}/login`, loginForm.value);
@@ -136,6 +184,7 @@ createApp({
         localStorage.setItem('token', token.value);
         fetchVehicles();
         fetchEmployees();
+        fetchOrganisations();
       } catch {
         alert('Login failed');
       }
@@ -146,6 +195,7 @@ createApp({
       localStorage.removeItem('token');
       vehicles.value = [];
       employees.value = [];
+      organisations.value = [];
     };
 
     const createVehicle = async () => {
@@ -167,6 +217,17 @@ createApp({
       fetchEmployees();
     };
 
+    const createOrganisation = async () => {
+      if (!newOrganisationRespPerson.value || !newOrganisationSeal.value || !newOrganisationName.value || !newOrganisationAddress.value || !newOrganisationIssuer.value) return;
+      await axios.post(`${apiBase}/organisation`, { respPerson: newOrganisationRespPerson.value, seal: newOrganisationSeal.value, name: newOrganisationName.value, address: newOrganisationAddress.value, issuer: newOrganisationIssuer.value}, authHeaders());
+      newOrganisationRespPerson.value = '';
+      newOrganisationSeal.value = '';
+      newOrganisationName.value = '';
+      newOrganisationAddress.value = '';
+      newOrganisationIssuer.value = '';
+      fetchOrganisations();
+    };
+
     const updateVehicle = async (vehicle) => {
       await axios.put(`${apiBase}/vehicle/${vehicle.id}`, { name: vehicle.name, avgConsumption: vehicle.avg_consumption }, authHeaders());
       fetchVehicles();
@@ -175,6 +236,11 @@ createApp({
     const updateEmployee = async (employee) => {
       await axios.put(`${apiBase}/employee/${employee.id}`, { name: employee.name, surname: employee.surname, position: employee.position, cardIdNum: employee.card_id_num, ssn: employee.ssn }, authHeaders());
       fetchEmployees();
+    };
+
+    const updateOrganisation = async (organisation) => {
+      await axios.put(`${apiBase}/organisation/${organisation.id}`, { respPerson: organisation.resp_person, seal: organisation.seal, name: organisation.name, address: organisation.address, issuer: organisation.issuer }, authHeaders());
+      fetchOrganisations();
     };
 
     const deleteVehicle = async (id) => {
@@ -189,12 +255,19 @@ createApp({
       fetchEmployees();
     };
 
+    const deleteOrganisation = async (id) => {
+      const res = await axios.delete(`${apiBase}/organisation/${id}`, authHeaders());
+      alert(res.data.message);
+      fetchOrganisations();
+    };
+
     if (token.value){
       fetchVehicles();
       fetchEmployees();
+      fetchOrganisations();
     }
 
-    return { token, vehicles, employees, newVehicleName, newVehicleConsumption, newEmployeeName, newEmployeeSurname, newEmployeePosition, newEmployeeCardNum, newEmployeeSSN, loginForm, login, logout, createVehicle, createEmployee, updateVehicle, updateEmployee, deleteVehicle, deleteEmployee };
+    return { token, vehicles, employees, organisations, newVehicleName, newVehicleConsumption, newEmployeeName, newEmployeeSurname, newEmployeePosition, newEmployeeCardNum, newEmployeeSSN, newOrganisationRespPerson, newOrganisationSeal, newOrganisationName, newOrganisationAddress, newOrganisationIssuer, loginForm, login, logout, createVehicle, createEmployee, createOrganisation, updateVehicle, updateEmployee, updateOrganisation, deleteVehicle, deleteEmployee, deleteOrganisation };
   }
 }).mount('#app');
 </script>

@@ -193,8 +193,10 @@ app.put('/organisation/:id', authenticate, (req, res) => {
 app.delete('/organisation/:id', authenticate, (req, res) => {
   const { id } = req.params;
   db.query('DELETE FROM organisation WHERE id = ?', [id], (err) => {
-    if (err) throw err;
-    res.json({ message: 'Organisation deleted' });
+    if(err) 
+      res.json({ message: 'Cannot delete, selected organisation is in travel_order!' });
+    else
+      res.json({ message: 'Organisation deleted' });
   });
 });
 
