@@ -121,7 +121,7 @@ app.get('/employee/:id', authenticate, (req, res) => {
 // POST add employee
 app.post('/employee', authenticate, (req, res) => {
   const jsonData = req.body;  
-  db.query('INSERT INTO travel_order.employee (name, surname, position, card_id_num) VALUES(?, ?, ?, ?)', [jsonData.name, jsonData.surname, jsonData.position, jsonData.cardIdNum], (err) => {
+  db.query('INSERT INTO travel_order.employee (name, surname, position, card_id_num, ssn) VALUES(?, ?, ?, ?, ?)', [jsonData.name, jsonData.surname, jsonData.position, jsonData.cardIdNum, jsonData.ssn], (err) => {
     if (err) throw err;
     res.json({ message: 'Employee added' });
   });
@@ -131,7 +131,7 @@ app.post('/employee', authenticate, (req, res) => {
 app.put('/employee/:id', authenticate, (req, res) => {
   const jsonData = req.body;
   const { id }= req.params;
-  db.query('UPDATE employee SET name = ?, surname = ?, position = ?, card_id_num = ? WHERE id = ?', [jsonData.name, jsonData.surname, jsonData.position, jsonData.cardIdNum, id], (err) => {
+  db.query('UPDATE employee SET name = ?, surname = ?, position = ?, card_id_num = ?, ssn = ? WHERE id = ?', [jsonData.name, jsonData.surname, jsonData.position, jsonData.cardIdNum, jsonData.ssn, id], (err) => {
     if (err) throw err;
     res.json({ message: 'Employee updated' });
   });
@@ -141,8 +141,10 @@ app.put('/employee/:id', authenticate, (req, res) => {
 app.delete('/employee/:id', authenticate, (req, res) => {
   const { id } = req.params;
   db.query('DELETE FROM employee WHERE id = ?', [id], (err) => {
-    if (err) throw err;
-    res.json({ message: 'Employee deleted' });
+    if(err) 
+      res.json({ message: 'Cannot delete, selected employee is in order_employee!' });
+    else
+      res.json({ message: 'Employee deleted' });
   });
 });
 

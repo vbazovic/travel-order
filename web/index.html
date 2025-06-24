@@ -64,18 +64,18 @@
     <hr>
 
     <h3>Employees</h3>    
-      <div v-for="vehicle in vehicles" :key="vehicle.id" class="vehicle" style="display: flex; justify-content: space-between;">
+      <div v-for="employee in employees" :key="employee.id" class="employee" style="display: flex; justify-content: space-between;">
         <div>
-          <input v-model="vehicle.name" />
-          <input v-model="vehicle.avg_consumption" />
-          <input v-model="vehicle.name" />
-          <input v-model="vehicle.avg_consumption" />
-          <input v-model="vehicle.name" />
+          <input v-model="employee.name" />
+          <input v-model="employee.surname" />
+          <input v-model="employee.position" />
+          <input v-model="employee.card_id_num" />
+          <input v-model="employee.ssn" />
         </div>
         
         <div style="display: inline;">
-          <button @click="updateVehicle(vehicle)">Update</button>
-          <button @click="deleteVehicle(vehicle.id)">Delete</button>
+          <button @click="updateEmployee(employee)">Update</button>
+          <button @click="deleteEmployee(employee.id)">Delete</button>
         </div>
       </div>
     <br>
@@ -83,14 +83,14 @@
     <h3>Add Employee</h3>
     <div style="display: flex; justify-content: space-between;">
       <div>
-        <input v-model="newVehicleName" placeholder="Vehicle" />
-        <input v-model="newVehicleConsumption" placeholder="Consumption" />
-        <input v-model="newVehicleName" placeholder="Vehicle" />
-        <input v-model="newVehicleConsumption" placeholder="Consumption" />
-        <input v-model="newVehicleName" placeholder="Vehicle" />
+        <input v-model="newEmployeeName" placeholder="Name" />
+        <input v-model="newEmployeeSurname" placeholder="Surname" />
+        <input v-model="newEmployeePosition" placeholder="Position" />
+        <input v-model="newEmployeeCardNum" placeholder="Card ID Number" />
+        <input v-model="newEmployeeSSN" placeholder="Social Security Number" />
       </div>
 
-      <button @click="createVehicle">Add</button>
+      <button @click="createEmployee">Add</button>
   </div>
   <br>
 </div>
@@ -103,8 +103,18 @@ createApp({
     const apiBase = 'http://localhost:3000'; // or 3000 for Node.js
     const token = ref(localStorage.getItem('token'));
     const vehicles = ref([]);
+    
+    const employees = ref([]);
+
     const newVehicleName = ref('');
     const newVehicleConsumption = ref('');
+
+    const newEmployeeName = ref('');
+    const newEmployeeSurname = ref('');
+    const newEmployeePosition = ref('');
+    const newEmployeeCardNum = ref('');
+    const newEmployeeSSN = ref('');
+
     const loginForm = ref({ username: '', password: '' });
 
     const authHeaders = () => ({ headers: { Authorization: `Bearer ${token.value}` } });
@@ -114,12 +124,18 @@ createApp({
       vehicles.value = res.data;
     };
 
+    const fetchEmployees = async () => {
+      const res = await axios.get(`${apiBase}/employee`, authHeaders());
+      employees.value = res.data;
+    };
+
     const login = async () => {
       try {
         const res = await axios.post(`${apiBase}/login`, loginForm.value);
         token.value = res.data.token;
         localStorage.setItem('token', token.value);
         fetchVehicles();
+        fetchEmployees();
       } catch {
         alert('Login failed');
       }
@@ -129,6 +145,7 @@ createApp({
       token.value = null;
       localStorage.removeItem('token');
       vehicles.value = [];
+      employees.value = [];
     };
 
     const createVehicle = async () => {
@@ -139,9 +156,25 @@ createApp({
       fetchVehicles();
     };
 
+    const createEmployee = async () => {
+      if (!newEmployeeName.value || !newEmployeeSurname.value || !newEmployeePosition.value || !newEmployeeCardNum.value || !newEmployeeSSN.value) return;
+      await axios.post(`${apiBase}/employee`, { name: newEmployeeName.value, surname: newEmployeeSurname.value, position: newEmployeePosition.value, cardIdNum: newEmployeeCardNum.value, ssn: newEmployeeSSN.value}, authHeaders());
+      newEmployeeName.value = '';
+      newEmployeeSurname.value = '';
+      newEmployeePosition.value = '';
+      newEmployeeCardNum.value = '';
+      newEmployeeSSN.value = '';
+      fetchEmployees();
+    };
+
     const updateVehicle = async (vehicle) => {
       await axios.put(`${apiBase}/vehicle/${vehicle.id}`, { name: vehicle.name, avgConsumption: vehicle.avg_consumption }, authHeaders());
       fetchVehicles();
+    };
+
+    const updateEmployee = async (employee) => {
+      await axios.put(`${apiBase}/employee/${employee.id}`, { name: employee.name, surname: employee.surname, position: employee.position, cardIdNum: employee.card_id_num, ssn: employee.ssn }, authHeaders());
+      fetchEmployees();
     };
 
     const deleteVehicle = async (id) => {
@@ -150,9 +183,18 @@ createApp({
       fetchVehicles();
     };
 
-    if (token.value) fetchVehicles();
+    const deleteEmployee = async (id) => {
+      const res = await axios.delete(`${apiBase}/employee/${id}`, authHeaders());
+      alert(res.data.message);
+      fetchEmployees();
+    };
 
-    return { token, vehicles, newVehicleName, newVehicleConsumption, loginForm, login, logout, createVehicle, updateVehicle, deleteVehicle };
+    if (token.value){
+      fetchVehicles();
+      fetchEmployees();
+    }
+
+    return { token, vehicles, employees, newVehicleName, newVehicleConsumption, newEmployeeName, newEmployeeSurname, newEmployeePosition, newEmployeeCardNum, newEmployeeSSN, loginForm, login, logout, createVehicle, createEmployee, updateVehicle, updateEmployee, deleteVehicle, deleteEmployee };
   }
 }).mount('#app');
 </script>
