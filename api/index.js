@@ -275,7 +275,9 @@ app.get('/travel_order/:id', authenticate, (req, res) => {
 // POST add travel order
 app.post('/travel_order', authenticate, (req, res) => {
   const jsonData = req.body;  
-  db.query('INSERT INTO travel_order.travel_order (start_date, end_date, task, location, per_diem, report, state, adv_payment, fk_vehicle, fk_organisation) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [jsonData.startDate, jsonData.endDate, jsonData.task, jsonData.location, jsonData.perDiem, jsonData.report, jsonData.state, jsonData.advPayment, jsonData.fkVehicle, jsonData.fkOrganisation], (err) => {
+  db.query('INSERT INTO travel_order (start_date, end_date, task, location, per_diem, report, state, adv_payment, fk_vehicle, fk_organisation) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+    [jsonData.startDate, jsonData.endDate, jsonData.task, jsonData.location, jsonData.perDiem, 
+    jsonData.report, jsonData.state, jsonData.advPayment, jsonData.fkVehicle, jsonData.fkOrganisation], (err) => {
     if (err) throw err;
     res.json({ message: 'Travel order added' });
   });

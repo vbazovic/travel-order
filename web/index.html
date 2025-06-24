@@ -60,7 +60,7 @@
     <br>
 
     <!--EMPLOYEES-->
-    <h1>Employees</h1>
+    <h1>Employee</h1>
     <hr>
 
     <h3>Employees</h3>    
@@ -95,7 +95,7 @@
   <br>
   
   <!-- ORAGNISATIONS -->
-   <h1>Organisations</h1>
+   <h1>Organisation</h1>
     <hr>
 
     <h3>Organisations</h3>    
@@ -129,6 +129,51 @@
     </div>
   <br>
 
+  <!-- TRAVEL ORDERS -->
+   <h1>Travel Order</h1>
+    <hr>
+
+    <h3>Travel Orders</h3>    
+      <div v-for="travel_order in travel_orders" :key="travel_order.id" class="travel_order" style="display: flex; justify-content: space-between;">
+        <div>
+          <input v-model="travel_order.start_date" />
+          <input v-model="travel_order.end_date" />
+          <input v-model="travel_order.task" />
+          <input v-model="travel_order.location" />
+          <input v-model="travel_order.per_diem" />
+          <input v-model="travel_order.report" />
+          <input v-model="travel_order.state" />
+          <input v-model="travel_order.adv_payment" />
+          <input v-model="travel_order.fk_vehicle" />
+          <input v-model="travel_order.fk_organisation" />
+        </div>
+        
+        <div style="display: inline;">
+          <button @click="updateTravelOrder(travel_order)">Update</button>
+          <button @click="deleteTravelOrder(travel_order.id)">Delete</button>
+        </div>
+      </div>
+    <br>
+
+    <h3>Add Travel Order</h3>
+    <div style="display: flex; justify-content: space-between;">
+      <div>
+        <input v-model="newTravelOrderStartDate" placeholder="Start date" />
+        <input v-model="newTravelOrderEndDate" placeholder="End date" />
+        <input v-model="newTravelOrderTask" placeholder="Task" />
+        <input v-model="newTravelOrderLocation" placeholder="Location" />
+        <input v-model="newTravelOrderPerDiem" placeholder="Per Diem" />
+        <input v-model="newTravelOrderReport" placeholder="Report" />
+        <input v-model="newTravelOrderState" placeholder="State" />
+        <input v-model="newTravelOrderAdvPayment" placeholder="Advance payment" />
+        <input v-model="newTravelOrderFkVehicle" placeholder="FK Vehicle" />
+        <input v-model="newTravelOrderFkOrganisation" placeholder="FK Organisation" />
+      </div>
+
+      <button @click="createTravelOrder">Add</button>
+    </div>
+  <br>
+
 </div>
 
 <script>
@@ -142,6 +187,7 @@ createApp({
     const vehicles = ref([]);
     const employees = ref([]);
     const organisations = ref([]);
+    const travel_orders = ref([]);
 
     const newVehicleName = ref('');
     const newVehicleConsumption = ref('');
@@ -157,6 +203,17 @@ createApp({
     const newOrganisationName = ref('');
     const newOrganisationAddress = ref('');
     const newOrganisationIssuer = ref('');
+
+    const newTravelOrderStartDate = ref('');
+    const newTravelOrderEndDate = ref('');
+    const newTravelOrderTask = ref('');
+    const newTravelOrderLocation = ref('');
+    const newTravelOrderPerDiem = ref('');
+    const newTravelOrderReport = ref('');
+    const newTravelOrderState = ref('');
+    const newTravelOrderAdvPayment = ref('');
+    const newTravelOrderFkVehicle = ref('');
+    const newTravelOrderFkOrganisation = ref('');
 
     const loginForm = ref({ username: '', password: '' });
 
@@ -177,6 +234,11 @@ createApp({
       organisations.value = res.data;
     };
 
+    const fetchTravelOrders = async () => {
+      const res = await axios.get(`${apiBase}/travel_order`, authHeaders());
+      travel_orders.value = res.data;
+    };
+
     const login = async () => {
       try {
         const res = await axios.post(`${apiBase}/login`, loginForm.value);
@@ -185,6 +247,7 @@ createApp({
         fetchVehicles();
         fetchEmployees();
         fetchOrganisations();
+        fetchTravelOrders();
       } catch {
         alert('Login failed');
       }
@@ -196,6 +259,7 @@ createApp({
       vehicles.value = [];
       employees.value = [];
       organisations.value = [];
+      travel_orders = [];
     };
 
     const createVehicle = async () => {
@@ -226,6 +290,22 @@ createApp({
       newOrganisationAddress.value = '';
       newOrganisationIssuer.value = '';
       fetchOrganisations();
+    };
+
+    const createTravelOrder = async () => {
+      if (!newTravelOrderStartDate.value || !newTravelOrderEndDate.value || !newTravelOrderTask.value || !newTravelOrderLocation.value || !newTravelOrderPerDiem.value || !newTravelOrderReport.value || !newTravelOrderState.value || !newTravelOrderAdvPayment.value || !newTravelOrderFkVehicle.value || !newTravelOrderFkOrganisation.value) return;
+      await axios.post(`${apiBase}/travel_order`, { startDate: newTravelOrderStartDate.value, endDate: newTravelOrderEndDate.value, task: newTravelOrderTask.value, location: newTravelOrderLocation.value, perDiem: newTravelOrderPerDiem.value, report: newTravelOrderReport.value, state: newTravelOrderState.value, advPayment: newTravelOrderAdvPayment.value, fkVehicle: newTravelOrderFkVehicle.value, fkOrganisation: newTravelOrderFkOrganisation.value}, authHeaders());
+      newTravelOrderStartDate.value = '';
+      newTravelOrderEndDate.value = '';
+      newTravelOrderTask.value = '';
+      newTravelOrderLocation.value = '';
+      newTravelOrderPerDiem.value = '';
+      newTravelOrderReport.value = '';
+      newTravelOrderState.value = '';
+      newTravelOrderAdvPayment.value = '';
+      newTravelOrderFkVehicle.value = '';
+      newTravelOrderFkOrganisation.value = '';
+      fetchTravelOrders();
     };
 
     const updateVehicle = async (vehicle) => {
@@ -261,13 +341,29 @@ createApp({
       fetchOrganisations();
     };
 
+    const deleteTravelOrder = async (id) => {
+      const res = await axios.delete(`${apiBase}/travel_order/${id}`, authHeaders());
+      alert(res.data.message);
+      fetchTravelOrders();
+    };
+
     if (token.value){
       fetchVehicles();
       fetchEmployees();
       fetchOrganisations();
+      fetchTravelOrders();
     }
 
-    return { token, vehicles, employees, organisations, newVehicleName, newVehicleConsumption, newEmployeeName, newEmployeeSurname, newEmployeePosition, newEmployeeCardNum, newEmployeeSSN, newOrganisationRespPerson, newOrganisationSeal, newOrganisationName, newOrganisationAddress, newOrganisationIssuer, loginForm, login, logout, createVehicle, createEmployee, createOrganisation, updateVehicle, updateEmployee, updateOrganisation, deleteVehicle, deleteEmployee, deleteOrganisation };
+    return { 
+      token, vehicles, employees, organisations, travel_orders,
+      newVehicleName, newVehicleConsumption,
+      newEmployeeName, newEmployeeSurname, newEmployeePosition, newEmployeeCardNum, newEmployeeSSN, 
+      newOrganisationRespPerson, newOrganisationSeal, newOrganisationName, newOrganisationAddress, newOrganisationIssuer, 
+      newTravelOrderStartDate, newTravelOrderEndDate, newTravelOrderTask, newTravelOrderLocation, newTravelOrderPerDiem, newTravelOrderReport, newTravelOrderState, newTravelOrderAdvPayment, newTravelOrderFkVehicle, newTravelOrderFkOrganisation, 
+      loginForm, login, logout, 
+      createVehicle, createEmployee, createOrganisation, createTravelOrder, 
+      updateVehicle, updateEmployee, updateOrganisation, 
+      deleteVehicle, deleteEmployee, deleteOrganisation, deleteTravelOrder };
   }
 }).mount('#app');
 </script>
