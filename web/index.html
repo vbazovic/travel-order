@@ -136,8 +136,8 @@
     <h3>Travel Orders</h3>    
       <div v-for="travel_order in travel_orders" :key="travel_order.id" class="travel_order" style="display: flex; justify-content: space-between;">
         <div>
-          <input v-model="travel_order.start_date" />
-          <input v-model="travel_order.end_date" />
+          <input type="datetime" v-model="travel_order.start_date" />
+          <input type="datetime" v-model="travel_order.end_date" />
           <input v-model="travel_order.task" />
           <input v-model="travel_order.location" />
           <input v-model="travel_order.per_diem" />
@@ -158,8 +158,8 @@
     <h3>Add Travel Order</h3>
     <div style="display: flex; justify-content: space-between;">
       <div>
-        <input v-model="newTravelOrderStartDate" placeholder="Start date" />
-        <input v-model="newTravelOrderEndDate" placeholder="End date" />
+        <input type="date" v-model="newTravelOrderStartDate" placeholder="Start date" />
+        <input type="date" v-model="newTravelOrderEndDate" placeholder="End date" />
         <input v-model="newTravelOrderTask" placeholder="Task" />
         <input v-model="newTravelOrderLocation" placeholder="Location" />
         <input v-model="newTravelOrderPerDiem" placeholder="Per Diem" />
@@ -294,7 +294,7 @@ createApp({
 
     const createTravelOrder = async () => {
       if (!newTravelOrderStartDate.value || !newTravelOrderEndDate.value || !newTravelOrderTask.value || !newTravelOrderLocation.value || !newTravelOrderPerDiem.value || !newTravelOrderReport.value || !newTravelOrderState.value || !newTravelOrderAdvPayment.value || !newTravelOrderFkVehicle.value || !newTravelOrderFkOrganisation.value) return;
-      await axios.post(`${apiBase}/travel_order`, { startDate: newTravelOrderStartDate.value, endDate: newTravelOrderEndDate.value, task: newTravelOrderTask.value, location: newTravelOrderLocation.value, perDiem: newTravelOrderPerDiem.value, report: newTravelOrderReport.value, state: newTravelOrderState.value, advPayment: newTravelOrderAdvPayment.value, fkVehicle: newTravelOrderFkVehicle.value, fkOrganisation: newTravelOrderFkOrganisation.value}, authHeaders());
+      const res = await axios.post(`${apiBase}/travel_order`, { startDate: newTravelOrderStartDate.value, endDate: newTravelOrderEndDate.value, task: newTravelOrderTask.value, location: newTravelOrderLocation.value, perDiem: newTravelOrderPerDiem.value, report: newTravelOrderReport.value, state: newTravelOrderState.value, advPayment: newTravelOrderAdvPayment.value, fkVehicle: newTravelOrderFkVehicle.value, fkOrganisation: newTravelOrderFkOrganisation.value}, authHeaders());
       newTravelOrderStartDate.value = '';
       newTravelOrderEndDate.value = '';
       newTravelOrderTask.value = '';
@@ -305,6 +305,7 @@ createApp({
       newTravelOrderAdvPayment.value = '';
       newTravelOrderFkVehicle.value = '';
       newTravelOrderFkOrganisation.value = '';
+      alert(res.data.message);
       fetchTravelOrders();
     };
 
@@ -321,6 +322,11 @@ createApp({
     const updateOrganisation = async (organisation) => {
       await axios.put(`${apiBase}/organisation/${organisation.id}`, { respPerson: organisation.resp_person, seal: organisation.seal, name: organisation.name, address: organisation.address, issuer: organisation.issuer }, authHeaders());
       fetchOrganisations();
+    };
+
+    const updateTravelOrder = async (travel_order) => {
+      await axios.put(`${apiBase}/travel_order/${travel_order.id}`, { startDate: travel_order.start_date, endDate: travel_order.end_date, task: travel_order.task, location: travel_order.location, perDiem: travel_order.per_diem, report: travel_order.report, state: travel_order.state, advPayment: travel_order.adv_payment, fkVehicle: travel_order.fk_vehicle, fkOrganisation: travel_order.fk_organisation }, authHeaders());
+      fetchTravelOrders();
     };
 
     const deleteVehicle = async (id) => {
@@ -362,7 +368,7 @@ createApp({
       newTravelOrderStartDate, newTravelOrderEndDate, newTravelOrderTask, newTravelOrderLocation, newTravelOrderPerDiem, newTravelOrderReport, newTravelOrderState, newTravelOrderAdvPayment, newTravelOrderFkVehicle, newTravelOrderFkOrganisation, 
       loginForm, login, logout, 
       createVehicle, createEmployee, createOrganisation, createTravelOrder, 
-      updateVehicle, updateEmployee, updateOrganisation, 
+      updateVehicle, updateEmployee, updateOrganisation, updateTravelOrder,
       deleteVehicle, deleteEmployee, deleteOrganisation, deleteTravelOrder };
   }
 }).mount('#app');
