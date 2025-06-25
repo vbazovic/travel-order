@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,64 +8,85 @@
   <script src="node_modules/vue/dist/vue.global.js"></script>
   <script src="node_modules/axios/dist/axios.js"></script>
   <style>
-    body { font-family: sans-serif; max-width: 800px; margin: 2rem auto; background-color: rgb(230, 230, 230);}
-    input, button { margin: 0.5rem; padding: 0.5rem; }
-    .user { display: flex; justify-content: space-between; margin: 0.5rem 0; }
-    button{cursor: pointer;}
+    body {
+      font-family: sans-serif;
+      max-width: 800px;
+      margin: 2rem auto;
+      background-color: rgb(230, 230, 230);
+    }
+
+    input,
+    button {
+      margin: 0.5rem;
+      padding: 0.5rem;
+    }
+
+    .user {
+      display: flex;
+      justify-content: space-between;
+      margin: 0.5rem 0;
+    }
+
+    button {
+      cursor: pointer;
+    }
   </style>
 </head>
+
 <body>
-<div id="app" style="user-select: none;">
-  
-  <div v-if="!token">
-    <h3>Login</h3>
-    <input v-model="loginForm.username" placeholder="Username" />
-    <input v-model="loginForm.password" type="password" placeholder="Password" />
-    <button @click="login">Login</button>
-  </div>
+  <div id="app" style="user-select: none;">
 
-  <div v-else style="padding: 40px; background-color: white; border-radius: 20px;">
-
-    <!--VEHICLES-->
-
-    <div style="display: flex; justify-content: space-between;">
-      <h1 style="display: inline;">Vehicle</h1>
-      <button @click="logout">Logout</button>
+    <div v-if="!token">
+      <h3>Login</h3>
+      <input v-model="loginForm.username" placeholder="Username" />
+      <input v-model="loginForm.password" type="password" placeholder="Password" />
+      <button @click="login">Login</button>
     </div>
-    <hr>
 
-    
-    <h3>Vehicles</h3>    
-      <div v-for="vehicle in vehicles" :key="vehicle.id" class="vehicle" style="display: flex; justify-content: space-between;">
+    <div v-else style="padding: 40px; background-color: white; border-radius: 20px;">
+
+      <!--VEHICLES-->
+
+      <div style="display: flex; justify-content: space-between;">
+        <h1 style="display: inline;">Vehicle</h1>
+        <button @click="logout">Logout</button>
+      </div>
+      <hr>
+
+
+      <h3>Vehicles</h3>
+      <div v-for="vehicle in vehicles" :key="vehicle.id" class="vehicle"
+        style="display: flex; justify-content: space-between;">
         <div>
           <input v-model="vehicle.name" />
           <input v-model="vehicle.avg_consumption" />
         </div>
-        
+
         <div style="display: inline;">
           <button @click="updateVehicle(vehicle)">Update</button>
           <button @click="deleteVehicle(vehicle.id)">Delete</button>
         </div>
       </div>
-    <br>
+      <br>
 
-    <h3>Add Vehicle</h3>
-    <div style="display: flex; justify-content: space-between;">
-      <div>
-        <input v-model="newVehicleName" placeholder="Vehicle" />
-        <input v-model="newVehicleConsumption" placeholder="Consumption" />
+      <h3>Add Vehicle</h3>
+      <div style="display: flex; justify-content: space-between;">
+        <div>
+          <input v-model="newVehicleName" placeholder="Vehicle" />
+          <input v-model="newVehicleConsumption" placeholder="Consumption" />
+        </div>
+
+        <button @click="createVehicle">Add</button>
       </div>
-      
-      <button @click="createVehicle">Add</button>
-    </div>
-    <br>
+      <br>
 
-    <!--EMPLOYEES-->
-    <h1>Employee</h1>
-    <hr>
+      <!--EMPLOYEES-->
+      <h1>Employee</h1>
+      <hr>
 
-    <h3>Employees</h3>    
-      <div v-for="employee in employees" :key="employee.id" class="employee" style="display: flex; justify-content: space-between;">
+      <h3>Employees</h3>
+      <div v-for="employee in employees" :key="employee.id" class="employee"
+        style="display: flex; justify-content: space-between;">
         <div>
           <input v-model="employee.name" />
           <input v-model="employee.surname" />
@@ -72,34 +94,35 @@
           <input v-model="employee.card_id_num" />
           <input v-model="employee.ssn" />
         </div>
-        
+
         <div style="display: inline;">
           <button @click="updateEmployee(employee)">Update</button>
           <button @click="deleteEmployee(employee.id)">Delete</button>
         </div>
       </div>
-    <br>
+      <br>
 
-    <h3>Add Employee</h3>
-    <div style="display: flex; justify-content: space-between;">
-      <div>
-        <input v-model="newEmployeeName" placeholder="Name" />
-        <input v-model="newEmployeeSurname" placeholder="Surname" />
-        <input v-model="newEmployeePosition" placeholder="Position" />
-        <input v-model="newEmployeeCardNum" placeholder="Card ID Number" />
-        <input v-model="newEmployeeSSN" placeholder="Social Security Number" />
+      <h3>Add Employee</h3>
+      <div style="display: flex; justify-content: space-between;">
+        <div>
+          <input v-model="newEmployeeName" placeholder="Name" />
+          <input v-model="newEmployeeSurname" placeholder="Surname" />
+          <input v-model="newEmployeePosition" placeholder="Position" />
+          <input v-model="newEmployeeCardNum" placeholder="Card ID Number" />
+          <input v-model="newEmployeeSSN" placeholder="Social Security Number" />
+        </div>
+
+        <button @click="createEmployee">Add</button>
       </div>
+      <br>
 
-      <button @click="createEmployee">Add</button>
-    </div>
-  <br>
-  
-  <!-- ORAGNISATIONS -->
-   <h1>Organisation</h1>
-    <hr>
+      <!-- ORAGNISATIONS -->
+      <h1>Organisation</h1>
+      <hr>
 
-    <h3>Organisations</h3>    
-      <div v-for="organisation in organisations" :key="organisation.id" class="oragnisation" style="display: flex; justify-content: space-between;">
+      <h3>Organisations</h3>
+      <div v-for="organisation in organisations" :key="organisation.id" class="oragnisation"
+        style="display: flex; justify-content: space-between;">
         <div>
           <input v-model="organisation.resp_person" />
           <input v-model="organisation.seal" />
@@ -107,34 +130,35 @@
           <input v-model="organisation.address" />
           <input v-model="organisation.issuer" />
         </div>
-        
+
         <div style="display: inline;">
           <button @click="updateOrganisation(organisation)">Update</button>
           <button @click="deleteOrganisation(organisation.id)">Delete</button>
         </div>
       </div>
-    <br>
+      <br>
 
-    <h3>Add Organisation</h3>
-    <div style="display: flex; justify-content: space-between;">
-      <div>
-        <input v-model="newOrganisationRespPerson" placeholder="Responsible person" />
-        <input v-model="newOrganisationSeal" placeholder="Seal" />
-        <input v-model="newOrganisationName" placeholder="Name" />
-        <input v-model="newOrganisationAddress" placeholder="Address" />
-        <input v-model="newOrganisationIssuer" placeholder="Issuer" />
+      <h3>Add Organisation</h3>
+      <div style="display: flex; justify-content: space-between;">
+        <div>
+          <input v-model="newOrganisationRespPerson" placeholder="Responsible person" />
+          <input v-model="newOrganisationSeal" placeholder="Seal" />
+          <input v-model="newOrganisationName" placeholder="Name" />
+          <input v-model="newOrganisationAddress" placeholder="Address" />
+          <input v-model="newOrganisationIssuer" placeholder="Issuer" />
+        </div>
+
+        <button @click="createOrganisation">Add</button>
       </div>
+      <br>
 
-      <button @click="createOrganisation">Add</button>
-    </div>
-  <br>
+      <!-- TRAVEL ORDERS -->
+      <h1>Travel Order</h1>
+      <hr>
 
-  <!-- TRAVEL ORDERS -->
-   <h1>Travel Order</h1>
-    <hr>
-
-    <h3>Travel Orders</h3>    
-      <div v-for="travel_order in travel_orders" :key="travel_order.id" class="travel_order" style="display: flex; justify-content: space-between;">
+      <h3>Travel Orders</h3>
+      <div v-for="travel_order in travel_orders" :key="travel_order.id" class="travel_order"
+        style="display: flex; justify-content: space-between;">
         <div>
           <input type="datetime" v-model="travel_order.start_date" />
           <input type="datetime" v-model="travel_order.end_date" />
@@ -147,39 +171,52 @@
           <input v-model="travel_order.fk_vehicle" />
           <input v-model="travel_order.fk_organisation" />
         </div>
-        
+
         <div style="display: inline;">
           <button @click="updateTravelOrder(travel_order)">Update</button>
           <button @click="deleteTravelOrder(travel_order.id)">Delete</button>
         </div>
       </div>
-    <br>
+      <br>
 
-    <h3>Add Travel Order</h3>
-    <div style="display: flex; justify-content: space-between;">
-      <div>
-        <input type="date" v-model="newTravelOrderStartDate" placeholder="Start date" />
-        <input type="date" v-model="newTravelOrderEndDate" placeholder="End date" />
-        <input v-model="newTravelOrderTask" placeholder="Task" />
-        <input v-model="newTravelOrderLocation" placeholder="Location" />
-        <input v-model="newTravelOrderPerDiem" placeholder="Per Diem" />
-        <input v-model="newTravelOrderReport" placeholder="Report" />
-        <input v-model="newTravelOrderState" placeholder="State" />
-        <input v-model="newTravelOrderAdvPayment" placeholder="Advance payment" />
-        <input v-model="newTravelOrderFkVehicle" placeholder="FK Vehicle" />
-        <input v-model="newTravelOrderFkOrganisation" placeholder="FK Organisation" />
+      <h3>Add Travel Order</h3>
+      <div style="display: flex; justify-content: space-between;">
+        <div>
+          <input type="date" v-model="newTravelOrderStartDate" placeholder="Start date" />
+          <input type="date" v-model="newTravelOrderEndDate" placeholder="End date" />
+          <input v-model="newTravelOrderTask" placeholder="Task" />
+          <input v-model="newTravelOrderLocation" placeholder="Location" />
+          <input v-model="newTravelOrderPerDiem" placeholder="Per Diem" />
+          <input v-model="newTravelOrderReport" placeholder="Report" />
+          <input v-model="newTravelOrderState" placeholder="State" />
+          <input v-model="newTravelOrderAdvPayment" placeholder="Advance payment" />
+          <input v-model="newTravelOrderFkVehicle" placeholder="FK Vehicle" hidden/>
+          <select v-model="newTravelOrderFkVehicle">
+            <option disabled value="">-- Select a vehicle --</option>
+            <option v-for="vehicle in vehicles" :key="vehicle.id" :value="vehicle.id">
+              {{ vehicle.name }}
+            </option>
+          </select>
+          <input v-model="newTravelOrderFkOrganisation" placeholder="FK Organisation" hidden/>
+          <select v-model="newTravelOrderFkOrganisation">
+            <option disabled value="">-- Select a organisation --</option>
+            <option v-for="organisation in organisations" :key="organisation.id" :value="organisation.id">
+              {{ organisation.name }}
+            </option>
+          </select>
+        </div>
+
+        <button @click="createTravelOrder">Add</button>
       </div>
+      <br>
 
-      <button @click="createTravelOrder">Add</button>
-    </div>
-  <br>
+      <!-- TRAVEL EXPENCES -->
+      <h1>Travel Expence</h1>
+      <hr>
 
-  <!-- TRAVEL EXPENCES -->
-   <h1>Travel Expence</h1>
-    <hr>
-
-    <h3>Travel Expences</h3>    
-      <div v-for="travel_expence in travel_expences" :key="travel_expence.id" class="travel_expence" style="display: flex; justify-content: space-between;">
+      <h3>Travel Expences</h3>
+      <div v-for="travel_expence in travel_expences" :key="travel_expence.id" class="travel_expence"
+        style="display: flex; justify-content: space-between;">
         <div>
           <input v-model="travel_expence.expence_type" />
           <input v-model="travel_expence.start_location" />
@@ -188,326 +225,329 @@
           <input v-model="travel_expence.receipt" />
           <input v-model="travel_expence.price" />
         </div>
-        
+
         <div style="display: inline;">
           <button @click="updateTravelExpence(travel_expence)">Update</button>
           <button @click="deleteTravelExpence(travel_expence.id)">Delete</button>
         </div>
       </div>
-    <br>
-      
-    <h3>Add Travel Expence</h3>
-    <div style="display: flex; justify-content: space-between;">
-      <div>
-        <input v-model="newTravelExpenceExpenceType" placeholder="Expence Type" />
-        <input v-model="newTravelExpenceStartLocation" placeholder="Strart Location" />
-        <input v-model="newTravelExpenceEndLocation" placeholder="End Location" />
-        <input v-model="newTravelExpenceDistance" placeholder="Distance" />
-        <input v-model="newTravelExpenceReceipt" placeholder="Receipt" />
-        <input v-model="newTravelExpencePrice" placeholder="Price" />
+      <br>
+
+      <h3>Add Travel Expence</h3>
+      <div style="display: flex; justify-content: space-between;">
+        <div>
+          <input v-model="newTravelExpenceExpenceType" placeholder="Expence Type" />
+          <input v-model="newTravelExpenceStartLocation" placeholder="Strart Location" />
+          <input v-model="newTravelExpenceEndLocation" placeholder="End Location" />
+          <input v-model="newTravelExpenceDistance" placeholder="Distance" />
+          <input v-model="newTravelExpenceReceipt" placeholder="Receipt" />
+          <input v-model="newTravelExpencePrice" placeholder="Price" />
+        </div>
+
+        <button @click="createTravelExpence">Add</button>
       </div>
+      <br>
 
-      <button @click="createTravelExpence">Add</button>
-    </div>
-  <br>
+      <!-- ORDER EMPLOYEES -->
+      <h1>Order Employee</h1>
+      <hr>
 
-    <!-- ORDER EMPLOYEES -->
-   <h1>Order Employee</h1>
-    <hr>
-
-    <h3>Order Employees</h3>    
-      <div v-for="order_employee in order_employees" :key="order_employee.id" class="order_employee" style="display: flex; justify-content: space-between;">
+      <h3>Order Employees</h3>
+      <div v-for="order_employee in order_employees" :key="order_employee.id" class="order_employee"
+        style="display: flex; justify-content: space-between;">
         <div>
           <input v-model="order_employee.fk_order" />
           <input v-model="order_employee.fk_employee" />
         </div>
-        
+
         <div style="display: inline;">
           <button @click="deleteOrderEmployee(order_employee.fk_order, order_employee.fk_employee)">Delete</button>
         </div>
       </div>
-    <br>
-      
-    <h3>Add Order Employee</h3>
-    <div style="display: flex; justify-content: space-between;">
-      <div>
-        <input v-model="newOrderEmployeeFkOrder" placeholder="FK Order" />
-        <input v-model="newOrderEmployeeFkEmployee" placeholder="FK Employee" />
+      <br>
+
+      <h3>Add Order Employee</h3>
+      <div style="display: flex; justify-content: space-between;">
+        <div>
+          <input v-model="newOrderEmployeeFkOrder" placeholder="FK Order" />
+          <input v-model="newOrderEmployeeFkEmployee" placeholder="FK Employee" />
+        </div>
+
+        <button @click="createOrderEmployee">Add</button>
       </div>
+      <br>
 
-      <button @click="createOrderEmployee">Add</button>
     </div>
-  <br>
 
-</div>
+    <script>
+      const { createApp, ref } = Vue;
 
-<script>
-const { createApp, ref } = Vue;
+      createApp({
+        setup() {
+          const apiBase = 'http://localhost:3000'; // or 3000 for Node.js
+          const token = ref(localStorage.getItem('token'));
 
-createApp({
-  setup() {
-    const apiBase = 'http://localhost:3000'; // or 3000 for Node.js
-    const token = ref(localStorage.getItem('token'));
-
-    const vehicles = ref([]);
-    const employees = ref([]);
-    const organisations = ref([]);
-    const travel_orders = ref([]);
-    const travel_expences = ref([]);
-    const order_employees = ref([]);
+          const vehicles = ref([]);
+          const employees = ref([]);
+          const organisations = ref([]);
+          const travel_orders = ref([]);
+          const travel_expences = ref([]);
+          const order_employees = ref([]);
 
 
-    const newVehicleName = ref('');
-    const newVehicleConsumption = ref('');
+          const newVehicleName = ref('');
+          const newVehicleConsumption = ref('');
 
-    const newEmployeeName = ref('');
-    const newEmployeeSurname = ref('');
-    const newEmployeePosition = ref('');
-    const newEmployeeCardNum = ref('');
-    const newEmployeeSSN = ref('');
+          const newEmployeeName = ref('');
+          const newEmployeeSurname = ref('');
+          const newEmployeePosition = ref('');
+          const newEmployeeCardNum = ref('');
+          const newEmployeeSSN = ref('');
 
-    const newOrganisationRespPerson = ref('');
-    const newOrganisationSeal = ref('');
-    const newOrganisationName = ref('');
-    const newOrganisationAddress = ref('');
-    const newOrganisationIssuer = ref('');
+          const newOrganisationRespPerson = ref('');
+          const newOrganisationSeal = ref('');
+          const newOrganisationName = ref('');
+          const newOrganisationAddress = ref('');
+          const newOrganisationIssuer = ref('');
 
-    const newTravelOrderStartDate = ref('');
-    const newTravelOrderEndDate = ref('');
-    const newTravelOrderTask = ref('');
-    const newTravelOrderLocation = ref('');
-    const newTravelOrderPerDiem = ref('');
-    const newTravelOrderReport = ref('');
-    const newTravelOrderState = ref('');
-    const newTravelOrderAdvPayment = ref('');
-    const newTravelOrderFkVehicle = ref('');
-    const newTravelOrderFkOrganisation = ref('');
+          const newTravelOrderStartDate = ref('');
+          const newTravelOrderEndDate = ref('');
+          const newTravelOrderTask = ref('');
+          const newTravelOrderLocation = ref('');
+          const newTravelOrderPerDiem = ref('');
+          const newTravelOrderReport = ref('');
+          const newTravelOrderState = ref('');
+          const newTravelOrderAdvPayment = ref('');
+          const newTravelOrderFkVehicle = ref('');
+          const newTravelOrderFkOrganisation = ref('');
 
-    const newTravelExpenceExpenceType = ref('');
-    const newTravelExpenceStartLocation = ref('');
-    const newTravelExpenceEndLocation = ref('');
-    const newTravelExpenceDistance = ref('');
-    const newTravelExpenceReceipt = ref('');
-    const newTravelExpencePrice = ref('');
-    
-    const newOrderEmployeeFkOrder = ref('');
-    const newOrderEmployeeFkEmployee = ref('');
-    
+          const newTravelExpenceExpenceType = ref('');
+          const newTravelExpenceStartLocation = ref('');
+          const newTravelExpenceEndLocation = ref('');
+          const newTravelExpenceDistance = ref('');
+          const newTravelExpenceReceipt = ref('');
+          const newTravelExpencePrice = ref('');
 
-    const loginForm = ref({ username: '', password: '' });
+          const newOrderEmployeeFkOrder = ref('');
+          const newOrderEmployeeFkEmployee = ref('');
 
-    const authHeaders = () => ({ headers: { Authorization: `Bearer ${token.value}` } });
 
-    const fetchVehicles = async () => {
-      const res = await axios.get(`${apiBase}/vehicle`, authHeaders());
-      vehicles.value = res.data;
-    };
+          const loginForm = ref({ username: '', password: '' });
 
-    const fetchEmployees = async () => {
-      const res = await axios.get(`${apiBase}/employee`, authHeaders());
-      employees.value = res.data;
-    };
+          const authHeaders = () => ({ headers: { Authorization: `Bearer ${token.value}` } });
 
-    const fetchOrganisations = async () => {
-      const res = await axios.get(`${apiBase}/organisation`, authHeaders());
-      organisations.value = res.data;
-    };
+          const fetchVehicles = async () => {
+            const res = await axios.get(`${apiBase}/vehicle`, authHeaders());
+            vehicles.value = res.data;
+          };
 
-    const fetchTravelOrders = async () => {
-      const res = await axios.get(`${apiBase}/travel_order`, authHeaders());
-      travel_orders.value = res.data;
-    };
+          const fetchEmployees = async () => {
+            const res = await axios.get(`${apiBase}/employee`, authHeaders());
+            employees.value = res.data;
+          };
 
-    const fetchTravelExpences = async () => {
-      const res = await axios.get(`${apiBase}/travel_expence`, authHeaders());
-      travel_expences.value = res.data;
-    };
-  
-    const fetchOrderEmployeees = async () => {
-      const res = await axios.get(`${apiBase}/order_employee`, authHeaders());
-      order_employees.value = res.data;
-    };
+          const fetchOrganisations = async () => {
+            const res = await axios.get(`${apiBase}/organisation`, authHeaders());
+            organisations.value = res.data;
+          };
 
-    const login = async () => {
-      try {
-        const res = await axios.post(`${apiBase}/login`, loginForm.value);
-        token.value = res.data.token;
-        localStorage.setItem('token', token.value);
-        fetchVehicles();
-        fetchEmployees();
-        fetchOrganisations();
-        fetchTravelOrders();
-        fetchTravelExpences();
-        fetchOrderEmployeees();
-      } catch {
-        alert('Login failed');
-      }
-    };
+          const fetchTravelOrders = async () => {
+            const res = await axios.get(`${apiBase}/travel_order`, authHeaders());
+            travel_orders.value = res.data;
+          };
 
-    const logout = () => {
-      token.value = null;
-      localStorage.removeItem('token');
-      vehicles.value = [];
-      employees.value = [];
-      organisations.value = [];
-      travel_orders.value = [];
-      travel_expences.value = [];
-      order_employees.value = [];
-    };
+          const fetchTravelExpences = async () => {
+            const res = await axios.get(`${apiBase}/travel_expence`, authHeaders());
+            travel_expences.value = res.data;
+          };
 
-    const createVehicle = async () => {
-      if (!newVehicleName.value || !newVehicleConsumption.value) return;
-      await axios.post(`${apiBase}/vehicle`, { name: newVehicleName.value, avgConsumption:newVehicleConsumption.value}, authHeaders());
-      newVehicleName.value = '';
-      newVehicleConsumption.value = '';
-      fetchVehicles();
-    };
+          const fetchOrderEmployeees = async () => {
+            const res = await axios.get(`${apiBase}/order_employee`, authHeaders());
+            order_employees.value = res.data;
+          };
 
-    const createEmployee = async () => {
-      if (!newEmployeeName.value || !newEmployeeSurname.value || !newEmployeePosition.value || !newEmployeeCardNum.value || !newEmployeeSSN.value) return;
-      await axios.post(`${apiBase}/employee`, { name: newEmployeeName.value, surname: newEmployeeSurname.value, position: newEmployeePosition.value, cardIdNum: newEmployeeCardNum.value, ssn: newEmployeeSSN.value}, authHeaders());
-      newEmployeeName.value = '';
-      newEmployeeSurname.value = '';
-      newEmployeePosition.value = '';
-      newEmployeeCardNum.value = '';
-      newEmployeeSSN.value = '';
-      fetchEmployees();
-    };
+          const login = async () => {
+            try {
+              const res = await axios.post(`${apiBase}/login`, loginForm.value);
+              token.value = res.data.token;
+              localStorage.setItem('token', token.value);
+              fetchVehicles();
+              fetchEmployees();
+              fetchOrganisations();
+              fetchTravelOrders();
+              fetchTravelExpences();
+              fetchOrderEmployeees();
+            } catch {
+              alert('Login failed');
+            }
+          };
 
-    const createOrganisation = async () => {
-      if (!newOrganisationRespPerson.value || !newOrganisationSeal.value || !newOrganisationName.value || !newOrganisationAddress.value || !newOrganisationIssuer.value) return;
-      await axios.post(`${apiBase}/organisation`, { respPerson: newOrganisationRespPerson.value, seal: newOrganisationSeal.value, name: newOrganisationName.value, address: newOrganisationAddress.value, issuer: newOrganisationIssuer.value}, authHeaders());
-      newOrganisationRespPerson.value = '';
-      newOrganisationSeal.value = '';
-      newOrganisationName.value = '';
-      newOrganisationAddress.value = '';
-      newOrganisationIssuer.value = '';
-      fetchOrganisations();
-    };
+          const logout = () => {
+            token.value = null;
+            localStorage.removeItem('token');
+            vehicles.value = [];
+            employees.value = [];
+            organisations.value = [];
+            travel_orders.value = [];
+            travel_expences.value = [];
+            order_employees.value = [];
+          };
 
-    const createTravelOrder = async () => {
-      if (!newTravelOrderStartDate.value || !newTravelOrderEndDate.value || !newTravelOrderTask.value || !newTravelOrderLocation.value || !newTravelOrderPerDiem.value || !newTravelOrderReport.value || !newTravelOrderState.value || !newTravelOrderAdvPayment.value || !newTravelOrderFkVehicle.value || !newTravelOrderFkOrganisation.value) return;
-      const res = await axios.post(`${apiBase}/travel_order`, { startDate: newTravelOrderStartDate.value, endDate: newTravelOrderEndDate.value, task: newTravelOrderTask.value, location: newTravelOrderLocation.value, perDiem: newTravelOrderPerDiem.value, report: newTravelOrderReport.value, state: newTravelOrderState.value, advPayment: newTravelOrderAdvPayment.value, fkVehicle: newTravelOrderFkVehicle.value, fkOrganisation: newTravelOrderFkOrganisation.value}, authHeaders());
-      newTravelOrderStartDate.value = '';
-      newTravelOrderEndDate.value = '';
-      newTravelOrderTask.value = '';
-      newTravelOrderLocation.value = '';
-      newTravelOrderPerDiem.value = '';
-      newTravelOrderReport.value = '';
-      newTravelOrderState.value = '';
-      newTravelOrderAdvPayment.value = '';
-      newTravelOrderFkVehicle.value = '';
-      newTravelOrderFkOrganisation.value = '';
-      alert(res.data.message);
-      fetchTravelOrders();
-    };
+          const createVehicle = async () => {
+            if (!newVehicleName.value || !newVehicleConsumption.value) return;
+            await axios.post(`${apiBase}/vehicle`, { name: newVehicleName.value, avgConsumption: newVehicleConsumption.value }, authHeaders());
+            newVehicleName.value = '';
+            newVehicleConsumption.value = '';
+            fetchVehicles();
+          };
 
-    const createTravelExpence = async () => {
-      if (!newTravelExpenceExpenceType.value || !newTravelExpenceStartLocation.value || !newTravelExpenceEndLocation.value || !newTravelExpenceDistance.value || !newTravelExpenceReceipt.value || !newTravelExpencePrice.value) return;
-      await axios.post(`${apiBase}/travel_expence`, { expenceType: newTravelExpenceExpenceType.value, startLocation: newTravelExpenceStartLocation.value, endLocation: newTravelExpenceEndLocation.value, distance: newTravelExpenceDistance.value, receipt: newTravelExpenceReceipt.value, price: newTravelExpencePrice.value}, authHeaders());
-      newTravelExpenceExpenceType.value = '';
-      newTravelExpenceStartLocation.value = '';
-      newTravelExpenceEndLocation.value = '';
-      newTravelExpenceDistance.value = '';
-      newTravelExpenceReceipt.value = '';
-      newTravelExpencePrice.value = '';
-      fetchTravelExpences();
-    };    
+          const createEmployee = async () => {
+            if (!newEmployeeName.value || !newEmployeeSurname.value || !newEmployeePosition.value || !newEmployeeCardNum.value || !newEmployeeSSN.value) return;
+            await axios.post(`${apiBase}/employee`, { name: newEmployeeName.value, surname: newEmployeeSurname.value, position: newEmployeePosition.value, cardIdNum: newEmployeeCardNum.value, ssn: newEmployeeSSN.value }, authHeaders());
+            newEmployeeName.value = '';
+            newEmployeeSurname.value = '';
+            newEmployeePosition.value = '';
+            newEmployeeCardNum.value = '';
+            newEmployeeSSN.value = '';
+            fetchEmployees();
+          };
 
-    const createOrderEmployee = async () => {
-      if (!newOrderEmployeeFkOrder.value || !newOrderEmployeeFkEmployee.value) return;
-      const res = await axios.post(`${apiBase}/order_employee`, { fkOrder: newOrderEmployeeFkOrder.value, fkEmployee:newOrderEmployeeFkEmployee.value}, authHeaders());
-      newOrderEmployeeFkOrder.value = '';
-      newOrderEmployeeFkEmployee.value = '';
-      alert(res.data.message);
-      fetchOrderEmployeees();
-    };
+          const createOrganisation = async () => {
+            if (!newOrganisationRespPerson.value || !newOrganisationSeal.value || !newOrganisationName.value || !newOrganisationAddress.value || !newOrganisationIssuer.value) return;
+            await axios.post(`${apiBase}/organisation`, { respPerson: newOrganisationRespPerson.value, seal: newOrganisationSeal.value, name: newOrganisationName.value, address: newOrganisationAddress.value, issuer: newOrganisationIssuer.value }, authHeaders());
+            newOrganisationRespPerson.value = '';
+            newOrganisationSeal.value = '';
+            newOrganisationName.value = '';
+            newOrganisationAddress.value = '';
+            newOrganisationIssuer.value = '';
+            fetchOrganisations();
+          };
 
-    const updateVehicle = async (vehicle) => {
-      await axios.put(`${apiBase}/vehicle/${vehicle.id}`, { name: vehicle.name, avgConsumption: vehicle.avg_consumption }, authHeaders());
-      fetchVehicles();
-    };
+          const createTravelOrder = async () => {
+            if (!newTravelOrderStartDate.value || !newTravelOrderEndDate.value || !newTravelOrderTask.value || !newTravelOrderLocation.value || !newTravelOrderPerDiem.value || !newTravelOrderReport.value || !newTravelOrderState.value || !newTravelOrderAdvPayment.value || !newTravelOrderFkVehicle.value || !newTravelOrderFkOrganisation.value) return;
+            const res = await axios.post(`${apiBase}/travel_order`, { startDate: newTravelOrderStartDate.value, endDate: newTravelOrderEndDate.value, task: newTravelOrderTask.value, location: newTravelOrderLocation.value, perDiem: newTravelOrderPerDiem.value, report: newTravelOrderReport.value, state: newTravelOrderState.value, advPayment: newTravelOrderAdvPayment.value, fkVehicle: newTravelOrderFkVehicle.value, fkOrganisation: newTravelOrderFkOrganisation.value }, authHeaders());
+            newTravelOrderStartDate.value = '';
+            newTravelOrderEndDate.value = '';
+            newTravelOrderTask.value = '';
+            newTravelOrderLocation.value = '';
+            newTravelOrderPerDiem.value = '';
+            newTravelOrderReport.value = '';
+            newTravelOrderState.value = '';
+            newTravelOrderAdvPayment.value = '';
+            newTravelOrderFkVehicle.value = '';
+            newTravelOrderFkOrganisation.value = '';
+            alert(res.data.message);
+            fetchTravelOrders();
+          };
 
-    const updateEmployee = async (employee) => {
-      await axios.put(`${apiBase}/employee/${employee.id}`, { name: employee.name, surname: employee.surname, position: employee.position, cardIdNum: employee.card_id_num, ssn: employee.ssn }, authHeaders());
-      fetchEmployees();
-    };
+          const createTravelExpence = async () => {
+            if (!newTravelExpenceExpenceType.value || !newTravelExpenceStartLocation.value || !newTravelExpenceEndLocation.value || !newTravelExpenceDistance.value || !newTravelExpenceReceipt.value || !newTravelExpencePrice.value) return;
+            await axios.post(`${apiBase}/travel_expence`, { expenceType: newTravelExpenceExpenceType.value, startLocation: newTravelExpenceStartLocation.value, endLocation: newTravelExpenceEndLocation.value, distance: newTravelExpenceDistance.value, receipt: newTravelExpenceReceipt.value, price: newTravelExpencePrice.value }, authHeaders());
+            newTravelExpenceExpenceType.value = '';
+            newTravelExpenceStartLocation.value = '';
+            newTravelExpenceEndLocation.value = '';
+            newTravelExpenceDistance.value = '';
+            newTravelExpenceReceipt.value = '';
+            newTravelExpencePrice.value = '';
+            fetchTravelExpences();
+          };
 
-    const updateOrganisation = async (organisation) => {
-      await axios.put(`${apiBase}/organisation/${organisation.id}`, { respPerson: organisation.resp_person, seal: organisation.seal, name: organisation.name, address: organisation.address, issuer: organisation.issuer }, authHeaders());
-      fetchOrganisations();
-    };
+          const createOrderEmployee = async () => {
+            if (!newOrderEmployeeFkOrder.value || !newOrderEmployeeFkEmployee.value) return;
+            const res = await axios.post(`${apiBase}/order_employee`, { fkOrder: newOrderEmployeeFkOrder.value, fkEmployee: newOrderEmployeeFkEmployee.value }, authHeaders());
+            newOrderEmployeeFkOrder.value = '';
+            newOrderEmployeeFkEmployee.value = '';
+            alert(res.data.message);
+            fetchOrderEmployeees();
+          };
 
-    const updateTravelOrder = async (travel_order) => {
-      await axios.put(`${apiBase}/travel_order/${travel_order.id}`, { startDate: travel_order.start_date, endDate: travel_order.end_date, task: travel_order.task, location: travel_order.location, perDiem: travel_order.per_diem, report: travel_order.report, state: travel_order.state, advPayment: travel_order.adv_payment, fkVehicle: travel_order.fk_vehicle, fkOrganisation: travel_order.fk_organisation }, authHeaders());
-      fetchTravelOrders();
-    };
+          const updateVehicle = async (vehicle) => {
+            await axios.put(`${apiBase}/vehicle/${vehicle.id}`, { name: vehicle.name, avgConsumption: vehicle.avg_consumption }, authHeaders());
+            fetchVehicles();
+          };
 
-    const updateTravelExpence = async (travel_expence) => {
-      await axios.put(`${apiBase}/travel_expence/${travel_expence.id}`, { expenceType: travel_expence.expence_type, startLocation: travel_expence.start_location, endLocation: travel_expence.end_location, distance: travel_expence.distance, receipt: travel_expence.receipt, price: travel_expence.price }, authHeaders());
-      fetchTravelExpences();
-    };
+          const updateEmployee = async (employee) => {
+            await axios.put(`${apiBase}/employee/${employee.id}`, { name: employee.name, surname: employee.surname, position: employee.position, cardIdNum: employee.card_id_num, ssn: employee.ssn }, authHeaders());
+            fetchEmployees();
+          };
 
-    const deleteVehicle = async (id) => {
-      const res = await axios.delete(`${apiBase}/vehicle/${id}`, authHeaders());
-      alert(res.data.message);
-      fetchVehicles();
-    };
+          const updateOrganisation = async (organisation) => {
+            await axios.put(`${apiBase}/organisation/${organisation.id}`, { respPerson: organisation.resp_person, seal: organisation.seal, name: organisation.name, address: organisation.address, issuer: organisation.issuer }, authHeaders());
+            fetchOrganisations();
+          };
 
-    const deleteEmployee = async (id) => {
-      const res = await axios.delete(`${apiBase}/employee/${id}`, authHeaders());
-      alert(res.data.message);
-      fetchEmployees();
-    };
+          const updateTravelOrder = async (travel_order) => {
+            await axios.put(`${apiBase}/travel_order/${travel_order.id}`, { startDate: travel_order.start_date, endDate: travel_order.end_date, task: travel_order.task, location: travel_order.location, perDiem: travel_order.per_diem, report: travel_order.report, state: travel_order.state, advPayment: travel_order.adv_payment, fkVehicle: travel_order.fk_vehicle, fkOrganisation: travel_order.fk_organisation }, authHeaders());
+            fetchTravelOrders();
+          };
 
-    const deleteOrganisation = async (id) => {
-      const res = await axios.delete(`${apiBase}/organisation/${id}`, authHeaders());
-      alert(res.data.message);
-      fetchOrganisations();
-    };
+          const updateTravelExpence = async (travel_expence) => {
+            await axios.put(`${apiBase}/travel_expence/${travel_expence.id}`, { expenceType: travel_expence.expence_type, startLocation: travel_expence.start_location, endLocation: travel_expence.end_location, distance: travel_expence.distance, receipt: travel_expence.receipt, price: travel_expence.price }, authHeaders());
+            fetchTravelExpences();
+          };
 
-    const deleteTravelOrder = async (id) => {
-      const res = await axios.delete(`${apiBase}/travel_order/${id}`, authHeaders());
-      alert(res.data.message);
-      fetchTravelOrders();
-    };
+          const deleteVehicle = async (id) => {
+            const res = await axios.delete(`${apiBase}/vehicle/${id}`, authHeaders());
+            alert(res.data.message);
+            fetchVehicles();
+          };
 
-    const deleteTravelExpence = async (id) => {
-      const res = await axios.delete(`${apiBase}/travel_expence/${id}`, authHeaders());
-      alert(res.data.message);
-      fetchTravelExpences();
-    };
+          const deleteEmployee = async (id) => {
+            const res = await axios.delete(`${apiBase}/employee/${id}`, authHeaders());
+            alert(res.data.message);
+            fetchEmployees();
+          };
 
-    const deleteOrderEmployee = async (fk_order, fk_employee) => {
-      const res = await axios.delete(`${apiBase}/order_employee/${fk_order}/${fk_employee}`, authHeaders());
-      console.log(`${apiBase}/order_employee/${fk_order}/${fk_employee}`);
-      alert(res.data.message);
-      fetchOrderEmployeees();
-    };
+          const deleteOrganisation = async (id) => {
+            const res = await axios.delete(`${apiBase}/organisation/${id}`, authHeaders());
+            alert(res.data.message);
+            fetchOrganisations();
+          };
 
-    if (token.value){
-      fetchVehicles();
-      fetchEmployees();
-      fetchOrganisations();
-      fetchTravelOrders();
-      fetchTravelExpences();
-      fetchOrderEmployeees();
-    }
+          const deleteTravelOrder = async (id) => {
+            const res = await axios.delete(`${apiBase}/travel_order/${id}`, authHeaders());
+            alert(res.data.message);
+            fetchTravelOrders();
+          };
 
-    return { 
-      token, vehicles, employees, organisations, travel_orders, travel_expences, order_employees,
-      newVehicleName, newVehicleConsumption,
-      newEmployeeName, newEmployeeSurname, newEmployeePosition, newEmployeeCardNum, newEmployeeSSN, 
-      newOrganisationRespPerson, newOrganisationSeal, newOrganisationName, newOrganisationAddress, newOrganisationIssuer, 
-      newTravelOrderStartDate, newTravelOrderEndDate, newTravelOrderTask, newTravelOrderLocation, newTravelOrderPerDiem, newTravelOrderReport, newTravelOrderState, newTravelOrderAdvPayment, newTravelOrderFkVehicle, newTravelOrderFkOrganisation, 
-      newTravelExpenceExpenceType, newTravelExpenceStartLocation, newTravelExpenceEndLocation, newTravelExpenceDistance, newTravelExpenceReceipt, newTravelExpencePrice,
-      newOrderEmployeeFkOrder, newOrderEmployeeFkEmployee,
-      loginForm, login, logout, 
-      createVehicle, createEmployee, createOrganisation, createTravelOrder, createTravelExpence, createOrderEmployee,
-      updateVehicle, updateEmployee, updateOrganisation, updateTravelOrder, updateTravelExpence,
-      deleteVehicle, deleteEmployee, deleteOrganisation, deleteTravelOrder, deleteTravelExpence, deleteOrderEmployee };
-  }
-}).mount('#app');
-</script>
+          const deleteTravelExpence = async (id) => {
+            const res = await axios.delete(`${apiBase}/travel_expence/${id}`, authHeaders());
+            alert(res.data.message);
+            fetchTravelExpences();
+          };
+
+          const deleteOrderEmployee = async (fk_order, fk_employee) => {
+            const res = await axios.delete(`${apiBase}/order_employee/${fk_order}/${fk_employee}`, authHeaders());
+            console.log(`${apiBase}/order_employee/${fk_order}/${fk_employee}`);
+            alert(res.data.message);
+            fetchOrderEmployeees();
+          };
+
+          if (token.value) {
+            fetchVehicles();
+            fetchEmployees();
+            fetchOrganisations();
+            fetchTravelOrders();
+            fetchTravelExpences();
+            fetchOrderEmployeees();
+          }
+
+          return {
+            token, vehicles, employees, organisations, travel_orders, travel_expences, order_employees,
+            newVehicleName, newVehicleConsumption,
+            newEmployeeName, newEmployeeSurname, newEmployeePosition, newEmployeeCardNum, newEmployeeSSN,
+            newOrganisationRespPerson, newOrganisationSeal, newOrganisationName, newOrganisationAddress, newOrganisationIssuer,
+            newTravelOrderStartDate, newTravelOrderEndDate, newTravelOrderTask, newTravelOrderLocation, newTravelOrderPerDiem, newTravelOrderReport, newTravelOrderState, newTravelOrderAdvPayment, newTravelOrderFkVehicle, newTravelOrderFkOrganisation,
+            newTravelExpenceExpenceType, newTravelExpenceStartLocation, newTravelExpenceEndLocation, newTravelExpenceDistance, newTravelExpenceReceipt, newTravelExpencePrice,
+            newOrderEmployeeFkOrder, newOrderEmployeeFkEmployee,
+            loginForm, login, logout,
+            createVehicle, createEmployee, createOrganisation, createTravelOrder, createTravelExpence, createOrderEmployee,
+            updateVehicle, updateEmployee, updateOrganisation, updateTravelOrder, updateTravelExpence,
+            deleteVehicle, deleteEmployee, deleteOrganisation, deleteTravelOrder, deleteTravelExpence, deleteOrderEmployee
+          };
+        }
+      }).mount('#app');
+    </script>
 </body>
+
 </html>
