@@ -333,8 +333,10 @@ app.get('/order_employee/:fkOrder/:fkEmployee', authenticate, (req, res) => {
 app.post('/order_employee', authenticate, (req, res) => {
   const jsonData = req.body;  
   db.query('INSERT INTO travel_order.order_employee (fk_order, fk_employee) VALUES(?, ?)', [jsonData.fkOrder, jsonData.fkEmployee], (err) => {
-    if (err) throw err;
-    res.json({ message: 'Order employee added' });
+    if(err) 
+      res.json({ message: 'Data problem!' });
+    else
+      res.json({ message: 'Order employee added!' });
   });
 });
 

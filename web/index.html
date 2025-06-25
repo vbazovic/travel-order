@@ -211,6 +211,34 @@
     </div>
   <br>
 
+    <!-- ORDER EMPLOYEES -->
+   <h1>Order Employee</h1>
+    <hr>
+
+    <h3>Order Employees</h3>    
+      <div v-for="order_employee in order_employees" :key="order_employee.id" class="order_employee" style="display: flex; justify-content: space-between;">
+        <div>
+          <input v-model="order_employee.fk_order" />
+          <input v-model="order_employee.fk_employee" />
+        </div>
+        
+        <div style="display: inline;">
+          <button @click="deleteOrderEmployee(order_employee.fk_order, order_employee.fk_employee)">Delete</button>
+        </div>
+      </div>
+    <br>
+      
+    <h3>Add Order Employee</h3>
+    <div style="display: flex; justify-content: space-between;">
+      <div>
+        <input v-model="newOrderEmployeeFkOrder" placeholder="FK Order" />
+        <input v-model="newOrderEmployeeFkEmployee" placeholder="FK Employee" />
+      </div>
+
+      <button @click="createOrderEmployee">Add</button>
+    </div>
+  <br>
+
 </div>
 
 <script>
@@ -226,6 +254,7 @@ createApp({
     const organisations = ref([]);
     const travel_orders = ref([]);
     const travel_expences = ref([]);
+    const order_employees = ref([]);
 
 
     const newVehicleName = ref('');
@@ -261,7 +290,8 @@ createApp({
     const newTravelExpenceReceipt = ref('');
     const newTravelExpencePrice = ref('');
     
-
+    const newOrderEmployeeFkOrder = ref('');
+    const newOrderEmployeeFkEmployee = ref('');
     
 
     const loginForm = ref({ username: '', password: '' });
@@ -292,6 +322,11 @@ createApp({
       const res = await axios.get(`${apiBase}/travel_expence`, authHeaders());
       travel_expences.value = res.data;
     };
+  
+    const fetchOrderEmployeees = async () => {
+      const res = await axios.get(`${apiBase}/order_employee`, authHeaders());
+      order_employees.value = res.data;
+    };
 
     const login = async () => {
       try {
@@ -303,6 +338,7 @@ createApp({
         fetchOrganisations();
         fetchTravelOrders();
         fetchTravelExpences();
+        fetchOrderEmployeees();
       } catch {
         alert('Login failed');
       }
@@ -316,6 +352,7 @@ createApp({
       organisations.value = [];
       travel_orders = [];
       travel_expences = [];
+      order_employees = [];
     };
 
     const createVehicle = async () => {
@@ -377,6 +414,15 @@ createApp({
       fetchTravelExpences();
     };    
 
+    const createOrderEmployee = async () => {
+      if (!newOrderEmployeeFkOrder.value || !newOrderEmployeeFkEmployee.value) return;
+      const res = await axios.post(`${apiBase}/order_employee`, { fkOrder: newOrderEmployeeFkOrder.value, fkEmployee:newOrderEmployeeFkEmployee.value}, authHeaders());
+      newOrderEmployeeFkOrder.value = '';
+      newOrderEmployeeFkEmployee.value = '';
+      alert(res.data.message);
+      fetchOrderEmployeees();
+    };
+
     const updateVehicle = async (vehicle) => {
       await axios.put(`${apiBase}/vehicle/${vehicle.id}`, { name: vehicle.name, avgConsumption: vehicle.avg_consumption }, authHeaders());
       fetchVehicles();
@@ -432,25 +478,34 @@ createApp({
       fetchTravelExpences();
     };
 
+    const deleteOrderEmployee = async (fk_order, fk_employee) => {
+      const res = await axios.delete(`${apiBase}/order_employee/${fk_order}/${fk_employee}`, authHeaders());
+      console.log(`${apiBase}/order_employee/${fk_order}/${fk_employee}`);
+      alert(res.data.message);
+      fetchOrderEmployeees();
+    };
+
     if (token.value){
       fetchVehicles();
       fetchEmployees();
       fetchOrganisations();
       fetchTravelOrders();
       fetchTravelExpences();
+      fetchOrderEmployeees();
     }
 
     return { 
-      token, vehicles, employees, organisations, travel_orders, travel_expences,
+      token, vehicles, employees, organisations, travel_orders, travel_expences, order_employees,
       newVehicleName, newVehicleConsumption,
       newEmployeeName, newEmployeeSurname, newEmployeePosition, newEmployeeCardNum, newEmployeeSSN, 
       newOrganisationRespPerson, newOrganisationSeal, newOrganisationName, newOrganisationAddress, newOrganisationIssuer, 
       newTravelOrderStartDate, newTravelOrderEndDate, newTravelOrderTask, newTravelOrderLocation, newTravelOrderPerDiem, newTravelOrderReport, newTravelOrderState, newTravelOrderAdvPayment, newTravelOrderFkVehicle, newTravelOrderFkOrganisation, 
       newTravelExpenceExpenceType, newTravelExpenceStartLocation, newTravelExpenceEndLocation, newTravelExpenceDistance, newTravelExpenceReceipt, newTravelExpencePrice,
+      newOrderEmployeeFkOrder, newOrderEmployeeFkEmployee,
       loginForm, login, logout, 
-      createVehicle, createEmployee, createOrganisation, createTravelOrder, createTravelExpence,
+      createVehicle, createEmployee, createOrganisation, createTravelOrder, createTravelExpence, createOrderEmployee,
       updateVehicle, updateEmployee, updateOrganisation, updateTravelOrder, updateTravelExpence,
-      deleteVehicle, deleteEmployee, deleteOrganisation, deleteTravelOrder, deleteTravelExpence };
+      deleteVehicle, deleteEmployee, deleteOrganisation, deleteTravelOrder, deleteTravelExpence, deleteOrderEmployee };
   }
 }).mount('#app');
 </script>
