@@ -254,7 +254,15 @@ app.delete('/travel_expence/:id', authenticate, (req, res) => {
 
 // GET all travel orders
 app.get('/travel_order', authenticate, (req, res) => {
-  db.query('SELECT * FROM travel_order', (err, results) => {
+  const sqlQuery = `
+  SELECT travel_order.*, 
+    vehicle.name as vehicle_name,
+    organisation.name as organisation_name 
+  FROM travel_order
+  INNER JOIN vehicle ON travel_order.fk_vehicle = vehicle.id
+  INNER JOIN organisation ON travel_order.fk_organisation = organisation.id
+`;
+  db.query(sqlQuery, (err, results) => {
     if (err) throw err;
     res.json(results);
   });
