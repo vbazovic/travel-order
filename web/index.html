@@ -168,8 +168,18 @@
           <input v-model="travel_order.report" />
           <input v-model="travel_order.state" />
           <input v-model="travel_order.adv_payment" />
-          <input v-model="travel_order.fk_vehicle" />
-          <input v-model="travel_order.fk_organisation" />
+          
+          <select v-model="travel_order.fk_vehicle">
+            <option v-for="vehicle in vehicles" :key="vehicle.id" :value="vehicle.id">
+              {{ vehicle.name }}
+            </option>
+          </select>
+
+          <select v-model="travel_order.fk_organisation">
+            <option v-for="organisation in organisations" :key="organisation.id" :value="organisation.id">
+              {{ organisation.name }}
+            </option>
+          </select>
         </div>
 
         <div style="display: inline;">
