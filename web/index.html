@@ -190,6 +190,7 @@
           <input v-model="newTravelOrderReport" placeholder="Report" />
           <input v-model="newTravelOrderState" placeholder="State" />
           <input v-model="newTravelOrderAdvPayment" placeholder="Advance payment" />
+
           <input v-model="newTravelOrderFkVehicle" placeholder="FK Vehicle" hidden/>
           <select v-model="newTravelOrderFkVehicle">
             <option disabled value="">-- Select a vehicle --</option>
@@ -197,6 +198,7 @@
               {{ vehicle.name }}
             </option>
           </select>
+
           <input v-model="newTravelOrderFkOrganisation" placeholder="FK Organisation" hidden/>
           <select v-model="newTravelOrderFkOrganisation">
             <option disabled value="">-- Select a organisation --</option>
@@ -270,7 +272,20 @@
       <div style="display: flex; justify-content: space-between;">
         <div>
           <input v-model="newOrderEmployeeFkOrder" placeholder="FK Order" />
+          <select v-model="newOrderEmployeeFkOrder">
+            <option disabled value="">-- Select a Travel Order --</option>
+            <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
+              {{ `OD ${travel_order.start_date} DO ${travel_order.end_date}: ${travel_order.location}`}}
+            </option>
+          </select>
+
           <input v-model="newOrderEmployeeFkEmployee" placeholder="FK Employee" />
+          <select v-model="newOrderEmployeeFkEmployee">
+            <option disabled value="">-- Select an employee --</option>
+            <option v-for="employee in employees" :key="employee.id" :value="employee.id">
+              {{ `${employee.name} ${employee.surname}` }}
+            </option>
+          </select>
         </div>
 
         <button @click="createOrderEmployee">Add</button>
