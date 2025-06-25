@@ -226,6 +226,7 @@
           <input v-model="travel_expence.distance" />
           <input v-model="travel_expence.receipt" />
           <input v-model="travel_expence.price" />
+          <input v-model="travel_expence.fk_travel_order" />
         </div>
 
         <div style="display: inline;">
@@ -244,6 +245,13 @@
           <input v-model="newTravelExpenceDistance" placeholder="Distance" />
           <input v-model="newTravelExpenceReceipt" placeholder="Receipt" />
           <input v-model="newTravelExpencePrice" placeholder="Price" />
+          <input v-model="newTravelExpenceFkTravelOrder" placeholder="FK Travel Order" />
+          <select v-model="newTravelExpenceFkTravelOrder">
+            <option disabled value="">-- Select a Travel Order --</option>
+            <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
+              {{ `OD ${travel_order.start_date} DO ${travel_order.end_date}: ${travel_order.location}`}}
+            </option>
+          </select>
         </div>
 
         <button @click="createTravelExpence">Add</button>
@@ -309,7 +317,6 @@
           const travel_expences = ref([]);
           const order_employees = ref([]);
 
-
           const newVehicleName = ref('');
           const newVehicleConsumption = ref('');
 
@@ -342,6 +349,7 @@
           const newTravelExpenceDistance = ref('');
           const newTravelExpenceReceipt = ref('');
           const newTravelExpencePrice = ref('');
+          const newTravelExpenceFkTravelOrder = ref('');
 
           const newOrderEmployeeFkOrder = ref('');
           const newOrderEmployeeFkEmployee = ref('');
@@ -456,14 +464,15 @@
           };
 
           const createTravelExpence = async () => {
-            if (!newTravelExpenceExpenceType.value || !newTravelExpenceStartLocation.value || !newTravelExpenceEndLocation.value || !newTravelExpenceDistance.value || !newTravelExpenceReceipt.value || !newTravelExpencePrice.value) return;
-            await axios.post(`${apiBase}/travel_expence`, { expenceType: newTravelExpenceExpenceType.value, startLocation: newTravelExpenceStartLocation.value, endLocation: newTravelExpenceEndLocation.value, distance: newTravelExpenceDistance.value, receipt: newTravelExpenceReceipt.value, price: newTravelExpencePrice.value }, authHeaders());
+            if (!newTravelExpenceExpenceType.value || !newTravelExpenceStartLocation.value || !newTravelExpenceEndLocation.value || !newTravelExpenceDistance.value || !newTravelExpenceReceipt.value || !newTravelExpencePrice.value || !newTravelExpenceFkTravelOrder) return;
+            await axios.post(`${apiBase}/travel_expence`, { expenceType: newTravelExpenceExpenceType.value, startLocation: newTravelExpenceStartLocation.value, endLocation: newTravelExpenceEndLocation.value, distance: newTravelExpenceDistance.value, receipt: newTravelExpenceReceipt.value, price: newTravelExpencePrice.value, fkTravelOrder: newTravelExpenceFkTravelOrder.value }, authHeaders());
             newTravelExpenceExpenceType.value = '';
             newTravelExpenceStartLocation.value = '';
             newTravelExpenceEndLocation.value = '';
             newTravelExpenceDistance.value = '';
             newTravelExpenceReceipt.value = '';
             newTravelExpencePrice.value = '';
+            newTravelExpenceFkTravelOrder.value = '';
             fetchTravelExpences();
           };
 
@@ -497,7 +506,7 @@
           };
 
           const updateTravelExpence = async (travel_expence) => {
-            await axios.put(`${apiBase}/travel_expence/${travel_expence.id}`, { expenceType: travel_expence.expence_type, startLocation: travel_expence.start_location, endLocation: travel_expence.end_location, distance: travel_expence.distance, receipt: travel_expence.receipt, price: travel_expence.price }, authHeaders());
+            await axios.put(`${apiBase}/travel_expence/${travel_expence.id}`, { expenceType: travel_expence.expence_type, startLocation: travel_expence.start_location, endLocation: travel_expence.end_location, distance: travel_expence.distance, receipt: travel_expence.receipt, price: travel_expence.price, fkTravelOrder: travel_expence.fk_travel_order }, authHeaders());
             fetchTravelExpences();
           };
 
@@ -553,7 +562,7 @@
             newEmployeeName, newEmployeeSurname, newEmployeePosition, newEmployeeCardNum, newEmployeeSSN,
             newOrganisationRespPerson, newOrganisationSeal, newOrganisationName, newOrganisationAddress, newOrganisationIssuer,
             newTravelOrderStartDate, newTravelOrderEndDate, newTravelOrderTask, newTravelOrderLocation, newTravelOrderPerDiem, newTravelOrderReport, newTravelOrderState, newTravelOrderAdvPayment, newTravelOrderFkVehicle, newTravelOrderFkOrganisation,
-            newTravelExpenceExpenceType, newTravelExpenceStartLocation, newTravelExpenceEndLocation, newTravelExpenceDistance, newTravelExpenceReceipt, newTravelExpencePrice,
+            newTravelExpenceExpenceType, newTravelExpenceStartLocation, newTravelExpenceEndLocation, newTravelExpenceDistance, newTravelExpenceReceipt, newTravelExpencePrice, newTravelExpenceFkTravelOrder,
             newOrderEmployeeFkOrder, newOrderEmployeeFkEmployee,
             loginForm, login, logout,
             createVehicle, createEmployee, createOrganisation, createTravelOrder, createTravelExpence, createOrderEmployee,

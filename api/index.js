@@ -225,7 +225,7 @@ app.get('/travel_expence/:id', authenticate, (req, res) => {
 // POST add travel expence
 app.post('/travel_expence', authenticate, (req, res) => {
   const jsonData = req.body;  
-  db.query('INSERT INTO travel_order.travel_expence (expence_type, start_location, end_location, distance, receipt, price) VALUES(?, ?, ?, ?, ?, ?)', [jsonData.expenceType, jsonData.startLocation, jsonData.endLocation, jsonData.distance, jsonData.receipt, jsonData.price], (err) => {
+  db.query('INSERT INTO travel_order.travel_expence (expence_type, start_location, end_location, distance, receipt, price, fk_travel_order) VALUES(?, ?, ?, ?, ?, ?, ?)', [jsonData.expenceType, jsonData.startLocation, jsonData.endLocation, jsonData.distance, jsonData.receipt, jsonData.price, jsonData.fkTravelOrder], (err) => {
     if (err) throw err;
     res.json({ message: 'Travel expence added' });
   });
@@ -235,7 +235,7 @@ app.post('/travel_expence', authenticate, (req, res) => {
 app.put('/travel_expence/:id', authenticate, (req, res) => {
   const jsonData = req.body;
   const { id }= req.params;
-  db.query('UPDATE travel_expence SET expence_type = ?, start_location = ?, end_location = ?, distance = ?, receipt = ?, price = ? WHERE id = ?', [jsonData.expenceType, jsonData.startLocation, jsonData.endLocation, jsonData.distance, jsonData.receipt, jsonData.price, id], (err) => {
+  db.query('UPDATE travel_expence SET expence_type = ?, start_location = ?, end_location = ?, distance = ?, receipt = ?, price = ?, fk_travel_order = ?, WHERE id = ?', [jsonData.expenceType, jsonData.startLocation, jsonData.endLocation, jsonData.distance, jsonData.receipt, jsonData.price, jsonData.fkTravelOrder, id], (err) => {
     if (err) throw err;
     res.json({ message: 'Travel expence updated' });
   });
