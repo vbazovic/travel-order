@@ -166,7 +166,13 @@
           <input v-model="travel_order.location" />
           <input v-model="travel_order.per_diem" />
           <input v-model="travel_order.report" />
-          <input v-model="travel_order.state" />
+          
+          <select v-model="travel_order.state">
+            <option v-for="travel_order in travel_orders" :key="travel_order.state" :value="travel_order.state">
+              {{ `${travel_order.state}`}}
+            </option>
+          </select>
+
           <input v-model="travel_order.adv_payment" />
           
           <select v-model="travel_order.fk_vehicle">
@@ -198,7 +204,14 @@
           <input v-model="newTravelOrderLocation" required placeholder="Location" />
           <input v-model="newTravelOrderPerDiem" placeholder="Per Diem" type="number" step="0.1" min="0"/>
           <input v-model="newTravelOrderReport" placeholder="Report" />
-          <input v-model="newTravelOrderState" required placeholder="State" />
+
+          <select v-model="newTravelOrderState" required>
+            <option value="" disabled>-- Select a state --</option>
+            <option value="started">Started</option>
+            <option value="ended">Ended</option>
+            <option value="in progress">In proggress</option>
+          </select>
+
           <input v-model="newTravelOrderAdvPayment" placeholder="Advance payment" type="number" step="0.1" min="0"/>
 
           <input v-model="newTravelOrderFkVehicle" placeholder="FK Vehicle" hidden/>
@@ -325,7 +338,6 @@
 
     <script>
       const { createApp, ref } = Vue;
-
       createApp({
         setup() {
           const apiBase = 'http://localhost:3000'; // or 3000 for Node.js
