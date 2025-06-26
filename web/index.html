@@ -239,6 +239,10 @@
       <h1>Travel Expence</h1>
       <hr>
 
+      <template>
+        <codemirror v-model="code" />
+      </template>
+
       <h3>Travel Expences</h3>
       <div v-for="travel_expence in travel_expences" :key="travel_expence.id" class="travel_expence"
         style="display: flex; justify-content: space-between;">
@@ -298,7 +302,6 @@
               {{ `OD ${travel_order.start_date} DO ${travel_order.end_date}: ${travel_order.location}`}}
             </option>
           </select>
-
           <select v-model="order_employee.fk_employee">
             <option v-for="employee in employees" :key="employee.id" :value="employee.id">
               {{ `${employee.name} ${employee.surname}`}}
@@ -338,7 +341,11 @@
 
     <script>
       const { createApp, ref } = Vue;
+
+
+
       createApp({
+
         setup() {
           const apiBase = 'http://localhost:3000'; // or 3000 for Node.js
           const token = ref(localStorage.getItem('token'));

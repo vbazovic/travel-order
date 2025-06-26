@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+    <template>
+      <codemirror v-model="code" />
+    </template>
+  </body>
+  </html>
+
+<script>
+import { ref, defineComponent } from 'vue';
+import { Codemirror } from 'vue-codemirror';
+
+export default defineComponent({
+  components: {
+    Codemirror,
+  },
+  setup() {
+    const code = ref('// Your code here');
+    return { code };
+  },
+});
+</script>
