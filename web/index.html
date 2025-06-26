@@ -237,6 +237,12 @@
           <input v-model="travel_expence.receipt" />
           <input v-model="travel_expence.price" />
           <input v-model="travel_expence.fk_travel_order" />
+
+          <select v-model="travel_expence.fk_travel_order">
+            <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
+              {{ `OD ${travel_order.start_date} DO ${travel_order.end_date}: ${travel_order.location}`}}
+            </option>
+          </select>
         </div>
 
         <div style="display: inline;">
@@ -276,8 +282,17 @@
       <div v-for="order_employee in order_employees" :key="order_employee.id" class="order_employee"
         style="display: flex; justify-content: space-between;">
         <div>
-          <input v-model="order_employee.fk_order" />
-          <input v-model="order_employee.fk_employee" />
+          <select v-model="order_employee.fk_order">
+            <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
+              {{ `OD ${travel_order.start_date} DO ${travel_order.end_date}: ${travel_order.location}`}}
+            </option>
+          </select>
+
+          <select v-model="order_employee.fk_employee">
+            <option v-for="employee in employees" :key="employee.id" :value="employee.id">
+              {{ `${employee.name} ${employee.surname}`}}
+            </option>
+          </select>
         </div>
 
         <div style="display: inline;">
