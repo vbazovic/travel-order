@@ -73,7 +73,7 @@
       <div style="display: flex; justify-content: space-between;">
         <div>
           <input v-model="newVehicleName" required placeholder="Vehicle" />
-          <input v-model="newVehicleConsumption" placeholder="Consumption" />
+          <input v-model="newVehicleConsumption" placeholder="Consumption" type="number" step="0.1" />
         </div>
 
         <button @click="createVehicle">Add</button>
@@ -196,10 +196,10 @@
           <input type="date" v-model="newTravelOrderEndDate" placeholder="End date" />
           <input v-model="newTravelOrderTask" placeholder="Task" />
           <input v-model="newTravelOrderLocation" required placeholder="Location" />
-          <input v-model="newTravelOrderPerDiem" placeholder="Per Diem" />
+          <input v-model="newTravelOrderPerDiem" placeholder="Per Diem" type="number" step="0.1"/>
           <input v-model="newTravelOrderReport" placeholder="Report" />
           <input v-model="newTravelOrderState" required placeholder="State" />
-          <input v-model="newTravelOrderAdvPayment" placeholder="Advance payment" />
+          <input v-model="newTravelOrderAdvPayment" placeholder="Advance payment" type="number" step="0.1"/>
 
           <input v-model="newTravelOrderFkVehicle" placeholder="FK Vehicle" hidden/>
           <select v-model="newTravelOrderFkVehicle">
@@ -259,7 +259,7 @@
           <input v-model="newTravelExpenceEndLocation" required placeholder="End Location" />
           <input v-model="newTravelExpenceDistance" required placeholder="Distance" />
           <input v-model="newTravelExpenceReceipt" required placeholder="Receipt" />
-          <input v-model="newTravelExpencePrice" required placeholder="Price" />
+          <input v-model="newTravelExpencePrice" required placeholder="Price" type="number" step="0.1"/>
           <select v-model="newTravelExpenceFkTravelOrder">
             <option disabled value="">-- Select a Travel Order --</option>
             <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
