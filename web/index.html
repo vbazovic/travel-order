@@ -72,7 +72,7 @@
       <h3>Add Vehicle</h3>
       <div style="display: flex; justify-content: space-between;">
         <div>
-          <input v-model="newVehicleName" placeholder="Vehicle" />
+          <input v-model="newVehicleName" required placeholder="Vehicle" />
           <input v-model="newVehicleConsumption" placeholder="Consumption" />
         </div>
 
@@ -105,11 +105,11 @@
       <h3>Add Employee</h3>
       <div style="display: flex; justify-content: space-between;">
         <div>
-          <input v-model="newEmployeeName" placeholder="Name" />
-          <input v-model="newEmployeeSurname" placeholder="Surname" />
-          <input v-model="newEmployeePosition" placeholder="Position" />
-          <input v-model="newEmployeeCardNum" placeholder="Card ID Number" />
-          <input v-model="newEmployeeSSN" placeholder="Social Security Number" />
+          <input v-model="newEmployeeName" required placeholder="Name" />
+          <input v-model="newEmployeeSurname" required placeholder="Surname" />
+          <input v-model="newEmployeePosition" required placeholder="Position" />
+          <input v-model="newEmployeeCardNum" required placeholder="Card ID Number" />
+          <input v-model="newEmployeeSSN" required placeholder="Social Security Number" />
         </div>
 
         <button @click="createEmployee">Add</button>
@@ -141,11 +141,11 @@
       <h3>Add Organisation</h3>
       <div style="display: flex; justify-content: space-between;">
         <div>
-          <input v-model="newOrganisationRespPerson" placeholder="Responsible person" />
-          <input v-model="newOrganisationSeal" placeholder="Seal" />
-          <input v-model="newOrganisationName" placeholder="Name" />
-          <input v-model="newOrganisationAddress" placeholder="Address" />
-          <input v-model="newOrganisationIssuer" placeholder="Issuer" />
+          <input v-model="newOrganisationRespPerson" required placeholder="Responsible person" />
+          <input v-model="newOrganisationSeal" required placeholder="Seal" />
+          <input v-model="newOrganisationName" required placeholder="Name" />
+          <input v-model="newOrganisationAddress" required placeholder="Address" />
+          <input v-model="newOrganisationIssuer" required placeholder="Issuer" />
         </div>
 
         <button @click="createOrganisation">Add</button>
@@ -192,13 +192,13 @@
       <h3>Add Travel Order</h3>
       <div style="display: flex; justify-content: space-between;">
         <div>
-          <input type="date" v-model="newTravelOrderStartDate" placeholder="Start date" />
+          <input type="date" v-model="newTravelOrderStartDate" required placeholder="Start date" />
           <input type="date" v-model="newTravelOrderEndDate" placeholder="End date" />
           <input v-model="newTravelOrderTask" placeholder="Task" />
-          <input v-model="newTravelOrderLocation" placeholder="Location" />
+          <input v-model="newTravelOrderLocation" required placeholder="Location" />
           <input v-model="newTravelOrderPerDiem" placeholder="Per Diem" />
           <input v-model="newTravelOrderReport" placeholder="Report" />
-          <input v-model="newTravelOrderState" placeholder="State" />
+          <input v-model="newTravelOrderState" required placeholder="State" />
           <input v-model="newTravelOrderAdvPayment" placeholder="Advance payment" />
 
           <input v-model="newTravelOrderFkVehicle" placeholder="FK Vehicle" hidden/>
@@ -236,7 +236,6 @@
           <input v-model="travel_expence.distance" />
           <input v-model="travel_expence.receipt" />
           <input v-model="travel_expence.price" />
-          <input v-model="travel_expence.fk_travel_order" />
 
           <select v-model="travel_expence.fk_travel_order">
             <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
@@ -255,13 +254,12 @@
       <h3>Add Travel Expence</h3>
       <div style="display: flex; justify-content: space-between;">
         <div>
-          <input v-model="newTravelExpenceExpenceType" placeholder="Expence Type" />
-          <input v-model="newTravelExpenceStartLocation" placeholder="Strart Location" />
-          <input v-model="newTravelExpenceEndLocation" placeholder="End Location" />
-          <input v-model="newTravelExpenceDistance" placeholder="Distance" />
-          <input v-model="newTravelExpenceReceipt" placeholder="Receipt" />
-          <input v-model="newTravelExpencePrice" placeholder="Price" />
-          <input v-model="newTravelExpenceFkTravelOrder" placeholder="FK Travel Order" />
+          <input v-model="newTravelExpenceExpenceType" required placeholder="Expence Type" />
+          <input v-model="newTravelExpenceStartLocation" required placeholder="Strart Location" />
+          <input v-model="newTravelExpenceEndLocation" required placeholder="End Location" />
+          <input v-model="newTravelExpenceDistance" required placeholder="Distance" />
+          <input v-model="newTravelExpenceReceipt" required placeholder="Receipt" />
+          <input v-model="newTravelExpencePrice" required placeholder="Price" />
           <select v-model="newTravelExpenceFkTravelOrder">
             <option disabled value="">-- Select a Travel Order --</option>
             <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
