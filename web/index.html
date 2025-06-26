@@ -160,8 +160,8 @@
       <div v-for="travel_order in travel_orders" :key="travel_order.id" class="travel_order"
         style="display: flex; justify-content: space-between;">
         <div>
-          <input type="datetime" v-model="travel_order.start_date" />
-          <input type="datetime" v-model="travel_order.end_date" />
+          <input type="datetime" v-model="travel_order.formatted_start_date" />
+          <input type="datetime" v-model="travel_order.formatted_end_date" />
           <input v-model="travel_order.task" />
           <input v-model="travel_order.location" />
           <input v-model="travel_order.per_diem" />
