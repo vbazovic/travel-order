@@ -9,35 +9,12 @@
   <script src="node_modules/axios/dist/axios.js"></script>
   <script src="node_modules/tinymce/tinymce.min.js"></script>
   <!-- <script src="node_modules/@tinymce/tinymce-vue/lib/browser/tinymce-vue.min.js"></script> -->
-  <style>
-    body {
-      font-family: sans-serif;
-      max-width: 800px;
-      margin: 2rem auto;
-      background-color: rgb(230, 230, 230);
-    }
 
-    input,
-    button {
-      margin: 0.5rem;
-      padding: 0.5rem;
-    }
-
-    .user {
-      display: flex;
-      justify-content: space-between;
-      margin: 0.5rem 0;
-    }
-
-    button {
-      cursor: pointer;
-    }
-  </style>
   <link href="main.css" rel="stylesheet">
 </head>
 
 <body>
-  <div id="app" style="user-select: none;">
+  <div id="app">
 
     <div v-if="!token">
       <h3>Login</h3>
@@ -46,26 +23,25 @@
       <button @click="login">Login</button>
     </div>
 
-    <div v-else style="padding: 40px; background-color: white; border-radius: 20px;">
+    <div v-else>
 
       <!--VEHICLES-->
 
-      <div style="display: flex; justify-content: space-between;">
-        <h1 style="display: inline;">Vehicle</h1>
+      <div>
+        <h1>Vehicle</h1>
         <button @click="logout">Logout</button>
       </div>
       <hr>
 
 
-      <h3 class="text-red-700">Vehicles</h3>
-      <div v-for="vehicle in vehicles" :key="vehicle.id" class="vehicle"
-        style="display: flex; justify-content: space-between;">
+      <h3>Vehicles</h3>
+      <div v-for="vehicle in vehicles" :key="vehicle.id" class="vehicle">
         <div>
           <input v-model="vehicle.name" />
           <input v-model="vehicle.avg_consumption" />
         </div>
 
-        <div style="display: inline;">
+        <div>
           <button @click="updateVehicle(vehicle)">Update</button>
           <button @click="deleteVehicle(vehicle.id)">Delete</button>
         </div>
@@ -73,7 +49,7 @@
       <br>
 
       <h3>Add Vehicle</h3>
-      <div style="display: flex; justify-content: space-between;">
+      <div>
         <div>
           <input v-model="newVehicleName" required placeholder="Vehicle" />
           <input v-model="newVehicleConsumption" placeholder="Consumption" type="number" step="0.1" min="0" />
@@ -88,8 +64,7 @@
       <hr>
 
       <h3>Employees</h3>
-      <div v-for="employee in employees" :key="employee.id" class="employee"
-        style="display: flex; justify-content: space-between;">
+      <div v-for="employee in employees" :key="employee.id" class="employee">
         <div>
           <input v-model="employee.name" />
           <input v-model="employee.surname" />
@@ -98,7 +73,7 @@
           <input v-model="employee.ssn" />
         </div>
 
-        <div style="display: inline;">
+        <div>
           <button @click="updateEmployee(employee)">Update</button>
           <button @click="deleteEmployee(employee.id)">Delete</button>
         </div>
@@ -106,7 +81,7 @@
       <br>
 
       <h3>Add Employee</h3>
-      <div style="display: flex; justify-content: space-between;">
+      <div>
         <div>
           <input v-model="newEmployeeName" required placeholder="Name" />
           <input v-model="newEmployeeSurname" required placeholder="Surname" />
@@ -124,8 +99,7 @@
       <hr>
 
       <h3>Organisations</h3>
-      <div v-for="organisation in organisations" :key="organisation.id" class="oragnisation"
-        style="display: flex; justify-content: space-between;">
+      <div v-for="organisation in organisations" :key="organisation.id" class="oragnisation">
         <div>
           <input v-model="organisation.resp_person" />
           <input v-model="organisation.seal" />
@@ -134,7 +108,7 @@
           <input v-model="organisation.issuer" />
         </div>
 
-        <div style="display: inline;">
+        <div>
           <button @click="updateOrganisation(organisation)">Update</button>
           <button @click="deleteOrganisation(organisation.id)">Delete</button>
         </div>
@@ -142,7 +116,7 @@
       <br>
 
       <h3>Add Organisation</h3>
-      <div style="display: flex; justify-content: space-between;">
+      <div>
         <div>
           <input v-model="newOrganisationRespPerson" required placeholder="Responsible person" />
           <input v-model="newOrganisationSeal" required placeholder="Seal" />
@@ -160,8 +134,7 @@
       <hr>
 
       <h3>Travel Orders</h3>
-      <div v-for="travel_order in travel_orders" :key="travel_order.id" class="travel_order"
-        style="display: flex; justify-content: space-between;">
+      <div v-for="travel_order in travel_orders" :key="travel_order.id" class="travel_order">
         <div>
           <input type="datetime" v-model="travel_order.formatted_start_date" />
           <input type="datetime" v-model="travel_order.formatted_end_date" />
@@ -194,7 +167,7 @@
           </select>
         </div>
 
-        <div style="display: inline;">
+        <div>
           <button @click="updateTravelOrder(travel_order)">Update</button>
           <button @click="deleteTravelOrder(travel_order.id)">Delete</button>
         </div>
@@ -202,7 +175,7 @@
       <br>
 
       <h3>Add Travel Order</h3>
-      <div style="display: flex; justify-content: space-between;">
+      <div>
         <div>
           <input type="date" v-model="newTravelOrderStartDate" required placeholder="Start date" />
           <input type="date" v-model="newTravelOrderEndDate" placeholder="End date" />
@@ -250,8 +223,7 @@
       </template>
 
       <h3>Travel Expences</h3>
-      <div v-for="travel_expence in travel_expences" :key="travel_expence.id" class="travel_expence"
-        style="display: flex; justify-content: space-between;">
+      <div v-for="travel_expence in travel_expences" :key="travel_expence.id" class="travel_expence">
         <div>
           <input v-model="travel_expence.expence_type" />
           <input v-model="travel_expence.start_location" />
@@ -267,7 +239,7 @@
           </select>
         </div>
 
-        <div style="display: inline;">
+        <div>
           <button @click="updateTravelExpence(travel_expence)">Update</button>
           <button @click="deleteTravelExpence(travel_expence.id)">Delete</button>
         </div>
@@ -275,7 +247,7 @@
       <br>
 
       <h3>Add Travel Expence</h3>
-      <div style="display: flex; justify-content: space-between;">
+      <div>
         <div>
           <input v-model="newTravelExpenceExpenceType" required placeholder="Expence Type" />
           <input v-model="newTravelExpenceStartLocation" required placeholder="Strart Location" />
@@ -300,8 +272,7 @@
       <hr>
 
       <h3>Order Employees</h3>
-      <div v-for="order_employee in order_employees" :key="order_employee.id" class="order_employee"
-        style="display: flex; justify-content: space-between;">
+      <div v-for="order_employee in order_employees" :key="order_employee.id" class="order_employee">
         <div>
           <select v-model="order_employee.fk_order">
             <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
@@ -315,14 +286,14 @@
           </select>
         </div>
 
-        <div style="display: inline;">
+        <div>
           <button @click="deleteOrderEmployee(order_employee.fk_order, order_employee.fk_employee)">Delete</button>
         </div>
       </div>
       <br>
 
       <h3>Add Order Employee</h3>
-      <div style="display: flex; justify-content: space-between;">
+      <div>
         <div>
           <select v-model="newOrderEmployeeFkOrder">
             <option disabled value="">-- Select a Travel Order --</option>
