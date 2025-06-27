@@ -10,12 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@codemirror/state": "6.x",
     "@tailwindcss/cli": "^4.1.10",
+    "@tinymce/tinymce-vue": "^6.2.0",
     "axios": "^1.10.0",
-    "codemirror": "^6.0.2",
     "tailwindcss": "^4.1.10",
-    "vue": "^3.5.17",
-    "vue-codemirror": "^6.1.1"
+    "tinymce": "^7.9.1",
+    "vue": "^3.5.17"
   }
 }

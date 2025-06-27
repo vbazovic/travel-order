@@ -1,28 +1,26 @@
 <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-  </head>
-  <body>
-    <template>
-      <codemirror v-model="code" />
-    </template>
-  </body>
-  </html>
+!DOCTYPE html>
+<html lang="en">
 
-<script>
-import { ref, defineComponent } from 'vue';
-import { Codemirror } from 'vue-codemirror';
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="node_modules/vue/dist/vue.global.js"></script>
+  <script src="node_modules/tinymce/tinymce.min.js"></script>
+  <script>
+    tinymce.init({
+      selector: '#test-textarea',
+      license_key: 'gpl|av1h8tw7btv65ttg51ee4i68yib9b3kwmeuu7ygjfxjmsz32'
+    });
+  </script>
+</head>
 
-export default defineComponent({
-  components: {
-    Codemirror,
-  },
-  setup() {
-    const code = ref('// Your code here');
-    return { code };
-  },
-});
-</script>
+<body>
+  <h1>TinyMCE test</h1>
+  <form method="post">
+    <textarea id="test-textarea">Hello, World! <b>TinyMCE</b></textarea>
+  </form>
+</body>
+
+</html>

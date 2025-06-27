@@ -7,6 +7,8 @@
   <title>Vue CRUD with REST API</title>
   <script src="node_modules/vue/dist/vue.global.js"></script>
   <script src="node_modules/axios/dist/axios.js"></script>
+  <script src="node_modules/tinymce/tinymce.min.js"></script>
+  <!-- <script src="node_modules/@tinymce/tinymce-vue/lib/browser/tinymce-vue.min.js"></script> -->
   <style>
     body {
       font-family: sans-serif;
@@ -74,7 +76,7 @@
       <div style="display: flex; justify-content: space-between;">
         <div>
           <input v-model="newVehicleName" required placeholder="Vehicle" />
-          <input v-model="newVehicleConsumption" placeholder="Consumption" type="number" step="0.1" min="0"/>
+          <input v-model="newVehicleConsumption" placeholder="Consumption" type="number" step="0.1" min="0" />
         </div>
 
         <button @click="createVehicle">Add</button>
@@ -166,8 +168,11 @@
           <input v-model="travel_order.task" />
           <input v-model="travel_order.location" />
           <input v-model="travel_order.per_diem" />
-          <input v-model="travel_order.report" />
-          
+
+          <textarea id="report" apiKey="'gpl|av1h8tw7btv65ttg51ee4i68yib9b3kwmeuu7ygjfxjmsz32'"
+            v-model="travel_order.report" ></textarea>
+            
+
           <select v-model="travel_order.state">
             <option v-for="travel_order in travel_orders" :key="travel_order.state" :value="travel_order.state">
               {{ `${travel_order.state}`}}
@@ -175,7 +180,7 @@
           </select>
 
           <input v-model="travel_order.adv_payment" />
-          
+
           <select v-model="travel_order.fk_vehicle">
             <option v-for="vehicle in vehicles" :key="vehicle.id" :value="vehicle.id">
               {{ vehicle.name }}
@@ -203,7 +208,7 @@
           <input type="date" v-model="newTravelOrderEndDate" placeholder="End date" />
           <input v-model="newTravelOrderTask" placeholder="Task" />
           <input v-model="newTravelOrderLocation" required placeholder="Location" />
-          <input v-model="newTravelOrderPerDiem" placeholder="Per Diem" type="number" step="0.1" min="0"/>
+          <input v-model="newTravelOrderPerDiem" placeholder="Per Diem" type="number" step="0.1" min="0" />
           <input v-model="newTravelOrderReport" placeholder="Report" />
 
           <select v-model="newTravelOrderState" required>
@@ -213,9 +218,9 @@
             <option value="in progress">In proggress</option>
           </select>
 
-          <input v-model="newTravelOrderAdvPayment" placeholder="Advance payment" type="number" step="0.1" min="0"/>
+          <input v-model="newTravelOrderAdvPayment" placeholder="Advance payment" type="number" step="0.1" min="0" />
 
-          <input v-model="newTravelOrderFkVehicle" placeholder="FK Vehicle" hidden/>
+          <input v-model="newTravelOrderFkVehicle" placeholder="FK Vehicle" hidden />
           <select v-model="newTravelOrderFkVehicle">
             <option disabled value="">-- Select a vehicle --</option>
             <option v-for="vehicle in vehicles" :key="vehicle.id" :value="vehicle.id">
@@ -223,7 +228,7 @@
             </option>
           </select>
 
-          <input v-model="newTravelOrderFkOrganisation" placeholder="FK Organisation" hidden/>
+          <input v-model="newTravelOrderFkOrganisation" placeholder="FK Organisation" hidden />
           <select v-model="newTravelOrderFkOrganisation">
             <option disabled value="">-- Select a organisation --</option>
             <option v-for="organisation in organisations" :key="organisation.id" :value="organisation.id">
@@ -277,7 +282,7 @@
           <input v-model="newTravelExpenceEndLocation" required placeholder="End Location" />
           <input v-model="newTravelExpenceDistance" required placeholder="Distance" />
           <input v-model="newTravelExpenceReceipt" required placeholder="Receipt" />
-          <input v-model="newTravelExpencePrice" required placeholder="Price" type="number" step="0.1" min="0"/>
+          <input v-model="newTravelExpencePrice" required placeholder="Price" type="number" step="0.1" min="0" />
           <select v-model="newTravelExpenceFkTravelOrder">
             <option disabled value="">-- Select a Travel Order --</option>
             <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
@@ -341,9 +346,8 @@
     </div>
 
     <script>
+
       const { createApp, ref } = Vue;
-
-
 
       createApp({
 
@@ -612,6 +616,12 @@
           };
         }
       }).mount('#app');
+    </script>
+    <script>      
+      tinymce.init({
+        selector: '#report',
+        license_key: 'gpl|av1h8tw7btv65ttg51ee4i68yib9b3kwmeuu7ygjfxjmsz32'
+      });
     </script>
 </body>
 
