@@ -15,14 +15,16 @@
 
 <body class="h-screen p-10 flex flex-col justify-around bg-gray-200 select-none">
   <div id="app">
-    
+
     <div v-if="!token">
       <h1 class="text-3xl font-bold text-center mb-10 text-blue-500">Travel Order</h1>
       <div class="bg-white p-6 text-center rounded-4xl shadow-xl">
         <main class="flex flex-col justify-between gap-y-10">
           <h3 class="font-bold text-xl mb">Login</h3>
-          <input v-model="loginForm.username" placeholder="Username"  class="shadow-[0_0_10px_rgba(0,0,0,0.3)] p-3 pl-6 pr-6 rounded-3xl"/>
-          <input v-model="loginForm.password" type="password" placeholder="Password" class="shadow-[0_0_10px_rgba(0,0,0,0.3)] p-3 pl-6 pr-6 rounded-3xl"/>
+          <input v-model="loginForm.username" placeholder="Username"
+            class="shadow-[0_0_10px_rgba(0,0,0,0.3)] p-3 pl-6 pr-6 rounded-3xl" />
+          <input v-model="loginForm.password" type="password" placeholder="Password"
+            class="shadow-[0_0_10px_rgba(0,0,0,0.3)] p-3 pl-6 pr-6 rounded-3xl" />
           <button @click="login" class="bg-blue-500 text-white font-bold rounded-4xl p-4 shadow-xl">Login</button>
         </main>
       </div>
@@ -30,294 +32,310 @@
 
     <div v-else>
 
-      <!--VEHICLES-->
 
       <div>
-        <h1 class="text-red-500">Vehicle</h1>
-        <button @click="logout">Logout</button>
+        <header class="bg-white flex justify-around pt-4 pb-4 rounded-xl mb-10">
+          <span class="text-2xl font-bold text-blue-500">Travel Order</span>
+          <button @click="logout" class="bg-red-700 p-2 pl-4 pr-4 rounded-3xl text-white font-bold text-sm">Logout</button>
+        </header>
+
+        <main class="bg-white p-4 rounded-xl mb-10">
+          <!--VEHICLES-->
+
+          <div>
+            <h1 class="headers">Vehicle</h1>
+          </div>
+          <hr>
+
+
+          <h3 class="subHeaders">Vehicles:</h3>
+          <div v-for="vehicle in vehicles" :key="vehicle.id" class="vehicle">
+            <div>
+              <input v-model="vehicle.name" class="formInputs"/>
+              <input v-model="vehicle.avg_consumption" class="formInputs"/>
+            </div>
+
+            <div>
+              <button @click="updateVehicle(vehicle)" class="formButtons updateButton">Update</button>
+              <button @click="deleteVehicle(vehicle.id)" class="formButtons deleteButton">Delete</button>
+            </div>
+            <br>
+          </div>
+
+          <h3 class="subHeaders">Add Vehicle:</h3>
+          <div>
+            <div>
+              <input v-model="newVehicleName" required placeholder="Vehicle" class="formInputs"/>
+              <input v-model="newVehicleConsumption" placeholder="Consumption" type="number" step="0.1" min="0" class="formInputs"/>
+            </div>
+
+            <button @click="createVehicle" class="formButtons addButton">Add</button>
+          </div>
+          <br><br>
+
+          <!--EMPLOYEES-->
+          <h1 class="headers">Employee</h1>
+          <hr>
+
+          <h3 class="subHeaders">Employees:</h3>
+          <div v-for="employee in employees" :key="employee.id" class="employee">
+            <div>
+              <input v-model="employee.name" class="formInputs"/>
+              <input v-model="employee.surname" class="formInputs" />
+              <input v-model="employee.position" class="formInputs"/>
+              <input v-model="employee.card_id_num" class="formInputs"/>
+              <input v-model="employee.ssn" class="formInputs"/>
+            </div>
+
+            <div>
+              <button @click="updateEmployee(employee)" class="formButtons updateButton">Update</button>
+              <button @click="deleteEmployee(employee.id)" class="formButtons deleteButton">Delete</button>
+            </div>
+            <br>
+          </div>
+
+          <h3 class="subHeaders">Add Employee:</h3>
+          <div>
+            <div>
+              <input v-model="newEmployeeName" required placeholder="Name" class="formInputs"/>
+              <input v-model="newEmployeeSurname" required placeholder="Surname" class="formInputs"/>
+              <input v-model="newEmployeePosition" required placeholder="Position" class="formInputs"/>
+              <input v-model="newEmployeeCardNum" required placeholder="Card ID Number" class="formInputs"/>
+              <input v-model="newEmployeeSSN" required placeholder="Social Security Number" class="formInputs"/>
+            </div>
+
+            <button @click="createEmployee" class="formButtons addButton">Add</button>
+          </div>
+          <br>
+
+          <!-- ORAGNISATIONS -->
+          <h1 class="headers">Organisation</h1>
+          <hr>
+
+          <h3 class="subHeaders">Organisations:</h3>
+          <div v-for="organisation in organisations" :key="organisation.id" class="oragnisation">
+            <div>
+              <input v-model="organisation.resp_person" class="formInputs"/>
+              <input v-model="organisation.seal" class="formInputs"/>
+              <input v-model="organisation.name" class="formInputs"/>
+              <input v-model="organisation.address" class="formInputs"/>
+              <input v-model="organisation.issuer" class="formInputs"/>
+            </div>
+
+            <div>
+              <button @click="updateOrganisation(organisation)" class="formButtons updateButton">Update</button>
+              <button @click="deleteOrganisation(organisation.id)" class="formButtons deleteButton">Delete</button>
+            </div>
+            <br>
+          </div>
+
+          <h3 class="subHeaders">Add Organisation:</h3>
+          <div>
+            <div>
+              <input v-model="newOrganisationRespPerson" required placeholder="Responsible person" class="formInputs"/>
+              <input v-model="newOrganisationSeal" required placeholder="Seal" class="formInputs"/>
+              <input v-model="newOrganisationName" required placeholder="Name" class="formInputs"/>
+              <input v-model="newOrganisationAddress" required placeholder="Address" class="formInputs"/>
+              <input v-model="newOrganisationIssuer" required placeholder="Issuer" class="formInputs"/>
+            </div>
+
+            <button @click="createOrganisation" class="formButtons addButton">Add</button>
+          </div>
+          <br>
+
+          <!-- TRAVEL ORDERS -->
+          <h1 class="headers">Travel Order</h1>
+          <hr>
+
+          <h3 class="subHeaders">Travel Orders:</h3>
+          <div v-for="travel_order in travel_orders" :key="travel_order.id" class="travel_order">
+            <div>
+              <input type="datetime" v-model="travel_order.formatted_start_date" class="formInputs"/>
+              <input type="datetime" v-model="travel_order.formatted_end_date" class="formInputs"/>
+              <input v-model="travel_order.task" class="formInputs"/>
+              <input v-model="travel_order.location" class="formInputs"/>
+              <input v-model="travel_order.per_diem" class="formInputs"/>
+
+              <textarea id="report" apiKey="'gpl|av1h8tw7btv65ttg51ee4i68yib9b3kwmeuu7ygjfxjmsz32'"
+                v-model="travel_order.report" class="formInputs"></textarea>
+
+
+              <select v-model="travel_order.state" class="formInputs">
+                <option v-for="travel_order in travel_orders" :key="travel_order.state" :value="travel_order.state">
+                  {{ `${travel_order.state}`}}
+                </option>
+              </select>
+
+              <input v-model="travel_order.adv_payment" class="formInputs"/>
+
+              <select v-model="travel_order.fk_vehicle" class="formInputs">
+                <option v-for="vehicle in vehicles" :key="vehicle.id" :value="vehicle.id">
+                  {{ vehicle.name }}
+                </option>
+              </select>
+
+              <select v-model="travel_order.fk_organisation" class="formInputs">
+                <option v-for="organisation in organisations" :key="organisation.id" :value="organisation.id">
+                  {{ organisation.name }}
+                </option>
+              </select>
+            </div>
+
+            <div>
+              <button @click="updateTravelOrder(travel_order)" class="formButtons updateButton">Update</button>
+              <button @click="deleteTravelOrder(travel_order.id)" class="formButtons deleteButton">Delete</button>
+            </div>
+            <br>
+          </div>
+
+          <h3 class="subHeaders">Add Travel Order:</h3>
+          <div>
+            <div>
+              <input type="date" v-model="newTravelOrderStartDate" required placeholder="Start date" class="formInputs" />
+              <input type="date" v-model="newTravelOrderEndDate" placeholder="End date"  class="formInputs"/>
+              <input v-model="newTravelOrderTask" placeholder="Task" class="formInputs"/>
+              <input v-model="newTravelOrderLocation" required placeholder="Location" class="formInputs"/>
+              <input v-model="newTravelOrderPerDiem" placeholder="Per Diem" type="number" step="0.1" min="0" class="formInputs"/>
+              <input v-model="newTravelOrderReport" placeholder="Report" class="formInputs"/>
+
+              <select v-model="newTravelOrderState" required class="formInputs">
+                <option value="" disabled>-- Select a state --</option>
+                <option value="started">Started</option>
+                <option value="ended">Ended</option>
+                <option value="in progress">In proggress</option>
+              </select>
+
+              <input v-model="newTravelOrderAdvPayment" placeholder="Advance payment" type="number" step="0.1"
+                min="0" class="formInputs"/>
+
+              <input v-model="newTravelOrderFkVehicle" placeholder="FK Vehicle" hidden class="formInputs"/>
+              <select v-model="newTravelOrderFkVehicle" class="formInputs">
+                <option disabled value="">-- Select a vehicle --</option>
+                <option v-for="vehicle in vehicles" :key="vehicle.id" :value="vehicle.id">
+                  {{ vehicle.name }}
+                </option>
+              </select>
+
+              <input v-model="newTravelOrderFkOrganisation" placeholder="FK Organisation" hidden class="formInputs"/>
+              <select v-model="newTravelOrderFkOrganisation" class="formInputs">
+                <option disabled value="">-- Select a organisation --</option>
+                <option v-for="organisation in organisations" :key="organisation.id" :value="organisation.id">
+                  {{ organisation.name }}
+                </option>
+              </select>
+            </div>
+
+            <button @click="createTravelOrder" class="formButtons addButton">Add</button>
+          </div>
+          <br>
+
+          <!-- TRAVEL EXPENCES -->
+          <h1 class="headers">Travel Expence</h1>
+          <hr>
+
+          <template>
+            <codemirror v-model="code" />
+          </template>
+
+          <h3 class="subHeaders">Travel Expences:</h3>
+          <div v-for="travel_expence in travel_expences" :key="travel_expence.id" class="travel_expence">
+            <div>
+              <input v-model="travel_expence.expence_type" class="formInputs"/>
+              <input v-model="travel_expence.start_location" class="formInputs"/>
+              <input v-model="travel_expence.end_location" class="formInputs"/>
+              <input v-model="travel_expence.distance" class="formInputs"/>
+              <input v-model="travel_expence.receipt" class="formInputs"/>
+              <input v-model="travel_expence.price" class="formInputs"/>
+
+              <select v-model="travel_expence.fk_travel_order" class="formInputs">
+                <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
+                  {{ `OD ${travel_order.start_date} DO ${travel_order.end_date}: ${travel_order.location}`}}
+                </option>
+              </select>
+            </div>
+
+            <div>
+              <button @click="updateTravelExpence(travel_expence)" class="formButtons updateButton">Update</button>
+              <button @click="deleteTravelExpence(travel_expence.id)" class="formButtons deleteButton">Delete</button>
+            </div>
+            <br>
+          </div>
+
+          <h3 class="subHeaders">Add Travel Expence:</h3>
+          <div>
+            <div>
+              <input v-model="newTravelExpenceExpenceType" required placeholder="Expence Type" class="formInputs"/>
+              <input v-model="newTravelExpenceStartLocation" required placeholder="Strart Location" class="formInputs"/>
+              <input v-model="newTravelExpenceEndLocation" required placeholder="End Location" class="formInputs"/>
+              <input v-model="newTravelExpenceDistance" required placeholder="Distance" class="formInputs"/>
+              <input v-model="newTravelExpenceReceipt" required placeholder="Receipt" class="formInputs"/>
+              <input v-model="newTravelExpencePrice" required placeholder="Price" type="number" step="0.1" min="0" class="formInputs"/>
+              <select v-model="newTravelExpenceFkTravelOrder" class="formInputs">
+                <option disabled value="">-- Select a Travel Order --</option>
+                <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
+                  {{ `OD ${travel_order.start_date} DO ${travel_order.end_date}: ${travel_order.location}`}}
+                </option>
+              </select>
+            </div>
+
+            <button @click="createTravelExpence" class="formButtons addButton">Add</button>
+          </div>
+          <br>
+
+          <!-- ORDER EMPLOYEES -->
+          <h1 class="headers">Order Employee</h1>
+          <hr>
+
+          <h3 class="subHeaders">Order Employees:</h3>
+          <div v-for="order_employee in order_employees" :key="order_employee.id" class="order_employee">
+            <div>
+              <select v-model="order_employee.fk_order" class="formInputs">
+                <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
+                  {{ `OD ${travel_order.start_date} DO ${travel_order.end_date}: ${travel_order.location}`}}
+                </option>
+              </select>
+              <select v-model="order_employee.fk_employee" class="formInputs">
+                <option v-for="employee in employees" :key="employee.id" :value="employee.id">
+                  {{ `${employee.name} ${employee.surname}`}}
+                </option>
+              </select>
+            </div>
+
+            <div>
+              <button @click="deleteOrderEmployee(order_employee.fk_order, order_employee.fk_employee)" class="formButtons deleteButton">Delete</button>
+            </div>
+            <br>
+          </div>
+
+
+          <h3 class="subHeaders">Add Order Employee:</h3>
+          <div>
+            <div>
+              <select v-model="newOrderEmployeeFkOrder"class="formInputs">
+                <option disabled value="">-- Select a Travel Order --</option>
+                <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
+                  {{ `OD ${travel_order.start_date} DO ${travel_order.end_date}: ${travel_order.location}`}}
+                </option>
+              </select>
+
+              <select v-model="newOrderEmployeeFkEmployee" class="formInputs">
+                <option disabled value="">-- Select an employee --</option>
+                <option v-for="employee in employees" :key="employee.id" :value="employee.id">
+                  {{ `${employee.name} ${employee.surname}` }}
+                </option>
+              </select>
+            </div>
+
+            <button @click="createOrderEmployee" class="formButtons addButton">Add</button>
+          </div>
+          <br>
+        </main>
+
+        <footer class="bg-white flex justify-center pt-4 pb-4 rounded-xl mb-10">
+          <span class="text-sm">Travel Order by Aleksa Milošević.</span>
+        </footer>
       </div>
-      <hr>
 
-
-      <h3>Vehicles</h3>
-      <div v-for="vehicle in vehicles" :key="vehicle.id" class="vehicle">
-        <div>
-          <input v-model="vehicle.name" />
-          <input v-model="vehicle.avg_consumption" />
-        </div>
-
-        <div>
-          <button @click="updateVehicle(vehicle)">Update</button>
-          <button @click="deleteVehicle(vehicle.id)">Delete</button>
-        </div>
-      </div>
-      <br>
-
-      <h3>Add Vehicle</h3>
-      <div>
-        <div>
-          <input v-model="newVehicleName" required placeholder="Vehicle" />
-          <input v-model="newVehicleConsumption" placeholder="Consumption" type="number" step="0.1" min="0" />
-        </div>
-
-        <button @click="createVehicle">Add</button>
-      </div>
-      <br>
-
-      <!--EMPLOYEES-->
-      <h1>Employee</h1>
-      <hr>
-
-      <h3>Employees</h3>
-      <div v-for="employee in employees" :key="employee.id" class="employee">
-        <div>
-          <input v-model="employee.name" />
-          <input v-model="employee.surname" />
-          <input v-model="employee.position" />
-          <input v-model="employee.card_id_num" />
-          <input v-model="employee.ssn" />
-        </div>
-
-        <div>
-          <button @click="updateEmployee(employee)">Update</button>
-          <button @click="deleteEmployee(employee.id)">Delete</button>
-        </div>
-      </div>
-      <br>
-
-      <h3>Add Employee</h3>
-      <div>
-        <div>
-          <input v-model="newEmployeeName" required placeholder="Name" />
-          <input v-model="newEmployeeSurname" required placeholder="Surname" />
-          <input v-model="newEmployeePosition" required placeholder="Position" />
-          <input v-model="newEmployeeCardNum" required placeholder="Card ID Number" />
-          <input v-model="newEmployeeSSN" required placeholder="Social Security Number" />
-        </div>
-
-        <button @click="createEmployee">Add</button>
-      </div>
-      <br>
-
-      <!-- ORAGNISATIONS -->
-      <h1>Organisation</h1>
-      <hr>
-
-      <h3>Organisations</h3>
-      <div v-for="organisation in organisations" :key="organisation.id" class="oragnisation">
-        <div>
-          <input v-model="organisation.resp_person" />
-          <input v-model="organisation.seal" />
-          <input v-model="organisation.name" />
-          <input v-model="organisation.address" />
-          <input v-model="organisation.issuer" />
-        </div>
-
-        <div>
-          <button @click="updateOrganisation(organisation)">Update</button>
-          <button @click="deleteOrganisation(organisation.id)">Delete</button>
-        </div>
-      </div>
-      <br>
-
-      <h3>Add Organisation</h3>
-      <div>
-        <div>
-          <input v-model="newOrganisationRespPerson" required placeholder="Responsible person" />
-          <input v-model="newOrganisationSeal" required placeholder="Seal" />
-          <input v-model="newOrganisationName" required placeholder="Name" />
-          <input v-model="newOrganisationAddress" required placeholder="Address" />
-          <input v-model="newOrganisationIssuer" required placeholder="Issuer" />
-        </div>
-
-        <button @click="createOrganisation">Add</button>
-      </div>
-      <br>
-
-      <!-- TRAVEL ORDERS -->
-      <h1>Travel Order</h1>
-      <hr>
-
-      <h3>Travel Orders</h3>
-      <div v-for="travel_order in travel_orders" :key="travel_order.id" class="travel_order">
-        <div>
-          <input type="datetime" v-model="travel_order.formatted_start_date" />
-          <input type="datetime" v-model="travel_order.formatted_end_date" />
-          <input v-model="travel_order.task" />
-          <input v-model="travel_order.location" />
-          <input v-model="travel_order.per_diem" />
-
-          <textarea id="report" apiKey="'gpl|av1h8tw7btv65ttg51ee4i68yib9b3kwmeuu7ygjfxjmsz32'"
-            v-model="travel_order.report" ></textarea>
-            
-
-          <select v-model="travel_order.state">
-            <option v-for="travel_order in travel_orders" :key="travel_order.state" :value="travel_order.state">
-              {{ `${travel_order.state}`}}
-            </option>
-          </select>
-
-          <input v-model="travel_order.adv_payment" />
-
-          <select v-model="travel_order.fk_vehicle">
-            <option v-for="vehicle in vehicles" :key="vehicle.id" :value="vehicle.id">
-              {{ vehicle.name }}
-            </option>
-          </select>
-
-          <select v-model="travel_order.fk_organisation">
-            <option v-for="organisation in organisations" :key="organisation.id" :value="organisation.id">
-              {{ organisation.name }}
-            </option>
-          </select>
-        </div>
-
-        <div>
-          <button @click="updateTravelOrder(travel_order)">Update</button>
-          <button @click="deleteTravelOrder(travel_order.id)">Delete</button>
-        </div>
-      </div>
-      <br>
-
-      <h3>Add Travel Order</h3>
-      <div>
-        <div>
-          <input type="date" v-model="newTravelOrderStartDate" required placeholder="Start date" />
-          <input type="date" v-model="newTravelOrderEndDate" placeholder="End date" />
-          <input v-model="newTravelOrderTask" placeholder="Task" />
-          <input v-model="newTravelOrderLocation" required placeholder="Location" />
-          <input v-model="newTravelOrderPerDiem" placeholder="Per Diem" type="number" step="0.1" min="0" />
-          <input v-model="newTravelOrderReport" placeholder="Report" />
-
-          <select v-model="newTravelOrderState" required>
-            <option value="" disabled>-- Select a state --</option>
-            <option value="started">Started</option>
-            <option value="ended">Ended</option>
-            <option value="in progress">In proggress</option>
-          </select>
-
-          <input v-model="newTravelOrderAdvPayment" placeholder="Advance payment" type="number" step="0.1" min="0" />
-
-          <input v-model="newTravelOrderFkVehicle" placeholder="FK Vehicle" hidden />
-          <select v-model="newTravelOrderFkVehicle">
-            <option disabled value="">-- Select a vehicle --</option>
-            <option v-for="vehicle in vehicles" :key="vehicle.id" :value="vehicle.id">
-              {{ vehicle.name }}
-            </option>
-          </select>
-
-          <input v-model="newTravelOrderFkOrganisation" placeholder="FK Organisation" hidden />
-          <select v-model="newTravelOrderFkOrganisation">
-            <option disabled value="">-- Select a organisation --</option>
-            <option v-for="organisation in organisations" :key="organisation.id" :value="organisation.id">
-              {{ organisation.name }}
-            </option>
-          </select>
-        </div>
-
-        <button @click="createTravelOrder">Add</button>
-      </div>
-      <br>
-
-      <!-- TRAVEL EXPENCES -->
-      <h1>Travel Expence</h1>
-      <hr>
-
-      <template>
-        <codemirror v-model="code" />
-      </template>
-
-      <h3>Travel Expences</h3>
-      <div v-for="travel_expence in travel_expences" :key="travel_expence.id" class="travel_expence">
-        <div>
-          <input v-model="travel_expence.expence_type" />
-          <input v-model="travel_expence.start_location" />
-          <input v-model="travel_expence.end_location" />
-          <input v-model="travel_expence.distance" />
-          <input v-model="travel_expence.receipt" />
-          <input v-model="travel_expence.price" />
-
-          <select v-model="travel_expence.fk_travel_order">
-            <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
-              {{ `OD ${travel_order.start_date} DO ${travel_order.end_date}: ${travel_order.location}`}}
-            </option>
-          </select>
-        </div>
-
-        <div>
-          <button @click="updateTravelExpence(travel_expence)">Update</button>
-          <button @click="deleteTravelExpence(travel_expence.id)">Delete</button>
-        </div>
-      </div>
-      <br>
-
-      <h3>Add Travel Expence</h3>
-      <div>
-        <div>
-          <input v-model="newTravelExpenceExpenceType" required placeholder="Expence Type" />
-          <input v-model="newTravelExpenceStartLocation" required placeholder="Strart Location" />
-          <input v-model="newTravelExpenceEndLocation" required placeholder="End Location" />
-          <input v-model="newTravelExpenceDistance" required placeholder="Distance" />
-          <input v-model="newTravelExpenceReceipt" required placeholder="Receipt" />
-          <input v-model="newTravelExpencePrice" required placeholder="Price" type="number" step="0.1" min="0" />
-          <select v-model="newTravelExpenceFkTravelOrder">
-            <option disabled value="">-- Select a Travel Order --</option>
-            <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
-              {{ `OD ${travel_order.start_date} DO ${travel_order.end_date}: ${travel_order.location}`}}
-            </option>
-          </select>
-        </div>
-
-        <button @click="createTravelExpence">Add</button>
-      </div>
-      <br>
-
-      <!-- ORDER EMPLOYEES -->
-      <h1>Order Employee</h1>
-      <hr>
-
-      <h3>Order Employees</h3>
-      <div v-for="order_employee in order_employees" :key="order_employee.id" class="order_employee">
-        <div>
-          <select v-model="order_employee.fk_order">
-            <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
-              {{ `OD ${travel_order.start_date} DO ${travel_order.end_date}: ${travel_order.location}`}}
-            </option>
-          </select>
-          <select v-model="order_employee.fk_employee">
-            <option v-for="employee in employees" :key="employee.id" :value="employee.id">
-              {{ `${employee.name} ${employee.surname}`}}
-            </option>
-          </select>
-        </div>
-
-        <div>
-          <button @click="deleteOrderEmployee(order_employee.fk_order, order_employee.fk_employee)">Delete</button>
-        </div>
-      </div>
-      <br>
-
-      <h3>Add Order Employee</h3>
-      <div>
-        <div>
-          <select v-model="newOrderEmployeeFkOrder">
-            <option disabled value="">-- Select a Travel Order --</option>
-            <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
-              {{ `OD ${travel_order.start_date} DO ${travel_order.end_date}: ${travel_order.location}`}}
-            </option>
-          </select>
-
-          <select v-model="newOrderEmployeeFkEmployee">
-            <option disabled value="">-- Select an employee --</option>
-            <option v-for="employee in employees" :key="employee.id" :value="employee.id">
-              {{ `${employee.name} ${employee.surname}` }}
-            </option>
-          </select>
-        </div>
-
-        <button @click="createOrderEmployee">Add</button>
-      </div>
-      <br>
 
     </div>
 
