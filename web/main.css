@@ -174,9 +174,6 @@
   }
 }
 @layer utilities {
-  .mt-10 {
-    margin-top: calc(var(--spacing) * 10);
-  }
   .mb-10 {
     margin-bottom: calc(var(--spacing) * 10);
   }
@@ -300,14 +297,15 @@
   .text-white {
     color: var(--color-white);
   }
-  .italic {
-    font-style: italic;
-  }
   .underline {
     text-decoration-line: underline;
   }
   .shadow-\[0_0_10px_rgba\(0\,0\,0\,0\.3\)\] {
     --tw-shadow: 0 0 10px var(--tw-shadow-color, rgba(0,0,0,0.3));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-md {
+    --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 2px 4px -2px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
   .shadow-xl {
@@ -329,6 +327,7 @@
 }
 .subHeaders {
   margin-top: 20px;
+  margin-bottom: 10px;
   font-size: 18px;
   font-weight: bold;
 }
@@ -351,13 +350,13 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 .deleteButton {
-  background-color: red;
+  background-color: rgb(220, 38, 38);
 }
 .updateButton {
-  background-color: blue;
+  background-color: rgb(59, 130, 246);
 }
 .addButton {
-  background-color: green;
+  background-color: rgb(34, 197, 94);
 }
 @property --tw-border-style {
   syntax: "*";

@@ -36,7 +36,7 @@
       <div>
         <header class="bg-white flex justify-around pt-4 pb-4 rounded-xl mb-10">
           <span class="text-2xl font-bold text-blue-500">Travel Order</span>
-          <button @click="logout" class="bg-red-700 p-2 pl-4 pr-4 rounded-3xl text-white font-bold text-sm">Logout</button>
+          <button @click="logout" class="bg-red-700 p-2 pl-4 pr-4 rounded-3xl text-white font-bold text-sm shadow-md">Logout</button>
         </header>
 
         <main class="bg-white p-4 rounded-xl mb-10">
@@ -51,8 +51,13 @@
           <h3 class="subHeaders">Vehicles:</h3>
           <div v-for="vehicle in vehicles" :key="vehicle.id" class="vehicle">
             <div>
-              <input v-model="vehicle.name" class="formInputs"/>
-              <input v-model="vehicle.avg_consumption" class="formInputs"/>
+              <label for="Name">Name:
+                <input v-model="vehicle.name" class="formInputs"/>
+              </label>
+              
+              <label for="Average Consumption">Average Consumtion:
+                <input v-model="vehicle.avg_consumption" class="formInputs"/>
+              </label>
             </div>
 
             <div>
@@ -80,11 +85,25 @@
           <h3 class="subHeaders">Employees:</h3>
           <div v-for="employee in employees" :key="employee.id" class="employee">
             <div>
-              <input v-model="employee.name" class="formInputs"/>
-              <input v-model="employee.surname" class="formInputs" />
-              <input v-model="employee.position" class="formInputs"/>
-              <input v-model="employee.card_id_num" class="formInputs"/>
-              <input v-model="employee.ssn" class="formInputs"/>
+              <label for="Name">Name:
+                <input v-model="employee.name" class="formInputs"/>
+              </label>
+
+              <label for="Surname">Surname:
+                <input v-model="employee.surname" class="formInputs" />
+              </label>
+
+              <label for="Position">Position:
+                <input v-model="employee.position" class="formInputs"/>
+              </label>
+
+              <label for="Card Id Number">Card ID Number:
+                <input v-model="employee.card_id_num" class="formInputs"/>
+              </label>
+
+              <label for="SSN">SSN:
+                <input v-model="employee.ssn" class="formInputs"/>
+              </label>
             </div>
 
             <div>
@@ -115,11 +134,25 @@
           <h3 class="subHeaders">Organisations:</h3>
           <div v-for="organisation in organisations" :key="organisation.id" class="oragnisation">
             <div>
-              <input v-model="organisation.resp_person" class="formInputs"/>
-              <input v-model="organisation.seal" class="formInputs"/>
-              <input v-model="organisation.name" class="formInputs"/>
-              <input v-model="organisation.address" class="formInputs"/>
-              <input v-model="organisation.issuer" class="formInputs"/>
+              <label for="Responsible Person">Responsible Person:
+                <input v-model="organisation.resp_person" class="formInputs"/>
+              </label>
+              
+              <label for="Seal">Seal:
+                <input v-model="organisation.seal" class="formInputs"/>
+              </label>
+              
+              <label for="Name">Name:
+                <input v-model="organisation.name" class="formInputs"/>
+              </label>
+              
+              <label for="Address">Address:
+                <input v-model="organisation.address" class="formInputs"/>
+              </label>
+              
+              <label for="Issuer">Issuer:
+                <input v-model="organisation.issuer" class="formInputs"/>
+              </label>
             </div>
 
             <div>
@@ -150,35 +183,59 @@
           <h3 class="subHeaders">Travel Orders:</h3>
           <div v-for="travel_order in travel_orders" :key="travel_order.id" class="travel_order">
             <div>
-              <input type="datetime" v-model="travel_order.formatted_start_date" class="formInputs"/>
-              <input type="datetime" v-model="travel_order.formatted_end_date" class="formInputs"/>
-              <input v-model="travel_order.task" class="formInputs"/>
-              <input v-model="travel_order.location" class="formInputs"/>
-              <input v-model="travel_order.per_diem" class="formInputs"/>
+              <label for="Start date">Start date:
+                <input type="datetime" v-model="travel_order.formatted_start_date" class="formInputs"/>
+              </label>
+              
 
-              <textarea id="report" apiKey="'gpl|av1h8tw7btv65ttg51ee4i68yib9b3kwmeuu7ygjfxjmsz32'"
+              <label for="End date">End date:
+                <input type="datetime" v-model="travel_order.formatted_end_date" class="formInputs"/>
+              </label>
+              
+              <label for="Order Task">Order Task:
+                <input v-model="travel_order.task" class="formInputs"/>
+              </label>
+              
+              <label for="Location">Location:
+                <input v-model="travel_order.location" class="formInputs"/>
+              </label>
+              
+              <label for="Per Diem">Per Diem:
+                <input v-model="travel_order.per_diem" class="formInputs"/>
+              </label>
+              
+              <label for="Report">Report:
+                <textarea id="report" apiKey="'gpl|av1h8tw7btv65ttg51ee4i68yib9b3kwmeuu7ygjfxjmsz32'"
                 v-model="travel_order.report" class="formInputs"></textarea>
-
-
-              <select v-model="travel_order.state" class="formInputs">
+              </label>
+              
+              <label for="State">State:
+                <select v-model="travel_order.state" class="formInputs">
                 <option v-for="travel_order in travel_orders" :key="travel_order.state" :value="travel_order.state">
                   {{ `${travel_order.state}`}}
                 </option>
               </select>
+              </label>
 
-              <input v-model="travel_order.adv_payment" class="formInputs"/>
+              <label for="Advance Payment">Advance Payment:
+                <input v-model="travel_order.adv_payment" class="formInputs"/>
+              </label>
 
-              <select v-model="travel_order.fk_vehicle" class="formInputs">
+              <label for="Vehicle Name:">Vehicle Name:
+                <select v-model="travel_order.fk_vehicle" class="formInputs">
                 <option v-for="vehicle in vehicles" :key="vehicle.id" :value="vehicle.id">
                   {{ vehicle.name }}
                 </option>
               </select>
+              </label>              
 
-              <select v-model="travel_order.fk_organisation" class="formInputs">
+              <label for="Organisation Name">Organisation Name:
+                <select v-model="travel_order.fk_organisation" class="formInputs">
                 <option v-for="organisation in organisations" :key="organisation.id" :value="organisation.id">
                   {{ organisation.name }}
                 </option>
               </select>
+              </label>
             </div>
 
             <div>
@@ -240,18 +297,37 @@
           <h3 class="subHeaders">Travel Expences:</h3>
           <div v-for="travel_expence in travel_expences" :key="travel_expence.id" class="travel_expence">
             <div>
-              <input v-model="travel_expence.expence_type" class="formInputs"/>
-              <input v-model="travel_expence.start_location" class="formInputs"/>
-              <input v-model="travel_expence.end_location" class="formInputs"/>
-              <input v-model="travel_expence.distance" class="formInputs"/>
-              <input v-model="travel_expence.receipt" class="formInputs"/>
-              <input v-model="travel_expence.price" class="formInputs"/>
+              <label for="Expence Type">Expence Type:
+                <input v-model="travel_expence.expence_type" class="formInputs"/>
+              </label>
 
-              <select v-model="travel_expence.fk_travel_order" class="formInputs">
+              <label for="Start Location">Start Location:
+                <input v-model="travel_expence.start_location" class="formInputs"/>
+              </label>
+              
+              <label for="End Location">End Location:
+                <input v-model="travel_expence.end_location" class="formInputs"/>
+              </label>
+              
+              <label for="Distance">Distance:
+                <input v-model="travel_expence.distance" class="formInputs"/>
+              </label>
+              
+              <label for="Receipt">Receipt:
+                <input v-model="travel_expence.receipt" class="formInputs"/>
+              </label>
+              
+              <label for="Price">Price:
+                <input v-model="travel_expence.price" class="formInputs"/>
+              </label>
+              
+              <label for="Travel Order:">Travel Order:
+                <select v-model="travel_expence.fk_travel_order" class="formInputs">
                 <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
                   {{ `OD ${travel_order.start_date} DO ${travel_order.end_date}: ${travel_order.location}`}}
                 </option>
               </select>
+              </label>
             </div>
 
             <div>
@@ -289,16 +365,21 @@
           <h3 class="subHeaders">Order Employees:</h3>
           <div v-for="order_employee in order_employees" :key="order_employee.id" class="order_employee">
             <div>
-              <select v-model="order_employee.fk_order" class="formInputs">
+              <label for="Travel Order">Travel Order:
+                <select v-model="order_employee.fk_order" class="formInputs">
                 <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
                   {{ `OD ${travel_order.start_date} DO ${travel_order.end_date}: ${travel_order.location}`}}
                 </option>
               </select>
-              <select v-model="order_employee.fk_employee" class="formInputs">
+              </label>
+              
+              <label for="Employee">Employee:
+                <select v-model="order_employee.fk_employee" class="formInputs">
                 <option v-for="employee in employees" :key="employee.id" :value="employee.id">
                   {{ `${employee.name} ${employee.surname}`}}
                 </option>
               </select>
+              </label>
             </div>
 
             <div>
@@ -332,7 +413,7 @@
         </main>
 
         <footer class="bg-white flex justify-center pt-4 pb-4 rounded-xl mb-10">
-          <span class="text-sm">Travel Order by Aleksa Milošević.</span>
+          <span class="text-sm">Travel Order made by Aleksa Milošević.</span>
         </footer>
       </div>
 

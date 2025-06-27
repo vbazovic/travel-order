@@ -7,6 +7,7 @@
 
 .subHeaders{
   margin-top: 20px;
+  margin-bottom: 10px;
   font-size: 18px;
   font-weight: bold;
 }
@@ -32,13 +33,13 @@
 }
 
 .deleteButton{
-  background-color: red;
+  background-color: rgb(220, 38, 38);
 }
 
 .updateButton{
-  background-color: blue;
+  background-color: rgb(59, 130, 246);
 }
 
 .addButton{
-  background-color: green;
+  background-color: rgb(34, 197, 94);
 }
