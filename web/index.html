@@ -8,19 +8,24 @@
   <script src="node_modules/vue/dist/vue.global.js"></script>
   <script src="node_modules/axios/dist/axios.js"></script>
   <script src="node_modules/tinymce/tinymce.min.js"></script>
-  <!-- <script src="node_modules/@tinymce/tinymce-vue/lib/browser/tinymce-vue.min.js"></script> -->
+  <script src="node_modules/@tinymce/tinymce-vue/lib/browser/tinymce-vue.min.js"></script>
 
-  <link href="main.css" rel="stylesheet">
+  <link href="main.css?ver=1" rel="stylesheet">
 </head>
 
-<body>
+<body class="h-screen p-10 flex flex-col justify-around bg-gray-200 select-none">
   <div id="app">
-
+    
     <div v-if="!token">
-      <h3>Login</h3>
-      <input v-model="loginForm.username" placeholder="Username" />
-      <input v-model="loginForm.password" type="password" placeholder="Password" />
-      <button @click="login">Login</button>
+      <h1 class="text-3xl font-bold text-center mb-10 text-blue-500">Travel Order</h1>
+      <div class="bg-white p-6 text-center rounded-4xl shadow-xl">
+        <main class="flex flex-col justify-between gap-y-10">
+          <h3 class="font-bold text-xl mb">Login</h3>
+          <input v-model="loginForm.username" placeholder="Username"  class="shadow-[0_0_10px_rgba(0,0,0,0.3)] p-3 pl-6 pr-6 rounded-3xl"/>
+          <input v-model="loginForm.password" type="password" placeholder="Password" class="shadow-[0_0_10px_rgba(0,0,0,0.3)] p-3 pl-6 pr-6 rounded-3xl"/>
+          <button @click="login" class="bg-blue-500 text-white font-bold rounded-4xl p-4 shadow-xl">Login</button>
+        </main>
+      </div>
     </div>
 
     <div v-else>
@@ -28,7 +33,7 @@
       <!--VEHICLES-->
 
       <div>
-        <h1>Vehicle</h1>
+        <h1 class="text-red-500">Vehicle</h1>
         <button @click="logout">Logout</button>
       </div>
       <hr>
@@ -588,12 +593,12 @@
         }
       }).mount('#app');
     </script>
-    <script>      
+    <!-- <script>      
       tinymce.init({
         selector: '#report',
         license_key: 'gpl|av1h8tw7btv65ttg51ee4i68yib9b3kwmeuu7ygjfxjmsz32'
       });
-    </script>
+    </script> -->
 </body>
 
 </html>
