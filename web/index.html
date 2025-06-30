@@ -65,7 +65,7 @@
                 <input v-model="vehicle.name" class="formInputs"/>
               </label>
               
-              <label for="Average Consumption">Average Consumtion:
+              <label for="Average Consumption">Average Consumtion (l/100km):
                 <input v-model="vehicle.avg_consumption" class="formInputs"/>
               </label>
             </div>
@@ -83,7 +83,7 @@
           <div class="md:w-[80%]">
             
               <input v-model="newVehicleName" required placeholder="Vehicle" class="formInputs"/>
-              <input v-model="newVehicleConsumption" placeholder="Consumption" type="number" step="0.1" min="0" class="formInputs"/>
+              <input v-model="newVehicleConsumption" placeholder="Consumption (l/100km)" type="number" step="0.1" min="0" class="formInputs"/>
             
 
             <button @click="createVehicle" class="formButtons addButton">Add</button>
@@ -221,7 +221,7 @@
                 <input v-model="travel_order.location" class="formInputs"/>
               </label>
               
-              <label for="Per Diem">Per Diem:
+              <label for="Per Diem">Per Diem (euro/s):
                 <input v-model="travel_order.per_diem" class="formInputs"/>
               </label>
               
@@ -238,7 +238,7 @@
               </select>
               </label>
 
-              <label for="Advance Payment">Advance Payment:
+              <label for="Advance Payment">Advance Payment (euro/s):
                 <input v-model="travel_order.adv_payment" class="formInputs"/>
               </label>
 
@@ -275,7 +275,7 @@
               <input type="date" v-model="newTravelOrderEndDate" placeholder="End date"  class="formInputs"/>
               <input v-model="newTravelOrderTask" placeholder="Task" class="formInputs"/>
               <input v-model="newTravelOrderLocation" required placeholder="Location" class="formInputs"/>
-              <input v-model="newTravelOrderPerDiem" placeholder="Per Diem" type="number" step="0.1" min="0" class="formInputs"/>
+              <input v-model="newTravelOrderPerDiem" placeholder="Per Diem (euro/s)" type="number" step="0.1" min="0" class="formInputs"/>
               <input v-model="newTravelOrderReport" placeholder="Report" class="formInputs"/>
 
               <select v-model="newTravelOrderState" required class="formInputs">
@@ -285,7 +285,7 @@
                 <option value="in progress">In proggress</option>
               </select>
 
-              <input v-model="newTravelOrderAdvPayment" placeholder="Advance payment" type="number" step="0.1"
+              <input v-model="newTravelOrderAdvPayment" placeholder="Advance payment (euro/s)" type="number" step="0.1"
                 min="0" class="formInputs"/>
 
               <input v-model="newTravelOrderFkVehicle" placeholder="FK Vehicle" hidden class="formInputs"/>
@@ -318,12 +318,17 @@
             <codemirror v-model="code" />
           </template>
 
-          <h3 class="subHeaders">Travel Expences:{{travel_expences.length}}</h3>
+          <h3 class="subHeaders">Travel Expences: {{travel_expences.length}}</h3>
           <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
           <div v-for="travel_expence in travel_expences" :key="travel_expence.id" class="travel_expence md:w-2/3">
             <div>
               <label for="Expence Type">Expence Type:
-                <input v-model="travel_expence.expence_type" class="formInputs"/>
+                <!-- <input type="text" v-model="travel_expence.expence_type" hidden/> -->
+                <select v-model="travel_expence.expence_type" id="" class="formInputs">
+                  <option value="Travel">Travel Costs</option>
+                  <option value="Food">Food and Drinks</option>
+                  <option value="Other">Other</option>
+                </select>
               </label>
 
               <label for="Start Location">Start Location:
@@ -342,7 +347,7 @@
                 <input v-model="travel_expence.receipt" class="formInputs"/>
               </label>
               
-              <label for="Price">Price:
+              <label for="Price">Price (euro/s):
                 <input v-model="travel_expence.price" class="formInputs"/>
               </label>
               
@@ -367,12 +372,17 @@
           <div class="md:w-[80%]">
           <div>
             <div>
-              <input v-model="newTravelExpenceExpenceType" required placeholder="Expence Type" class="formInputs"/>
+                <select v-model="newTravelExpenceExpenceType" id="" class="formInputs">
+                  <option value="" disabled>-- Select Expence Type --</option>
+                  <option value="Travel">Travel Costs</option>
+                  <option value="Food">Food and Drinks</option>
+                  <option value="Other">Other</option>
+                </select>
               <input v-model="newTravelExpenceStartLocation" required placeholder="Strart Location" class="formInputs"/>
               <input v-model="newTravelExpenceEndLocation" required placeholder="End Location" class="formInputs"/>
               <input v-model="newTravelExpenceDistance" required placeholder="Distance" class="formInputs"/>
               <input v-model="newTravelExpenceReceipt" required placeholder="Receipt" class="formInputs"/>
-              <input v-model="newTravelExpencePrice" required placeholder="Price" type="number" step="0.1" min="0" class="formInputs"/>
+              <input v-model="newTravelExpencePrice" required placeholder="Price (euro/s)" type="number" step="0.1" min="0" class="formInputs"/>
               <select v-model="newTravelExpenceFkTravelOrder" class="formInputs">
                 <option disabled value="">-- Select a Travel Order --</option>
                 <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
