@@ -50,7 +50,7 @@
 
           <h3 class="subHeaders">Vehicles:</h3>
           
-          <div class="md:grid md:grid-cols-2 md:gap-10 md:place-items-center">
+          <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
             <div v-for="vehicle in vehicles" :key="vehicle.id" class="vehicle md:w-2/3">
             <div>
               <label for="Name">Name:
@@ -87,7 +87,7 @@
           <hr>
 
           <h3 class="subHeaders">Employees:</h3>
-          <div class="md:grid md:grid-cols-2 md:gap-10 md:place-items-center">
+          <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
           <div v-for="employee in employees" :key="employee.id" class="employee md:w-2/3">
             <div>
               <label for="Name">Name:
@@ -140,7 +140,7 @@
           <hr>
 
           <h3 class="subHeaders">Organisations:</h3>
-          <div class="md:grid md:grid-cols-2 md:gap-10 md:place-items-center">
+          <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
           <div v-for="organisation in organisations" :key="organisation.id" class="oragnisation md:w-3/4">
             <div>
               <label for="Responsible Person">Responsible Person:
@@ -193,7 +193,7 @@
           <hr>
 
           <h3 class="subHeaders">Travel Orders:</h3>
-          <div class="md:grid md:grid-cols-2 md:gap-10 md:place-items-center">
+          <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
           <div v-for="travel_order in travel_orders" :key="travel_order.id" class="travel_order md:w-2/3">
             <div>
               <label for="Start date">Start date:
@@ -311,7 +311,7 @@
           </template>
 
           <h3 class="subHeaders">Travel Expences:</h3>
-          <div class="md:grid md:grid-cols-2 md:gap-10 md:place-items-center">
+          <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
           <div v-for="travel_expence in travel_expences" :key="travel_expence.id" class="travel_expence md:w-2/3">
             <div>
               <label for="Expence Type">Expence Type:
@@ -341,7 +341,7 @@
               <label for="Travel Order:">Travel Order:
                 <select v-model="travel_expence.fk_travel_order" class="formInputs">
                 <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
-                  {{ `OD ${travel_order.start_date} DO ${travel_order.end_date}: ${travel_order.location}`}}
+                  {{ `From ${travel_order.formatted_start_date} To ${travel_order.formatted_end_date} Location: ${travel_order.location}`}}
                 </option>
               </select>
               </label>
@@ -368,7 +368,7 @@
               <select v-model="newTravelExpenceFkTravelOrder" class="formInputs">
                 <option disabled value="">-- Select a Travel Order --</option>
                 <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
-                  {{ `OD ${travel_order.start_date} DO ${travel_order.end_date}: ${travel_order.location}`}}
+                  {{ `From ${travel_order.formatted_start_date} To ${travel_order.formatted_end_date} Location: ${travel_order.location}`}}
                 </option>
               </select>
             </div>
@@ -383,13 +383,13 @@
           <hr>
 
           <h3 class="subHeaders">Order Employees:</h3>
-          <div class="md:grid md:grid-cols-2 md:gap-10 md:place-items-center">
+          <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
           <div v-for="order_employee in order_employees" :key="order_employee.id" class="order_employee md:w-2/3">
             <div>
               <label for="Travel Order">Travel Order:
                 <select v-model="order_employee.fk_order" class="formInputs">
                 <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
-                  {{ `OD ${travel_order.start_date} DO ${travel_order.end_date}: ${travel_order.location}`}}
+                  {{ `From ${travel_order.formatted_start_date} To ${travel_order.formatted_end_date} Location: ${travel_order.location}`}}
                 </option>
               </select>
               </label>
@@ -417,7 +417,7 @@
               <select v-model="newOrderEmployeeFkOrder"class="formInputs">
                 <option disabled value="">-- Select a Travel Order --</option>
                 <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
-                  {{ `OD ${travel_order.start_date} DO ${travel_order.end_date}: ${travel_order.location}`}}
+                  {{ `From ${travel_order.formatted_start_date} To ${travel_order.formatted_end_date} Location: ${travel_order.location}`}}
                 </option>
               </select>
 
