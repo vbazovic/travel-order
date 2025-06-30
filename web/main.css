@@ -8,8 +8,10 @@
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
     --color-red-700: oklch(50.5% 0.213 27.518);
+    --color-red-900: oklch(39.6% 0.141 25.723);
     --color-blue-500: oklch(62.3% 0.214 259.815);
     --color-gray-200: oklch(92.8% 0.006 264.531);
+    --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
     --text-sm: 0.875rem;
@@ -365,6 +367,16 @@
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
+  .dark\:bg-black {
+    @media (prefers-color-scheme: dark) {
+      background-color: var(--color-black);
+    }
+  }
+  .dark\:text-red-900 {
+    @media (prefers-color-scheme: dark) {
+      color: var(--color-red-900);
+    }
+  }
 }
 .headers {
   font-size: 22px;
@@ -403,6 +415,9 @@
 }
 .addButton {
   background-color: rgb(34, 197, 94);
+}
+.dark {
+  background-color: black;
 }
 @property --tw-font-weight {
   syntax: "*";

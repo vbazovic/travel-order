@@ -45,3 +45,7 @@
 .addButton{
   background-color: rgb(34, 197, 94);
 }
+
+.dark{
+  background-color: black;
+}
