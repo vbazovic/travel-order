@@ -48,8 +48,7 @@
           <hr>
 
 
-          <h3 class="subHeaders">Vehicles:</h3>
-          
+          <h3 class="subHeaders">Vehicles: {{vehicles.length}}</h3>
           <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
             <div v-for="vehicle in vehicles" :key="vehicle.id" class="vehicle md:w-2/3">
             <div>
@@ -72,11 +71,11 @@
           
 
           <h3 class="subHeaders">Add Vehicle:</h3>
-          <div class="md:w-[90%]">
-            <div>
+          <div class="md:w-[80%]">
+            
               <input v-model="newVehicleName" required placeholder="Vehicle" class="formInputs"/>
               <input v-model="newVehicleConsumption" placeholder="Consumption" type="number" step="0.1" min="0" class="formInputs"/>
-            </div>
+            
 
             <button @click="createVehicle" class="formButtons addButton">Add</button>
           </div>
@@ -86,7 +85,7 @@
           <h1 class="headers">Employee</h1>
           <hr>
 
-          <h3 class="subHeaders">Employees:</h3>
+          <h3 class="subHeaders">Employees: {{employees.length}}</h3>
           <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
           <div v-for="employee in employees" :key="employee.id" class="employee md:w-2/3">
             <div>
@@ -120,7 +119,7 @@
           </div>
 
           <h3 class="subHeaders">Add Employee:</h3>
-          <div class="md:w-[90%]">
+          <div class="md:w-[80%]">
           <div>
             <div>
               <input v-model="newEmployeeName" required placeholder="Name" class="formInputs"/>
@@ -139,7 +138,7 @@
           <h1 class="headers">Organisation</h1>
           <hr>
 
-          <h3 class="subHeaders">Organisations:</h3>
+          <h3 class="subHeaders">Organisations: {{organisations.length}}</h3>
           <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
           <div v-for="organisation in organisations" :key="organisation.id" class="oragnisation md:w-3/4">
             <div>
@@ -173,7 +172,7 @@
           </div>
 
           <h3 class="subHeaders">Add Organisation:</h3>
-          <div class="md:w-[90%]">
+          <div class="md:w-[80%]">
           <div>
             <div>
               <input v-model="newOrganisationRespPerson" required placeholder="Responsible person" class="formInputs"/>
@@ -192,7 +191,7 @@
           <h1 class="headers">Travel Order</h1>
           <hr>
 
-          <h3 class="subHeaders">Travel Orders:</h3>
+          <h3 class="subHeaders">Travel Orders: {{travel_orders.length}}</h3>
           <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
           <div v-for="travel_order in travel_orders" :key="travel_order.id" class="travel_order md:w-2/3">
             <div>
@@ -260,7 +259,7 @@
           </div>
 
           <h3 class="subHeaders">Add Travel Order:</h3>
-          <div class="md:w-[90%]">
+          <div class="md:w-[80%]">
           <div>
             <div>
               <input type="date" v-model="newTravelOrderStartDate" required placeholder="Start date" class="formInputs" />
@@ -310,7 +309,7 @@
             <codemirror v-model="code" />
           </template>
 
-          <h3 class="subHeaders">Travel Expences:</h3>
+          <h3 class="subHeaders">Travel Expences:{{travel_expences.length}}</h3>
           <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
           <div v-for="travel_expence in travel_expences" :key="travel_expence.id" class="travel_expence md:w-2/3">
             <div>
@@ -356,7 +355,7 @@
           </div>
 
           <h3 class="subHeaders">Add Travel Expence:</h3>
-          <div class="md:w-[90%]">
+          <div class="md:w-[80%]">
           <div>
             <div>
               <input v-model="newTravelExpenceExpenceType" required placeholder="Expence Type" class="formInputs"/>
@@ -382,7 +381,7 @@
           <h1 class="headers">Order Employee</h1>
           <hr>
 
-          <h3 class="subHeaders">Order Employees:</h3>
+          <h3 class="subHeaders">Order Employees: {{order_employees.length}}</h3>
           <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
           <div v-for="order_employee in order_employees" :key="order_employee.id" class="order_employee md:w-2/3">
             <div>
@@ -411,7 +410,7 @@
         </div>
 
           <h3 class="subHeaders">Add Order Employee:</h3>
-          <div class="md:w-[90%]">
+          <div class="md:w-[80%]">
           <div>
             <div>
               <select v-model="newOrderEmployeeFkOrder"class="formInputs">
