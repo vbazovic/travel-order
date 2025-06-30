@@ -9,7 +9,7 @@
   <script src="node_modules/axios/dist/axios.js"></script>
   <script src="node_modules/tinymce/tinymce.min.js"></script>
   <script src="node_modules/@tinymce/tinymce-vue/lib/browser/tinymce-vue.min.js"></script>
-
+  <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css">
   <link href="main.css?ver=1" rel="stylesheet">
 </head>
 
@@ -36,9 +36,14 @@
       <div>
         <header class="bg-white flex justify-between pt-4 pb-4 rounded-xl mb-10 px-10">
           <span class="text-2xl font-bold text-blue-500">Travel Order</span>
-          <div>
-            <button class="border border-solid border-black mr-4">Lang</button>
-            <button class="border border-solid border-black mr-4">Dark</button>
+          <div class="flex items-center">
+            <button class="mr-8 rounded-full cursor-pointer">
+              <i class="pi pi-globe"></i>
+            </button>
+
+            <button class="mr-8 rounded-full cursor-pointer">
+              <i class="pi pi-moon"></i>
+            </button>
             <button @click="logout" class="bg-red-700 p-2 pl-4 pr-4 rounded-3xl text-white font-bold text-sm shadow-md cursor-pointer">Logout</button>    
           </div>
         </header>
@@ -447,12 +452,11 @@
     </div>
 
     <script>
-
       const { createApp, ref } = Vue;
-
       createApp({
-
+        
         setup() {
+          
           const apiBase = 'http://localhost:3000'; // or 3000 for Node.js
           const token = ref(localStorage.getItem('token'));
 
