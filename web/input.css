@@ -53,3 +53,7 @@
 .dark{
   background-color: black;
 }
+
+.lift{
+  transform: translateY(-50px);
+}

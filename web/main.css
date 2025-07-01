@@ -431,6 +431,9 @@
 .dark {
   background-color: black;
 }
+.lift {
+  transform: translateY(-50px);
+}
 @property --tw-font-weight {
   syntax: "*";
   inherits: false;
