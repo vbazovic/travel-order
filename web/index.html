@@ -65,7 +65,7 @@
                 <input v-model="vehicle.name" class="formInputs"/>
               </label>
               
-              <label for="Average Consumption">{{t("Average Consumption", lang)}} (l/100km):
+              <label for="Average Consumption">{{t("Average Consumption", lang)}} (L/100km):
                 <input v-model="vehicle.avg_consumption" class="formInputs"/>
               </label>
             </div>
@@ -82,8 +82,8 @@
           <h3 class="subHeaders">{{t("Add Vehicle", lang)}}:</h3>
           <div class="md:w-[80%]">
             
-              <input v-model="newVehicleName" required placeholder="Vehicle" class="formInputs"/>
-              <input v-model="newVehicleConsumption" placeholder="Consumption (l/100km)" type="number" step="0.1" min="0" class="formInputs"/>
+              <input v-model="newVehicleName" required :placeholder="t('Vehicle', lang)" class="formInputs"/>
+              <input v-model="newVehicleConsumption" :placeholder="t('Average Consumption', lang)" type="number" step="0.1" min="0" class="formInputs"/>
             
 
             <button @click="createVehicle" class="formButtons addButton">{{t("Add", lang)}}</button>
@@ -131,11 +131,11 @@
           <div class="md:w-[80%]">
           <div>
             <div>
-              <input v-model="newEmployeeName" required placeholder="Name" class="formInputs"/>
-              <input v-model="newEmployeeSurname" required placeholder="Surname" class="formInputs"/>
-              <input v-model="newEmployeePosition" required placeholder="Position" class="formInputs"/>
-              <input v-model="newEmployeeCardNum" required placeholder="Card ID Number" class="formInputs"/>
-              <input v-model="newEmployeeSSN" required placeholder="Social Security Number" class="formInputs"/>
+              <input v-model="newEmployeeName" required :placeholder="t('Name', lang)" class="formInputs"/>
+              <input v-model="newEmployeeSurname" required :placeholder="t('Surname', lang)" class="formInputs"/>
+              <input v-model="newEmployeePosition" required :placeholder="t('Position', lang)" class="formInputs"/>
+              <input v-model="newEmployeeCardNum" required :placeholder="t('Card ID Number', lang)" class="formInputs"/>
+              <input v-model="newEmployeeSSN" required :placeholder="t('SSN', lang)" class="formInputs"/>
             </div>
 
             <button @click="createEmployee" class="formButtons addButton">{{t("Add", lang)}}</button>
@@ -184,11 +184,11 @@
           <div class="md:w-[80%]">
           <div>
             <div>
-              <input v-model="newOrganisationRespPerson" required placeholder="Responsible person" class="formInputs"/>
-              <input v-model="newOrganisationSeal" required placeholder="Seal" class="formInputs"/>
-              <input v-model="newOrganisationName" required placeholder="Name" class="formInputs"/>
-              <input v-model="newOrganisationAddress" required placeholder="Address" class="formInputs"/>
-              <input v-model="newOrganisationIssuer" required placeholder="Issuer" class="formInputs"/>
+              <input v-model="newOrganisationRespPerson" required :placeholder="t('Responsible Person', lang)" class="formInputs"/>
+              <input v-model="newOrganisationSeal" required :placeholder="t('Seal', lang)" class="formInputs"/>
+              <input v-model="newOrganisationName" required :placeholder="t('Name', lang)" class="formInputs"/>
+              <input v-model="newOrganisationAddress" required :placeholder="t('Address', lang)" class="formInputs"/>
+              <input v-model="newOrganisationIssuer" required :placeholder="t('Issuer', lang)" class="formInputs"/>
             </div>
 
             <button @click="createOrganisation" class="formButtons addButton">{{t("Add", lang)}}</button>
@@ -271,12 +271,12 @@
           <div class="md:w-[80%]">
           <div>
             <div>
-              <input type="date" v-model="newTravelOrderStartDate" required placeholder="Start date" class="formInputs" />
-              <input type="date" v-model="newTravelOrderEndDate" placeholder="End date"  class="formInputs"/>
-              <input v-model="newTravelOrderTask" placeholder="Task" class="formInputs"/>
-              <input v-model="newTravelOrderLocation" required placeholder="Location" class="formInputs"/>
-              <input v-model="newTravelOrderPerDiem" placeholder="Per Diem (euro/s)" type="number" step="0.1" min="0" class="formInputs"/>
-              <input v-model="newTravelOrderReport" placeholder="Report" class="formInputs"/>
+              <input type="date" v-model="newTravelOrderStartDate" required :placeholder="t('Start Date', lang)" class="formInputs" />
+              <input type="date" v-model="newTravelOrderEndDate" :placeholder="t('End Date', lang)"  class="formInputs"/>
+              <input v-model="newTravelOrderTask" :placeholder="t('Order Task', lang)" class="formInputs"/>
+              <input v-model="newTravelOrderLocation" required :placeholder="t('Location', lang)" class="formInputs"/>
+              <input v-model="newTravelOrderPerDiem" :placeholder="t('Per Diem', lang)" type="number" step="0.1" min="0" class="formInputs"/>
+              <input v-model="newTravelOrderReport" :placeholder="t('Report', lang)" class="formInputs"/>
 
               <select v-model="newTravelOrderState" required class="formInputs">
                 <option value="" disabled>-- Select a state --</option>
@@ -285,10 +285,10 @@
                 <option value="in progress">In proggress</option>
               </select>
 
-              <input v-model="newTravelOrderAdvPayment" placeholder="Advance payment (euro/s)" type="number" step="0.1"
+              <input v-model="newTravelOrderAdvPayment" :placeholder="t('Advance Payment', lang)" type="number" step="0.1"
                 min="0" class="formInputs"/>
 
-              <input v-model="newTravelOrderFkVehicle" placeholder="FK Vehicle" hidden class="formInputs"/>
+              <input v-model="newTravelOrderFkVehicle" :placeholder="t('Vehicle Name', lang)" hidden class="formInputs"/>
               <select v-model="newTravelOrderFkVehicle" class="formInputs">
                 <option disabled value="">-- Select a vehicle --</option>
                 <option v-for="vehicle in vehicles" :key="vehicle.id" :value="vehicle.id">
@@ -296,7 +296,7 @@
                 </option>
               </select>
 
-              <input v-model="newTravelOrderFkOrganisation" placeholder="FK Organisation" hidden class="formInputs"/>
+              <input v-model="newTravelOrderFkOrganisation" :placeholder="t('Organisation Name', lang)" hidden class="formInputs"/>
               <select v-model="newTravelOrderFkOrganisation" class="formInputs">
                 <option disabled value="">-- Select a organisation --</option>
                 <option v-for="organisation in organisations" :key="organisation.id" :value="organisation.id">
@@ -378,11 +378,11 @@
                   <option value="Food">Food and Drinks</option>
                   <option value="Other">Other</option>
                 </select>
-              <input v-model="newTravelExpenceStartLocation" required placeholder="Strart Location" class="formInputs"/>
-              <input v-model="newTravelExpenceEndLocation" required placeholder="End Location" class="formInputs"/>
-              <input v-model="newTravelExpenceDistance" required placeholder="Distance (km)" class="formInputs"/>
-              <input v-model="newTravelExpenceReceipt" required placeholder="Receipt" class="formInputs"/>
-              <input v-model="newTravelExpencePrice" required placeholder="Price (euro/s)" type="number" step="0.1" min="0" class="formInputs"/>
+              <input v-model="newTravelExpenceStartLocation" required :placeholder="t('Start Location', lang)" class="formInputs"/>
+              <input v-model="newTravelExpenceEndLocation" required :placeholder="t('End Location', lang)" class="formInputs"/>
+              <input v-model="newTravelExpenceDistance" required :placeholder="t('Distance', lang)" class="formInputs"/>
+              <input v-model="newTravelExpenceReceipt" required :placeholder="t('Receipt', lang)" class="formInputs"/>
+              <input v-model="newTravelExpencePrice" required :placeholder="t('Price', lang)" type="number" step="0.1" min="0" class="formInputs"/>
               <select v-model="newTravelExpenceFkTravelOrder" class="formInputs">
                 <option disabled value="">-- Select a Travel Order --</option>
                 <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
