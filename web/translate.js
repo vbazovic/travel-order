@@ -51,7 +51,25 @@ const translations = {
     "Add Travel Expence": "Dodaj putni trosak",
 
     "Order-Employee": "Nalog-Zaposleni",
-    "Add Order Employee": "Dodaj nalog-zaposlenog"
+    "Add Order Employee": "Dodaj nalog-zaposlenog",
+
+    "-- Select a state --": "-- Izaberi status --",
+    "-- Select a vehicle --": "-- Izaberi vozilo --",
+    "-- Select an organisation --": "-- Izaberi organizaciju --",
+    "-- Select Expence Type --": "-- Izaberi tip troska --",
+    "-- Select a Travel Order --": "-- Izaberi putni nalog --",
+    "-- Select an Employee --": "-- Izaberi zaposlenog --",
+
+    "Started": "Zapoceto",
+    "Ended": "Zavrseno",
+    "In proggress": "U toku",
+
+    "Travel Costs": "Putni troskovi",
+    "Food and Drinks": "Hrana i pice",
+    "Other": "Ostalo",
+
+    "From": "Od",
+    "To": "Do"
   }
 }
 

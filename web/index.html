@@ -279,10 +279,10 @@
               <input v-model="newTravelOrderReport" :placeholder="t('Report', lang)" class="formInputs"/>
 
               <select v-model="newTravelOrderState" required class="formInputs">
-                <option value="" disabled>-- Select a state --</option>
-                <option value="started">Started</option>
-                <option value="ended">Ended</option>
-                <option value="in progress">In proggress</option>
+                <option value="" disabled>{{t("-- Select a state --", lang)}}</option>
+                <option value="started">{{t("Started", lang)}}</option>
+                <option value="ended">{{t("Ended", lang)}}</option>
+                <option value="in progress">{{t("In proggress", lang)}}</option>
               </select>
 
               <input v-model="newTravelOrderAdvPayment" :placeholder="t('Advance Payment', lang)" type="number" step="0.1"
@@ -290,7 +290,7 @@
 
               <input v-model="newTravelOrderFkVehicle" :placeholder="t('Vehicle Name', lang)" hidden class="formInputs"/>
               <select v-model="newTravelOrderFkVehicle" class="formInputs">
-                <option disabled value="">-- Select a vehicle --</option>
+                <option disabled value="">{{t("-- Select a vehicle --", lang)}}</option>
                 <option v-for="vehicle in vehicles" :key="vehicle.id" :value="vehicle.id">
                   {{ vehicle.name }}
                 </option>
@@ -298,7 +298,7 @@
 
               <input v-model="newTravelOrderFkOrganisation" :placeholder="t('Organisation Name', lang)" hidden class="formInputs"/>
               <select v-model="newTravelOrderFkOrganisation" class="formInputs">
-                <option disabled value="">-- Select a organisation --</option>
+                <option disabled value="">{{t("-- Select an organisation --", lang)}}</option>
                 <option v-for="organisation in organisations" :key="organisation.id" :value="organisation.id">
                   {{ organisation.name }}
                 </option>
@@ -354,7 +354,7 @@
               <label for="Travel Order:">{{t("Travel Order", lang)}}:
                 <select v-model="travel_expence.fk_travel_order" class="formInputs">
                 <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
-                  {{ `From ${travel_order.formatted_start_date} To ${travel_order.formatted_end_date} Location: ${travel_order.location}`}}
+                  {{ `${t("From",lang)} ${travel_order.formatted_start_date} ${t("To",lang)} ${travel_order.formatted_end_date} ${t("Location",lang)}: ${travel_order.location}`}}
                 </option>
               </select>
               </label>
@@ -373,10 +373,10 @@
           <div>
             <div>
                 <select v-model="newTravelExpenceExpenceType" id="" class="formInputs">
-                  <option value="" disabled>-- Select Expence Type --</option>
-                  <option value="Travel">Travel Costs</option>
-                  <option value="Food">Food and Drinks</option>
-                  <option value="Other">Other</option>
+                  <option value="" disabled>{{t("-- Select Expence Type --", lang)}}</option>
+                  <option value="Travel">{{t("Travel Costs", lang)}}</option>
+                  <option value="Food">{{t("Food and Drinks", lang)}}</option>
+                  <option value="Other">{{t("Other", lang)}}</option>
                 </select>
               <input v-model="newTravelExpenceStartLocation" required :placeholder="t('Start Location', lang)" class="formInputs"/>
               <input v-model="newTravelExpenceEndLocation" required :placeholder="t('End Location', lang)" class="formInputs"/>
@@ -384,9 +384,9 @@
               <input v-model="newTravelExpenceReceipt" required :placeholder="t('Receipt', lang)" class="formInputs"/>
               <input v-model="newTravelExpencePrice" required :placeholder="t('Price', lang)" type="number" step="0.1" min="0" class="formInputs"/>
               <select v-model="newTravelExpenceFkTravelOrder" class="formInputs">
-                <option disabled value="">-- Select a Travel Order --</option>
+                <option disabled value="">{{t("-- Select a Travel Order --", lang)}}</option>
                 <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
-                  {{ `From ${travel_order.formatted_start_date} To ${travel_order.formatted_end_date} Location: ${travel_order.location}`}}
+                  {{ `${t("From",lang)} ${travel_order.formatted_start_date} ${t("To",lang)} ${travel_order.formatted_end_date} ${t("Location",lang)}: ${travel_order.location}`}}
                 </option>
               </select>
             </div>
@@ -407,7 +407,7 @@
               <label for="Travel Order">{{t("Travel Order", lang)}}:
                 <select v-model="order_employee.fk_order" class="formInputs">
                 <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
-                  {{ `From ${travel_order.formatted_start_date} To ${travel_order.formatted_end_date} Location: ${travel_order.location}`}}
+                  {{ `${t("From",lang)} ${travel_order.formatted_start_date} ${t("To",lang)} ${travel_order.formatted_end_date} ${t("Location",lang)}: ${travel_order.location}`}}
                 </option>
               </select>
               </label>
@@ -433,14 +433,14 @@
           <div>
             <div>
               <select v-model="newOrderEmployeeFkOrder"class="formInputs">
-                <option disabled value="">-- Select a Travel Order --</option>
+                <option disabled value="">{{t("-- Select a Travel Order --", lang)}}</option>
                 <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
-                  {{ `From ${travel_order.formatted_start_date} To ${travel_order.formatted_end_date} Location: ${travel_order.location}`}}
+                  {{ `${t("From",lang)} ${travel_order.formatted_start_date} ${t("To",lang)} ${travel_order.formatted_end_date} ${t("Location",lang)}: ${travel_order.location}`}}
                 </option>
               </select>
 
               <select v-model="newOrderEmployeeFkEmployee" class="formInputs">
-                <option disabled value="">-- Select an employee --</option>
+                <option disabled value="">{{t("-- Select an Employee --", lang)}}</option>
                 <option v-for="employee in employees" :key="employee.id" :value="employee.id">
                   {{ `${employee.name} ${employee.surname}` }}
                 </option>
