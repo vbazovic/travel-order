@@ -176,6 +176,15 @@
   }
 }
 @layer utilities {
+  .absolute {
+    position: absolute;
+  }
+  .relative {
+    position: relative;
+  }
+  .top-5 {
+    top: calc(var(--spacing) * 5);
+  }
   .mr-8 {
     margin-right: calc(var(--spacing) * 8);
   }
@@ -395,6 +404,9 @@
   padding: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
+}
+.formInputs:focus::placeholder {
+  color: transparent;
 }
 .formButtons {
   width: 100%;

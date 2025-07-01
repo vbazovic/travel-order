@@ -22,6 +22,10 @@
   border-radius: 10px;
 }
 
+.formInputs:focus::placeholder {
+  color: transparent;
+}
+
 .formButtons{
   width: 100%;
   margin-top: 10px;
