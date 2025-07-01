@@ -26,5 +26,5 @@ Go to web folder and run:
 npm ci
 ```
 to change styles change the input.css and run npx @tailwindcss/cli -i input.css -o main.css --watch inside web
-
-
+```
+start tailwind in folder web with command npx tailwindcss -i ./input.css -o ./main.css

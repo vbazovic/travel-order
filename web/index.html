@@ -26,7 +26,7 @@
             class="shadow-[0_0_10px_rgba(0,0,0,0.3)] p-3 pl-6 pr-6 rounded-3xl" />
           <input v-model="loginForm.password" type="password" placeholder="Password"
             class="shadow-[0_0_10px_rgba(0,0,0,0.3)] p-3 pl-6 pr-6 rounded-3xl" />
-          <button @click="login" class="bg-blue-500 text-white font-bold rounded-4xl p-4 shadow-xl md:cursor-pointer"></button>
+          <button @click="login" class="bg-blue-500 text-white font-bold rounded-4xl p-4 shadow-xl md:cursor-pointer">Login</button>
         </main>
       </div>
     </div>
@@ -35,7 +35,7 @@
 
       <div>
         <header class="bg-white flex justify-between pt-4 pb-4 rounded-xl mb-10 px-10">
-          <span class="text-2xl font-bold text-blue-500 dark:text-red-900">Travel Order</span>
+          <span class="text-2xl font-bold text-blue-500 dark:text-red-900">{{t("Travel Order", lang)}}</span>
           <div class="flex items-center">
             <button class="mr-8 rounded-full cursor-pointer" onclick="toggleLang()">
               <i class="pi pi-globe"></i>
@@ -44,7 +44,7 @@
             <button class="mr-8 rounded-full cursor-pointer" onclick = "document.body.classList.toggle('dark');">
               <i class="pi pi-moon"></i>
             </button>
-            <button @click="logout" class="bg-red-700 p-2 pl-4 pr-4 rounded-3xl text-white font-bold text-sm shadow-md cursor-pointer">{{t("Logout",'rs')}}</button>    
+            <button @click="logout" class="bg-red-700 p-2 pl-4 pr-4 rounded-3xl text-white font-bold text-sm shadow-md cursor-pointer">{{t("Logout", lang)}}</button>    
           </div>
         </header>
 
@@ -52,82 +52,82 @@
           <!--VEHICLES-->
 
           <div>
-            <h1 class="headers">Vehicle</h1>
+            <h1 class="headers">{{t("Vehicle", lang)}}</h1>
           </div>
           <hr>
 
 
-          <h3 class="subHeaders">Vehicles: {{vehicles.length}}</h3>
+          <h3 class="subHeaders">{{t("Vehicles", lang)}}: {{vehicles.length}}</h3>
           <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
             <div v-for="vehicle in vehicles" :key="vehicle.id" class="vehicle md:w-2/3">
             <div>
-              <label for="Name">Name:
+              <label for="Name">{{t("Name", lang)}}:
                 <input v-model="vehicle.name" class="formInputs"/>
               </label>
               
-              <label for="Average Consumption">Average Consumtion (l/100km):
+              <label for="Average Consumption">{{t("Average Consumption", lang)}} (l/100km):
                 <input v-model="vehicle.avg_consumption" class="formInputs"/>
               </label>
             </div>
 
             <div>
-              <button @click="updateVehicle(vehicle)" class="formButtons updateButton">Update</button>
-              <button @click="deleteVehicle(vehicle.id)" class="formButtons deleteButton">Delete</button>
+              <button @click="updateVehicle(vehicle)" class="formButtons updateButton">{{t("Update", lang)}}</button>
+              <button @click="deleteVehicle(vehicle.id)" class="formButtons deleteButton">{{t("Delete", lang)}}</button>
             </div>
             <br>
             </div>
           </div>
           
 
-          <h3 class="subHeaders">Add Vehicle:</h3>
+          <h3 class="subHeaders">{{t("Add Vehicle", lang)}}:</h3>
           <div class="md:w-[80%]">
             
               <input v-model="newVehicleName" required placeholder="Vehicle" class="formInputs"/>
               <input v-model="newVehicleConsumption" placeholder="Consumption (l/100km)" type="number" step="0.1" min="0" class="formInputs"/>
             
 
-            <button @click="createVehicle" class="formButtons addButton">Add</button>
+            <button @click="createVehicle" class="formButtons addButton">{{t("Add", lang)}}</button>
           </div>
           <br><br>
 
           <!--EMPLOYEES-->
-          <h1 class="headers">Employee</h1>
+          <h1 class="headers">{{t("Employee", lang)}}</h1>
           <hr>
 
-          <h3 class="subHeaders">Employees: {{employees.length}}</h3>
+          <h3 class="subHeaders">{{t("Employees", lang)}}: {{employees.length}}</h3>
           <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
           <div v-for="employee in employees" :key="employee.id" class="employee md:w-2/3">
             <div>
-              <label for="Name">Name:
+              <label for="Name">{{t("Name", lang)}}:
                 <input v-model="employee.name" class="formInputs"/>
               </label>
 
-              <label for="Surname">Surname:
+              <label for="Surname">{{t("Surname", lang)}}:
                 <input v-model="employee.surname" class="formInputs" />
               </label>
 
-              <label for="Position">Position:
+              <label for="Position">{{t("Position", lang)}}:
                 <input v-model="employee.position" class="formInputs"/>
               </label>
 
-              <label for="Card Id Number">Card ID Number:
+              <label for="Card Id Number">{{t("Card ID Number", lang)}}:
                 <input v-model="employee.card_id_num" class="formInputs"/>
               </label>
 
-              <label for="SSN">SSN:
+              <label for="SSN">{{t("SSN", lang)}}:
                 <input v-model="employee.ssn" class="formInputs"/>
               </label>
             </div>
 
             <div>
-              <button @click="updateEmployee(employee)" class="formButtons updateButton">Update</button>
-              <button @click="deleteEmployee(employee.id)" class="formButtons deleteButton">Delete</button>
+              <button @click="updateEmployee(employee)" class="formButtons updateButton">{{t("Update", lang)}}</button>
+              <button @click="deleteEmployee(employee.id)" class="formButtons deleteButton">{{t("Delete", lang)}}</button>
             </div>
             <br>
           </div>
           </div>
 
-          <h3 class="subHeaders">Add Employee:</h3>
+          <h3 class="subHeaders">{{t("Add Employee", lang)}}:</h3>
           <div class="md:w-[80%]">
           <div>
             <div>
@@ -138,49 +138,49 @@
               <input v-model="newEmployeeSSN" required placeholder="Social Security Number" class="formInputs"/>
             </div>
 
-            <button @click="createEmployee" class="formButtons addButton">Add</button>
+            <button @click="createEmployee" class="formButtons addButton">{{t("Add", lang)}}</button>
           </div>
           </div>
           <br>
 
           <!-- ORAGNISATIONS -->
-          <h1 class="headers">Organisation</h1>
+          <h1 class="headers">{{t("Organisation", lang)}}</h1>
           <hr>
 
-          <h3 class="subHeaders">Organisations: {{organisations.length}}</h3>
+          <h3 class="subHeaders">{{t("Organisations", lang)}}: {{organisations.length}}</h3>
           <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
           <div v-for="organisation in organisations" :key="organisation.id" class="oragnisation md:w-3/4">
             <div>
-              <label for="Responsible Person">Responsible Person:
+              <label for="Responsible Person">{{t("Responsible Person", lang)}}:
                 <input v-model="organisation.resp_person" class="formInputs"/>
               </label>
               
-              <label for="Seal">Seal:
+              <label for="Seal">{{t("Seal", lang)}}:
                 <input v-model="organisation.seal" class="formInputs"/>
               </label>
               
-              <label for="Name">Name:
+              <label for="Name">{{t("Name", lang)}}:
                 <input v-model="organisation.name" class="formInputs"/>
               </label>
               
-              <label for="Address">Address:
+              <label for="Address">{{t("Address", lang)}}:
                 <input v-model="organisation.address" class="formInputs"/>
               </label>
               
-              <label for="Issuer">Issuer:
+              <label for="Issuer">{{t("Issuer", lang)}}:
                 <input v-model="organisation.issuer" class="formInputs"/>
               </label>
             </div>
 
             <div>
-              <button @click="updateOrganisation(organisation)" class="formButtons updateButton">Update</button>
-              <button @click="deleteOrganisation(organisation.id)" class="formButtons deleteButton">Delete</button>
+              <button @click="updateOrganisation(organisation)" class="formButtons updateButton">{{t("Update", lang)}}</button>
+              <button @click="deleteOrganisation(organisation.id)" class="formButtons deleteButton">{{t("Delete", lang)}}</button>
             </div>
             <br>
           </div>
           </div>
 
-          <h3 class="subHeaders">Add Organisation:</h3>
+          <h3 class="subHeaders">{{t("Add Organisation", lang)}}:</h3>
           <div class="md:w-[80%]">
           <div>
             <div>
@@ -191,46 +191,46 @@
               <input v-model="newOrganisationIssuer" required placeholder="Issuer" class="formInputs"/>
             </div>
 
-            <button @click="createOrganisation" class="formButtons addButton">Add</button>
+            <button @click="createOrganisation" class="formButtons addButton">{{t("Add", lang)}}</button>
           </div>
           </div>
           <br>
 
           <!-- TRAVEL ORDERS -->
-          <h1 class="headers">Travel Order</h1>
+          <h1 class="headers">{{t("Travel Order", lang)}}</h1>
           <hr>
 
-          <h3 class="subHeaders">Travel Orders: {{travel_orders.length}}</h3>
+          <h3 class="subHeaders">{{t("Travel Orders", lang)}}: {{travel_orders.length}}</h3>
           <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
           <div v-for="travel_order in travel_orders" :key="travel_order.id" class="travel_order md:w-2/3">
             <div>
-              <label for="Start date">Start date:
+              <label for="Start date">{{t("Start Date", lang)}}:
                 <input type="datetime" v-model="travel_order.formatted_start_date" class="formInputs"/>
               </label>
               
 
-              <label for="End date">End date:
+              <label for="End date">{{t("End Date", lang)}}:
                 <input type="datetime" v-model="travel_order.formatted_end_date" class="formInputs"/>
               </label>
               
-              <label for="Order Task">Order Task:
+              <label for="Order Task">{{t("Order Task", lang)}}:
                 <input v-model="travel_order.task" class="formInputs"/>
               </label>
               
-              <label for="Location">Location:
+              <label for="Location">{{t("Location", lang)}}:
                 <input v-model="travel_order.location" class="formInputs"/>
               </label>
               
-              <label for="Per Diem">Per Diem (euro/s):
+              <label for="Per Diem">{{t("Per Diem", lang)}} (euro/s):
                 <input v-model="travel_order.per_diem" class="formInputs"/>
               </label>
               
-              <label for="Report">Report:
+              <label for="Report">{{t("Report", lang)}}:
                 <textarea id="report" apiKey="'gpl|av1h8tw7btv65ttg51ee4i68yib9b3kwmeuu7ygjfxjmsz32'"
                 v-model="travel_order.report" class="formInputs"></textarea>
               </label>
               
-              <label for="State">State:
+              <label for="State">{{t("State", lang)}}:
                 <select v-model="travel_order.state" class="formInputs">
                 <option v-for="travel_order in travel_orders" :key="travel_order.state" :value="travel_order.state">
                   {{ `${travel_order.state}`}}
@@ -238,11 +238,11 @@
               </select>
               </label>
 
-              <label for="Advance Payment">Advance Payment (euro/s):
+              <label for="Advance Payment">{{t("Advance Payment", lang)}} (euro/s):
                 <input v-model="travel_order.adv_payment" class="formInputs"/>
               </label>
 
-              <label for="Vehicle Name:">Vehicle Name:
+              <label for="Vehicle Name:">{{t("Vehicle Name", lang)}}:
                 <select v-model="travel_order.fk_vehicle" class="formInputs">
                 <option v-for="vehicle in vehicles" :key="vehicle.id" :value="vehicle.id">
                   {{ vehicle.name }}
@@ -250,7 +250,7 @@
               </select>
               </label>              
 
-              <label for="Organisation Name">Organisation Name:
+              <label for="Organisation Name">{{t("Organisation Name", lang)}}:
                 <select v-model="travel_order.fk_organisation" class="formInputs">
                 <option v-for="organisation in organisations" :key="organisation.id" :value="organisation.id">
                   {{ organisation.name }}
@@ -260,14 +260,14 @@
             </div>
 
             <div>
-              <button @click="updateTravelOrder(travel_order)" class="formButtons updateButton">Update</button>
-              <button @click="deleteTravelOrder(travel_order.id)" class="formButtons deleteButton">Delete</button>
+              <button @click="updateTravelOrder(travel_order)" class="formButtons updateButton">{{t("Update", lang)}}</button>
+              <button @click="deleteTravelOrder(travel_order.id)" class="formButtons deleteButton">{{t("Delete", lang)}}</button>
             </div>
             <br>
           </div>
           </div>
 
-          <h3 class="subHeaders">Add Travel Order:</h3>
+          <h3 class="subHeaders">{{t("Add Travel Order", lang)}}:</h3>
           <div class="md:w-[80%]">
           <div>
             <div>
@@ -305,24 +305,24 @@
               </select>
             </div>
 
-            <button @click="createTravelOrder" class="formButtons addButton">Add</button>
+            <button @click="createTravelOrder" class="formButtons addButton">{{t("Add", lang)}}</button>
           </div>
           </div>
           <br>
 
           <!-- TRAVEL EXPENCES -->
-          <h1 class="headers">Travel Expence</h1>
+          <h1 class="headers">{{t("Travel Expence", lang)}}</h1>
           <hr>
 
           <template>
             <codemirror v-model="code" />
           </template>
 
-          <h3 class="subHeaders">Travel Expences: {{travel_expences.length}}</h3>
+          <h3 class="subHeaders">{{t("Travel Expences", lang)}}: {{travel_expences.length}}</h3>
           <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
           <div v-for="travel_expence in travel_expences" :key="travel_expence.id" class="travel_expence md:w-2/3">
             <div>
-              <label for="Expence Type">Expence Type:
+              <label for="Expence Type">{{t("Expence Type", lang)}}:
                 <!-- <input type="text" v-model="travel_expence.expence_type" hidden/> -->
                 <select v-model="travel_expence.expence_type" id="" class="formInputs">
                   <option value="Travel">Travel Costs</option>
@@ -331,27 +331,27 @@
                 </select>
               </label>
 
-              <label for="Start Location">Start Location:
+              <label for="Start Location">{{t("Start Location", lang)}}:
                 <input v-model="travel_expence.start_location" class="formInputs"/>
               </label>
               
-              <label for="End Location">End Location:
+              <label for="End Location">{{t("End Location", lang)}}:
                 <input v-model="travel_expence.end_location" class="formInputs"/>
               </label>
               
-              <label for="Distance">Distance (km):
+              <label for="Distance">{{t("Distance", lang)}} (km):
                 <input v-model="travel_expence.distance" class="formInputs"/>
               </label>
               
-              <label for="Receipt">Receipt:
+              <label for="Receipt">{{t("Receipt", lang)}}:
                 <input v-model="travel_expence.receipt" class="formInputs"/>
               </label>
               
-              <label for="Price">Price (euro/s):
+              <label for="Price">{{t("Price", lang)}} (euro/s):
                 <input v-model="travel_expence.price" class="formInputs"/>
               </label>
               
-              <label for="Travel Order:">Travel Order:
+              <label for="Travel Order:">{{t("Travel Order", lang)}}:
                 <select v-model="travel_expence.fk_travel_order" class="formInputs">
                 <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
                   {{ `From ${travel_order.formatted_start_date} To ${travel_order.formatted_end_date} Location: ${travel_order.location}`}}
@@ -361,14 +361,14 @@
             </div>
 
             <div>
-              <button @click="updateTravelExpence(travel_expence)" class="formButtons updateButton">Update</button>
-              <button @click="deleteTravelExpence(travel_expence.id)" class="formButtons deleteButton">Delete</button>
+              <button @click="updateTravelExpence(travel_expence)" class="formButtons updateButton">{{t("Update", lang)}}</button>
+              <button @click="deleteTravelExpence(travel_expence.id)" class="formButtons deleteButton">{{t("Delete", lang)}}</button>
             </div>
             <br>
           </div>
           </div>
 
-          <h3 class="subHeaders">Add Travel Expence:</h3>
+          <h3 class="subHeaders">{{t("Add Travel Expence", lang)}}:</h3>
           <div class="md:w-[80%]">
           <div>
             <div>
@@ -391,20 +391,20 @@
               </select>
             </div>
 
-            <button @click="createTravelExpence" class="formButtons addButton">Add</button>
+            <button @click="createTravelExpence" class="formButtons addButton">{{t("Add", lang)}}</button>
           </div>
           </div>
           <br>
 
           <!-- ORDER EMPLOYEES -->
-          <h1 class="headers">Order Employee</h1>
+          <h1 class="headers">{{t("Order-Employee", lang)}}</h1>
           <hr>
 
-          <h3 class="subHeaders">Order Employees: {{order_employees.length}}</h3>
+          <h3 class="subHeaders">{{t("Order-Employee", lang)}}: {{order_employees.length}}</h3>
           <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
           <div v-for="order_employee in order_employees" :key="order_employee.id" class="order_employee md:w-2/3">
             <div>
-              <label for="Travel Order">Travel Order:
+              <label for="Travel Order">{{t("Travel Order", lang)}}:
                 <select v-model="order_employee.fk_order" class="formInputs">
                 <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
                   {{ `From ${travel_order.formatted_start_date} To ${travel_order.formatted_end_date} Location: ${travel_order.location}`}}
@@ -412,7 +412,7 @@
               </select>
               </label>
               
-              <label for="Employee">Employee:
+              <label for="Employee">{{t("Employee", lang)}}:
                 <select v-model="order_employee.fk_employee" class="formInputs">
                 <option v-for="employee in employees" :key="employee.id" :value="employee.id">
                   {{ `${employee.name} ${employee.surname}`}}
@@ -422,13 +422,13 @@
             </div>
 
             <div>
-              <button @click="deleteOrderEmployee(order_employee.fk_order, order_employee.fk_employee)" class="formButtons deleteButton">Delete</button>
+              <button @click="deleteOrderEmployee(order_employee.fk_order, order_employee.fk_employee)" class="formButtons deleteButton">{{t("Delete", lang)}}</button>
             </div>
             <br>
           </div>
         </div>
 
-          <h3 class="subHeaders">Add Order Employee:</h3>
+          <h3 class="subHeaders">{{t("Add Order Employee", lang)}}:</h3>
           <div class="md:w-[80%]">
           <div>
             <div>
@@ -447,7 +447,7 @@
               </select>
             </div>
 
-            <button @click="createOrderEmployee" class="formButtons addButton">Add</button>
+            <button @click="createOrderEmployee" class="formButtons addButton">{{t("Add", lang)}}</button>
           </div>
           </div>
           <br>
@@ -549,9 +549,13 @@
             order_employees.value = res.data;
           };
 
-          const t = (message, lang) => {
-            return translations[lang][message] || message;
-          }
+          const t = (message, lang = localStorage.getItem("lang")) => {
+            if (!lang || !translations[lang] || !translations[lang][message]) {
+              return message;
+            } else {
+              return translations[lang][message];
+            }
+          };
 
           const login = async () => {
             try {
