@@ -311,7 +311,7 @@
                         <textarea id="report" apiKey="'gpl|av1h8tw7btv65ttg51ee4i68yib9b3kwmeuu7ygjfxjmsz32'"
                           v-model="travel_order.report" class="formInputs"></textarea>
                       </label>
-                      <button class="formButtons reportButton" onclick="window.open('report.html')">REPORT</button><br><br>
+                      <button class="formButtons reportButton" @click="openReport(travel_order.id)">REPORT</button>
 
                       <label for="State">{{t("State", lang)}}:
                         <select v-model="travel_order.state" class="formInputs">
@@ -695,6 +695,10 @@
             }
           };
 
+          const openReport = (id) => {
+            window.open(`report.html?id=${id}`, "_blank");
+          }
+
           const login = async () => {
             try {
               const res = await axios.post(`${apiBase}/login`, loginForm.value);
@@ -873,7 +877,7 @@
             loginForm, login, logout,
             createVehicle, createEmployee, createOrganisation, createTravelOrder, createTravelExpence, createOrderEmployee,
             updateVehicle, updateEmployee, updateOrganisation, updateTravelOrder, updateTravelExpence,
-            deleteVehicle, deleteEmployee, deleteOrganisation, deleteTravelOrder, deleteTravelExpence, deleteOrderEmployee, t
+            deleteVehicle, deleteEmployee, deleteOrganisation, deleteTravelOrder, deleteTravelExpence, deleteOrderEmployee, t, openReport
           };
         }
       }).mount('#app');
