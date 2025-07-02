@@ -20,19 +20,19 @@
 
     <main class="font-bold bg-white p-20 rounded-3xl">
       <div class="flex justify-between">
-        <p>Naziv organizacije: ...</p>
-        <p>{{id}}</p>
+        <p>Naziv organizacije: {{travel_order.org_name}}</p>
+        <p>Report for Travel Order ID: {{id}}</p>
       </div>
       <br><br>
       <h1 class="text-center text-3xl">NALOG ZA SLUZBENO PUTOVANJE</h1>
       <br><br>
 
-      <p>Radnik ... na poziciji ... upucuje se na sluzbeni put dana ... u ... sa zadatkom ...</p>
-      <p>Na sluzbenom putu koristi prevozno sredstvo ... </p>
-      <p class="ml-10">Dnevnica za ovo sluzbeno putovanje iznosi pripada u iznosu od ... eur</p>
-      <p class="ml-10">Na sluzbenom putu ce se zadrzati najdalje do ...</p>
-      <p class="ml-20">Putni troskovi padaju na teret ...</p>
-      <p class="ml-20">Odobravam isplatu akontacije u iznosu od ... eur</p>
+      <p>Radnik ... na poziciji ... upucuje se na sluzbeni put dana {{travel_order.formatted_start_date}} u {{travel_order.location}} sa zadatkom {{travel_order.task}}</p>
+      <p>Na sluzbenom putu koristi prevozno sredstvo {{travel_order.vehicle_name}} </p>
+      <p class="ml-10">Dnevnica za ovo sluzbeno putovanje iznosi pripada u iznosu od {{travel_order.per_diem}} eur</p>
+      <p class="ml-10">Na sluzbenom putu ce se zadrzati najdalje do {{travel_order.formatted_end_date}}</p>
+      <p class="ml-20">Putni troskovi padaju na teret {{travel_order.org_name}}</p>
+      <p class="ml-20">Odobravam isplatu akontacije u iznosu od {{travel_order.adv_payment}} eur</p>
       <br><br>
       <p class="text-right">Nalogodavac ...</p>
       <br><br>
@@ -46,13 +46,13 @@
 
       <div class="flex justify-between items-center">
         <div>
-          <p>Dan odlaska ...</p>
-          <p>Dan povratka ...</p>
+          <p>Dan odlaska {{travel_order.formatted_start_date}}</p>
+          <p>Dan povratka {{travel_order.formatted_end_date}}</p>
         </div>
 
         <div>
           <p>Broj dana ...</p>
-          <p>Po eur ...</p>
+          <p>Po {{travel_order.per_diem}} eur</p>
         </div>
 
         <p>Svega eur ...</p>
@@ -67,7 +67,7 @@
       <br><br>
 
       <p class="text-right">Svega ...</p>
-      <p class="text-right">Primljena akontacija ...</p>
+      <p class="text-right">Primljena akontacija {{travel_order.adv_payment}}</p>
       <p class="text-right">Ostaje za uplatu-isplatu ...</p>
       <br><br>
 
@@ -92,7 +92,7 @@
       <br><br>
 
       <h1 class="text-center text-3xl">IZVESTAJ SA SLUZBENOG PUTA</h1>
-      <p class="text-justify">Izvestaj ...</p>
+      <p class="text-justify">Izvestaj {{travel_order.report}}</p>
     </main>
     <br><br>
 
@@ -104,18 +104,7 @@
           const apiBase = 'http://localhost:3000'; // or 3000 for Node.js
           const token = ref(localStorage.getItem('token'));
 
-          const travel_orders = ref([]);
-
-          const newTravelOrderStartDate = ref('');
-          const newTravelOrderEndDate = ref('');
-          const newTravelOrderTask = ref('');
-          const newTravelOrderLocation = ref('');
-          const newTravelOrderPerDiem = ref('');
-          const newTravelOrderReport = ref('');
-          const newTravelOrderState = ref('');
-          const newTravelOrderAdvPayment = ref('');
-          const newTravelOrderFkVehicle = ref('');
-          const newTravelOrderFkOrganisation = ref('');
+          const travel_order = ref([]);
 
           const authHeaders = () => ({ headers: { Authorization: `Bearer ${token.value}` } });
 
@@ -123,9 +112,10 @@
           const urlParams = new URLSearchParams(queryString);
           const id = ref(urlParams.get('id'));
 
-          const fetchTravelOrders = async () => {
-            const res = await axios.get(`${apiBase}/travel_order`, authHeaders());
-            travel_orders.value = res.data;
+          const fetchTravelOrder = async (id) => {
+            const res = await axios.get(`${apiBase}/travel_order/${id}`, authHeaders());
+            travel_order.value = res.data;
+
           };
 
           const t = (message, lang = localStorage.getItem("lang")) => {
@@ -136,25 +126,12 @@
             }
           };
 
-          const login = async () => {
-            try {
-              const res = await axios.post(`${apiBase}/login`, loginForm.value);
-              token.value = res.data.token;
-              localStorage.setItem('token', token.value);
-
-              fetchTravelOrders();
-
-            } catch {
-              alert('Login failed');
-            }
-          };
-
           if (token.value) {
-            fetchTravelOrders();
+            fetchTravelOrder(id.value);
           }
 
           return {
-            token, travel_orders, t, id
+            token, travel_order, t, id
           };
         }
       }).mount('#app');
