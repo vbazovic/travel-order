@@ -18,85 +18,95 @@
 <body class="h-screen p-10 bg-gray-200 select-none">
   <div id="app" class="w-full">
 
-  <main class="font-bold bg-white p-20 rounded-3xl">
-    <p>Naziv organizacije: ...</p>
-    <br><br>
-    <h1 class="text-center text-3xl">NALOG ZA SLUZBENO PUTOVANJE</h1>
-    <br><br>
+    <main class="font-bold bg-white p-20 rounded-3xl">
+      <div class="flex justify-between">
+        <p>Naziv organizacije: ...</p>
+        <p id="reportContainer"></p>
+      </div>
+      <br><br>
+      <h1 class="text-center text-3xl">NALOG ZA SLUZBENO PUTOVANJE</h1>
+      <br><br>
 
-    <p>Radnik ... na poziciji ... upucuje se na sluzbeni put dana ... u ... sa zadatkom ...</p>
-    <p>Na sluzbenom putu koristi prevozno sredstvo ... </p>
-    <p class="ml-10">Dnevnica za ovo sluzbeno putovanje iznosi pripada u iznosu od ... eur</p>
-    <p class="ml-10">Na sluzbenom putu ce se zadrzati najdalje do ...</p>
-    <p class="ml-20">Putni troskovi padaju na teret ...</p>
-    <p class="ml-20">Odobravam isplatu akontacije u iznosu od ... eur</p>
-    <br><br>
-    <p class="text-right">Nalogodavac ...</p>
-    <br><br>
+      <p>Radnik ... na poziciji ... upucuje se na sluzbeni put dana ... u ... sa zadatkom ...</p>
+      <p>Na sluzbenom putu koristi prevozno sredstvo ... </p>
+      <p class="ml-10">Dnevnica za ovo sluzbeno putovanje iznosi pripada u iznosu od ... eur</p>
+      <p class="ml-10">Na sluzbenom putu ce se zadrzati najdalje do ...</p>
+      <p class="ml-20">Putni troskovi padaju na teret ...</p>
+      <p class="ml-20">Odobravam isplatu akontacije u iznosu od ... eur</p>
+      <br><br>
+      <p class="text-right">Nalogodavac ...</p>
+      <br><br>
 
-    <div class="text-center">
-      <p>Na osnovu prednjeg naloga izvrsio sam sluzbeno putovanje i podnosim sledeci</p>
+      <div class="text-center">
+        <p>Na osnovu prednjeg naloga izvrsio sam sluzbeno putovanje i podnosim sledeci</p>
+        <br>
+        <h1 class="text-3xl">PUTNI RACUN</h1>
+      </div>
+      <br><br>
+
+      <div class="flex justify-between items-center">
+        <div>
+          <p>Dan odlaska ...</p>
+          <p>Dan povratka ...</p>
+        </div>
+
+        <div>
+          <p>Broj dana ...</p>
+          <p>Po eur ...</p>
+        </div>
+
+        <p>Svega eur ...</p>
+      </div>
       <br>
-      <h1 class="text-3xl">PUTNI RACUN</h1>
-    </div>
-    <br><br>
 
-    <div class="flex justify-between items-center">
-      <div> 
-        <p>Dan odlaska ...</p>
-        <p>Dan povratka ...</p>
+      <div class="flex justify-between">
+        <p>Prevoz od ... do ...</p>
+        <p>Tip troska</p>
+        <p>Eur ...</p>
       </div>
+      <br><br>
 
-      <div>
-        <p>Broj dana ...</p>
-        <p>Po eur ...</p>
+      <p class="text-right">Svega ...</p>
+      <p class="text-right">Primljena akontacija ...</p>
+      <p class="text-right">Ostaje za uplatu-isplatu ...</p>
+      <br><br>
+
+      <div class="flex justify-between">
+        <p>U ... dana ... </p>
+        <p>Podnosilac zahteva ...</p>
       </div>
+      <br>
 
-      <p>Svega eur ...</p>
-    </div>
-    <br>
+      <p class="text-center">Potvrdjujem da je putovanje izvrseno prema ovom nalogu i odobrava isplatu putnog racuna od
+        ... eur na teret ...</p>
+      <p class="text-center">U ... dana ...</p>
+      <br>
 
-    <div class="flex justify-between">
-      <p>Prevoz od ... do ...</p>
-      <p>Tip troska</p>
-      <p>Eur ...</p>
-    </div>
+      <div class="flex justify-between">
+        <p>Racun ...</p>
+        <p>Nalogodavac</p>
+      </div>
+      <br>
+
+      <p class="text-right">Podnosilac racuna ...</p>
+      <br><br>
+
+      <h1 class="text-center text-3xl">IZVESTAJ SA SLUZBENOG PUTA</h1>
+      <p class="text-justify">Izvestaj ...</p>
+    </main>
     <br><br>
-
-    <p class="text-right">Svega ...</p>
-    <p class="text-right">Primljena akontacija ...</p>
-    <p class="text-right">Ostaje za uplatu-isplatu ...</p>
-    <br><br>
-
-    <div class="flex justify-between">
-      <p>U ... dana ... </p>
-      <p>Podnosilac zahteva ...</p>
-    </div>
-    <br>
-
-    <p class="text-center">Potvrdjujem da je putovanje izvrseno prema ovom nalogu i odobrava isplatu putnog racuna od ... eur na teret ...</p>
-    <p class="text-center">U ... dana ...</p>
-    <br>
-
-    <div class="flex justify-between">
-      <p>Racun ...</p>
-      <p>Nalogodavac</p>
-    </div>
-    <br>
-
-    <p class="text-right">Podnosilac racuna ...</p>
-    <br><br>
-
-    <h1 class="text-center text-3xl">IZVESTAJ SA SLUZBENOG PUTA</h1>
-    <p class="text-justify">Izvestaj ...</p>
-  </main>
-  <br><br>
 
     <script>
       const { createApp, ref } = Vue;
       createApp({
 
         setup() {
+          document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            document.getElementById('reportContainer').innerHTML = `<h1>Report for Travel Order ID: ${id}</h1>`;
+          });
+
 
           const apiBase = 'http://localhost:3000'; // or 3000 for Node.js
           const token = ref(localStorage.getItem('token'));
