@@ -49,3 +49,12 @@
 .reportButton{
   background-color: rgb(250, 204, 21);
 }
+
+.dbData{
+  text-decoration: underline;
+}
+
+#reportPage p{
+  margin-bottom: 20px;
+  
+}
