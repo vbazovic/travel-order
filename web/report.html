@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Order | Report</title>
+  <script src="node_modules/vue/dist/vue.global.js"></script>
+  <script src="node_modules/axios/dist/axios.js"></script>
+  <script src="node_modules/tinymce/tinymce.min.js"></script>
+  <script src="node_modules/@tinymce/tinymce-vue/lib/browser/tinymce-vue.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css">
+  <link href="main.css?ver=1" rel="stylesheet">
+  <script src="translate.js"></script>
+  <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
+</head>
+
+<body class="h-screen p-10 bg-gray-200 select-none">
+  <div id="app" class="w-full">
+
+  <header>
+    <p>Naziv organizacije: ...</p>
+    <h1>NALOG ZA SLUZBENO PUTOVANJE</h1>
+  </header>
+
+  <main>
+    <p>Radnik ... na poziciji ... upucuje se na sluzbeni put dana ... u ... sa zadatkom ...</p>
+    <p>Na sluzbenom putu koristi prevozno sredstvo ... </p>
+    <p>Dnevnica za ovo sluzbeno putovanje iznosi pripada u iznosu od ... eur</p>
+    <p>Na sluzbenom putu ce se zadrzati najdalje do ...</p>
+    <p>Putni troskovi padaju na teret ...</p>
+    <p>Odobravam isplatu akontacije u iznosu od ... eur</p>
+    <p>Nalogodavac ...</p>
+    <br><br>
+
+    <p>Na osnovu prednjeg naloga izvrsio sam sluzbeno putovanje i podnosim sledeci</p>
+    <h1>PUTNI RACUN</h1>
+    <p>Dan odlaska ...</p>
+    <p>Dan povratka ...</p>
+    <p>Broj dana ...</p>
+    <p>Po eur ...</p>
+    <p>Svega eur ...</p>
+    <p>Tip troska</p>
+    <p>Prevoz od ... do ...</p>
+    <p>Eur ...</p>
+    <p>Primljena akontacija</p>
+    <p>U ... dana ... Podnosilac zahteva ...</p>
+    <p>Potvrdjujem da je putovanje izvrseno prema ovom nalogu i odobrava isplatu putnog racuna od ... eur na teret ...</p>
+    <p>U ... dana ...</p>
+    <p>Racun ...</p>
+    <p>Podnosilac zahteva ...</p>
+    <br><br>
+
+    <h1>IZVESTAJ SA SLUZBENOG PUTA</h1>
+    <p>Izvestaj ...</p>
+  </main>
+
+    
+
+    <script>
+      const { createApp, ref } = Vue;
+      createApp({
+
+        setup() {
+
+          const apiBase = 'http://localhost:3000'; // or 3000 for Node.js
+          const token = ref(localStorage.getItem('token'));
+
+          const vehicles = ref([]);
+          const employees = ref([]);
+          const organisations = ref([]);
+          const travel_orders = ref([]);
+          const travel_expences = ref([]);
+          const order_employees = ref([]);
+
+          const newVehicleName = ref('');
+          const newVehicleConsumption = ref('');
+
+          const newEmployeeName = ref('');
+          const newEmployeeSurname = ref('');
+          const newEmployeePosition = ref('');
+          const newEmployeeCardNum = ref('');
+          const newEmployeeSSN = ref('');
+
+          const newOrganisationRespPerson = ref('');
+          const newOrganisationSeal = ref('');
+          const newOrganisationName = ref('');
+          const newOrganisationAddress = ref('');
+          const newOrganisationIssuer = ref('');
+
+          const newTravelOrderStartDate = ref('');
+          const newTravelOrderEndDate = ref('');
+          const newTravelOrderTask = ref('');
+          const newTravelOrderLocation = ref('');
+          const newTravelOrderPerDiem = ref('');
+          const newTravelOrderReport = ref('');
+          const newTravelOrderState = ref('');
+          const newTravelOrderAdvPayment = ref('');
+          const newTravelOrderFkVehicle = ref('');
+          const newTravelOrderFkOrganisation = ref('');
+
+          const newTravelExpenceExpenceType = ref('');
+          const newTravelExpenceStartLocation = ref('');
+          const newTravelExpenceEndLocation = ref('');
+          const newTravelExpenceDistance = ref('');
+          const newTravelExpenceReceipt = ref('');
+          const newTravelExpencePrice = ref('');
+          const newTravelExpenceFkTravelOrder = ref('');
+
+          const newOrderEmployeeFkOrder = ref('');
+          const newOrderEmployeeFkEmployee = ref('');
+
+
+          const loginForm = ref({ username: '', password: '' });
+
+          const authHeaders = () => ({ headers: { Authorization: `Bearer ${token.value}` } });
+
+          const fetchVehicles = async () => {
+            const res = await axios.get(`${apiBase}/vehicle`, authHeaders());
+            vehicles.value = res.data;
+          };
+
+          const fetchEmployees = async () => {
+            const res = await axios.get(`${apiBase}/employee`, authHeaders());
+            employees.value = res.data;
+          };
+
+          const fetchOrganisations = async () => {
+            const res = await axios.get(`${apiBase}/organisation`, authHeaders());
+            organisations.value = res.data;
+          };
+
+          const fetchTravelOrders = async () => {
+            const res = await axios.get(`${apiBase}/travel_order`, authHeaders());
+            travel_orders.value = res.data;
+          };
+
+          const fetchTravelExpences = async () => {
+            const res = await axios.get(`${apiBase}/travel_expence`, authHeaders());
+            travel_expences.value = res.data;
+          };
+
+          const fetchOrderEmployeees = async () => {
+            const res = await axios.get(`${apiBase}/order_employee`, authHeaders());
+            order_employees.value = res.data;
+          };
+
+          const t = (message, lang = localStorage.getItem("lang")) => {
+            if (!lang || !translations[lang] || !translations[lang][message]) {
+              return message;
+            } else {
+              return translations[lang][message];
+            }
+          };
+
+          const login = async () => {
+            try {
+              const res = await axios.post(`${apiBase}/login`, loginForm.value);
+              token.value = res.data.token;
+              localStorage.setItem('token', token.value);
+              fetchVehicles();
+              fetchEmployees();
+              fetchOrganisations();
+              fetchTravelOrders();
+              fetchTravelExpences();
+              fetchOrderEmployeees();
+            } catch {
+              alert('Login failed');
+            }
+          };
+
+          const logout = () => {
+            token.value = null;
+            localStorage.removeItem('token');
+            vehicles.value = [];
+            employees.value = [];
+            organisations.value = [];
+            travel_orders.value = [];
+            travel_expences.value = [];
+            order_employees.value = [];
+          };
+
+          const createVehicle = async () => {
+            if (!newVehicleName.value || !newVehicleConsumption.value) return;
+            await axios.post(`${apiBase}/vehicle`, { name: newVehicleName.value, avgConsumption: newVehicleConsumption.value }, authHeaders());
+            newVehicleName.value = '';
+            newVehicleConsumption.value = '';
+            fetchVehicles();
+          };
+
+          const createEmployee = async () => {
+            if (!newEmployeeName.value || !newEmployeeSurname.value || !newEmployeePosition.value || !newEmployeeCardNum.value || !newEmployeeSSN.value) return;
+            await axios.post(`${apiBase}/employee`, { name: newEmployeeName.value, surname: newEmployeeSurname.value, position: newEmployeePosition.value, cardIdNum: newEmployeeCardNum.value, ssn: newEmployeeSSN.value }, authHeaders());
+            newEmployeeName.value = '';
+            newEmployeeSurname.value = '';
+            newEmployeePosition.value = '';
+            newEmployeeCardNum.value = '';
+            newEmployeeSSN.value = '';
+            fetchEmployees();
+          };
+
+          const createOrganisation = async () => {
+            if (!newOrganisationRespPerson.value || !newOrganisationSeal.value || !newOrganisationName.value || !newOrganisationAddress.value || !newOrganisationIssuer.value) return;
+            await axios.post(`${apiBase}/organisation`, { respPerson: newOrganisationRespPerson.value, seal: newOrganisationSeal.value, name: newOrganisationName.value, address: newOrganisationAddress.value, issuer: newOrganisationIssuer.value }, authHeaders());
+            newOrganisationRespPerson.value = '';
+            newOrganisationSeal.value = '';
+            newOrganisationName.value = '';
+            newOrganisationAddress.value = '';
+            newOrganisationIssuer.value = '';
+            fetchOrganisations();
+          };
+
+          const createTravelOrder = async () => {
+            if (!newTravelOrderStartDate.value || !newTravelOrderEndDate.value || !newTravelOrderTask.value || !newTravelOrderLocation.value || !newTravelOrderPerDiem.value || !newTravelOrderReport.value || !newTravelOrderState.value || !newTravelOrderAdvPayment.value || !newTravelOrderFkVehicle.value || !newTravelOrderFkOrganisation.value) return;
+            const res = await axios.post(`${apiBase}/travel_order`, { startDate: newTravelOrderStartDate.value, endDate: newTravelOrderEndDate.value, task: newTravelOrderTask.value, location: newTravelOrderLocation.value, perDiem: newTravelOrderPerDiem.value, report: newTravelOrderReport.value, state: newTravelOrderState.value, advPayment: newTravelOrderAdvPayment.value, fkVehicle: newTravelOrderFkVehicle.value, fkOrganisation: newTravelOrderFkOrganisation.value }, authHeaders());
+            newTravelOrderStartDate.value = '';
+            newTravelOrderEndDate.value = '';
+            newTravelOrderTask.value = '';
+            newTravelOrderLocation.value = '';
+            newTravelOrderPerDiem.value = '';
+            newTravelOrderReport.value = '';
+            newTravelOrderState.value = '';
+            newTravelOrderAdvPayment.value = '';
+            newTravelOrderFkVehicle.value = '';
+            newTravelOrderFkOrganisation.value = '';
+            alert(res.data.message);
+            fetchTravelOrders();
+          };
+
+          const createTravelExpence = async () => {
+            if (!newTravelExpenceExpenceType.value || !newTravelExpenceStartLocation.value || !newTravelExpenceEndLocation.value || !newTravelExpenceDistance.value || !newTravelExpenceReceipt.value || !newTravelExpencePrice.value || !newTravelExpenceFkTravelOrder) return;
+            await axios.post(`${apiBase}/travel_expence`, { expenceType: newTravelExpenceExpenceType.value, startLocation: newTravelExpenceStartLocation.value, endLocation: newTravelExpenceEndLocation.value, distance: newTravelExpenceDistance.value, receipt: newTravelExpenceReceipt.value, price: newTravelExpencePrice.value, fkTravelOrder: newTravelExpenceFkTravelOrder.value }, authHeaders());
+            newTravelExpenceExpenceType.value = '';
+            newTravelExpenceStartLocation.value = '';
+            newTravelExpenceEndLocation.value = '';
+            newTravelExpenceDistance.value = '';
+            newTravelExpenceReceipt.value = '';
+            newTravelExpencePrice.value = '';
+            newTravelExpenceFkTravelOrder.value = '';
+            fetchTravelExpences();
+          };
+
+          const createOrderEmployee = async () => {
+            if (!newOrderEmployeeFkOrder.value || !newOrderEmployeeFkEmployee.value) return;
+            const res = await axios.post(`${apiBase}/order_employee`, { fkOrder: newOrderEmployeeFkOrder.value, fkEmployee: newOrderEmployeeFkEmployee.value }, authHeaders());
+            newOrderEmployeeFkOrder.value = '';
+            newOrderEmployeeFkEmployee.value = '';
+            alert(res.data.message);
+            fetchOrderEmployeees();
+          };
+
+          const updateVehicle = async (vehicle) => {
+            await axios.put(`${apiBase}/vehicle/${vehicle.id}`, { name: vehicle.name, avgConsumption: vehicle.avg_consumption }, authHeaders());
+            fetchVehicles();
+          };
+
+          const updateEmployee = async (employee) => {
+            await axios.put(`${apiBase}/employee/${employee.id}`, { name: employee.name, surname: employee.surname, position: employee.position, cardIdNum: employee.card_id_num, ssn: employee.ssn }, authHeaders());
+            fetchEmployees();
+          };
+
+          const updateOrganisation = async (organisation) => {
+            await axios.put(`${apiBase}/organisation/${organisation.id}`, { respPerson: organisation.resp_person, seal: organisation.seal, name: organisation.name, address: organisation.address, issuer: organisation.issuer }, authHeaders());
+            fetchOrganisations();
+          };
+
+          const updateTravelOrder = async (travel_order) => {
+            await axios.put(`${apiBase}/travel_order/${travel_order.id}`, { startDate: travel_order.start_date, endDate: travel_order.end_date, task: travel_order.task, location: travel_order.location, perDiem: travel_order.per_diem, report: travel_order.report, state: travel_order.state, advPayment: travel_order.adv_payment, fkVehicle: travel_order.fk_vehicle, fkOrganisation: travel_order.fk_organisation }, authHeaders());
+            fetchTravelOrders();
+          };
+
+          const updateTravelExpence = async (travel_expence) => {
+            await axios.put(`${apiBase}/travel_expence/${travel_expence.id}`, { expenceType: travel_expence.expence_type, startLocation: travel_expence.start_location, endLocation: travel_expence.end_location, distance: travel_expence.distance, receipt: travel_expence.receipt, price: travel_expence.price, fkTravelOrder: travel_expence.fk_travel_order }, authHeaders());
+            fetchTravelExpences();
+          };
+
+          const deleteVehicle = async (id) => {
+            const res = await axios.delete(`${apiBase}/vehicle/${id}`, authHeaders());
+            alert(res.data.message);
+            fetchVehicles();
+          };
+
+          const deleteEmployee = async (id) => {
+            const res = await axios.delete(`${apiBase}/employee/${id}`, authHeaders());
+            alert(res.data.message);
+            fetchEmployees();
+          };
+
+          const deleteOrganisation = async (id) => {
+            const res = await axios.delete(`${apiBase}/organisation/${id}`, authHeaders());
+            alert(res.data.message);
+            fetchOrganisations();
+          };
+
+          const deleteTravelOrder = async (id) => {
+            const res = await axios.delete(`${apiBase}/travel_order/${id}`, authHeaders());
+            alert(res.data.message);
+            fetchTravelOrders();
+          };
+
+          const deleteTravelExpence = async (id) => {
+            const res = await axios.delete(`${apiBase}/travel_expence/${id}`, authHeaders());
+            alert(res.data.message);
+            fetchTravelExpences();
+          };
+
+          const deleteOrderEmployee = async (fk_order, fk_employee) => {
+            const res = await axios.delete(`${apiBase}/order_employee/${fk_order}/${fk_employee}`, authHeaders());
+            console.log(`${apiBase}/order_employee/${fk_order}/${fk_employee}`);
+            alert(res.data.message);
+            fetchOrderEmployeees();
+          };
+
+          if (token.value) {
+            fetchVehicles();
+            fetchEmployees();
+            fetchOrganisations();
+            fetchTravelOrders();
+            fetchTravelExpences();
+            fetchOrderEmployeees();
+          }
+
+          return {
+            token, vehicles, employees, organisations, travel_orders, travel_expences, order_employees,
+            newVehicleName, newVehicleConsumption,
+            newEmployeeName, newEmployeeSurname, newEmployeePosition, newEmployeeCardNum, newEmployeeSSN,
+            newOrganisationRespPerson, newOrganisationSeal, newOrganisationName, newOrganisationAddress, newOrganisationIssuer,
+            newTravelOrderStartDate, newTravelOrderEndDate, newTravelOrderTask, newTravelOrderLocation, newTravelOrderPerDiem, newTravelOrderReport, newTravelOrderState, newTravelOrderAdvPayment, newTravelOrderFkVehicle, newTravelOrderFkOrganisation,
+            newTravelExpenceExpenceType, newTravelExpenceStartLocation, newTravelExpenceEndLocation, newTravelExpenceDistance, newTravelExpenceReceipt, newTravelExpencePrice, newTravelExpenceFkTravelOrder,
+            newOrderEmployeeFkOrder, newOrderEmployeeFkEmployee,
+            loginForm, login, logout,
+            createVehicle, createEmployee, createOrganisation, createTravelOrder, createTravelExpence, createOrderEmployee,
+            updateVehicle, updateEmployee, updateOrganisation, updateTravelOrder, updateTravelExpence,
+            deleteVehicle, deleteEmployee, deleteOrganisation, deleteTravelOrder, deleteTravelExpence, deleteOrderEmployee, t
+          };
+        }
+      }).mount('#app');
+    </script>
+    <!-- <script>      
+      tinymce.init({
+        selector: '#report',
+        license_key: 'gpl|av1h8tw7btv65ttg51ee4i68yib9b3kwmeuu7ygjfxjmsz32'
+      });
+    </script> -->
+</body>
+
+</html>

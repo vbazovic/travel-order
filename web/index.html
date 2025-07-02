@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vue CRUD with REST API</title>
+  <title>Travel Order</title>
   <script src="node_modules/vue/dist/vue.global.js"></script>
   <script src="node_modules/axios/dist/axios.js"></script>
   <script src="node_modules/tinymce/tinymce.min.js"></script>
@@ -29,7 +29,6 @@
             class="shadow-[0_0_10px_rgba(0,0,0,0.3)] p-3 pl-6 pr-6 rounded-3xl" />
           <button @click="login"
             class="bg-blue-500 text-white font-bold rounded-4xl p-4 shadow-xl md:cursor-pointer">Login</button>
-
         </main>
       </div>
     </div>
@@ -312,7 +311,7 @@
                         <textarea id="report" apiKey="'gpl|av1h8tw7btv65ttg51ee4i68yib9b3kwmeuu7ygjfxjmsz32'"
                           v-model="travel_order.report" class="formInputs"></textarea>
                       </label>
-                      <button class="formButtons reportButton">REPORT</button><br><br>
+                      <button class="formButtons reportButton" onclick="window.open('report.html')">REPORT</button><br><br>
 
                       <label for="State">{{t("State", lang)}}:
                         <select v-model="travel_order.state" class="formInputs">
