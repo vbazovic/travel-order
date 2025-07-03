@@ -237,7 +237,20 @@ app.get('/travel_expence/:id', authenticate, (req, res) => {
   });
 });
 
-
+// GET TRAVEL EXPENCE VIA TRAVEL ORDER -----------------
+app.get('/travel_order/:id/travel_expence', authenticate, (req, res) => {
+  const { id } = req.params;
+  db.query(`
+    SELECT * FROM travel_expence
+    WHERE fk_travel_order = ?;
+  `, [id], (err, results) => {
+    if (err) throw err;
+    if (results.length === 0) {
+      return res.status(404).json({ error: 'No travel expence found for this travel order' });
+    }
+    res.json(results);
+  });
+});
 
 // POST add travel expence
 app.post('/travel_expence', authenticate, (req, res) => {
