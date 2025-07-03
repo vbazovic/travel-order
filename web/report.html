@@ -45,12 +45,12 @@
         <p class="ml-8">Odobrena akontacija: <span class="dbData">{{travel_order.adv_payment}}</span> EUR.</p>
       </section>
 
-      <p class="text-right italic">Nalogodavac ...</p>
+      <p class="text-right italic">Nalogodavac: <span class="dbData">{{organisation.issuer}}</span></p>
 
       <hr class="my-6">
 
       <div class="text-center space-y-2">
-        <p>Na osnovu prednjeg naloga izvršio sam službeno putovanje i podnosim sledeći</p>
+        <p>Na osnovu prednjeg naloga je izvršeno službeno putovanje i podnosim sledeći</p>
         <h1 class="text-3xl font-bold text-gray-900">PUTNI RAČUN</h1>
       </div>
 
@@ -74,7 +74,7 @@
 
       <div class="flex justify-between border-b pb-4">
         <p>Prevoz od ... do ...</p>
-        <p>Tip troška</p>
+        <p>Tip troška ...</p>
         <p>EUR ...</p>
       </div>
 
@@ -87,19 +87,19 @@
       <div class="flex justify-between items-center border-t pt-4">
         <p>U <span class="dbData">{{travel_order.location}}</span>, dana <span
             class="dbData">{{travel_order.formatted_end_date}}</span></p>
-        <p>Podnosilac zahteva ...</p>
+        <p>Podnosilac zahteva <span class="dbData">{{organisation.resp_person}}</span></p>
       </div>
 
       <p class="text-center">Potvrđujem da je putovanje izvršeno prema ovom nalogu i odobravam isplatu putnog računa od
-        ... EUR na teret ...</p>
-      <p class="text-center">U ... dana ...</p>
+        ... EUR na teret <span class="dbData">{{travel_order.org_name}}</span></p>
+      <p class="text-center">U <span class="dbData">{{travel_order.location}}</span> dana <span class="dbData">{{travel_order.formatted_end_date}}</span></p>
 
       <div class="flex justify-between border-t pt-4">
         <p>Račun ...</p>
-        <p>Nalogodavac ...</p>
+        <p>Nalogodavac <span class="dbData">{{organisation.issuer}}</span></p>
       </div>
 
-      <p class="text-right">Podnosilac računa ...</p>
+      <p class="text-right">Podnosilac računa <span class="dbData">{{organisation.resp_person}}</span></p>
 
       <hr class="my-6">
 
@@ -117,7 +117,7 @@
 
     <br><br>
 
-    <!-- fetch za EMPLOYEE, ORGANISATION, TRAVEL_EXPENCE -->
+    <!-- fetch za TRAVEL_EXPENCE -->
 
     <script>
       const { createApp, ref } = Vue;
@@ -129,6 +129,7 @@
 
           const travel_order = ref([]);
           const order_employees = ref([]);
+          const organisation = ref([]);
 
           const authHeaders = () => ({ headers: { Authorization: `Bearer ${token.value}` } });
 
@@ -144,6 +145,11 @@
           const fetchOrderEmployee = async (id) => {
             const res = await axios.get(`${apiBase}/order_employee/${id}`, authHeaders());
             order_employees.value = res.data;
+          };
+
+          const fetchOrganisation = async (id) => {
+            const res = await axios.get(`${apiBase}/travel_order/${id}/organisation`, authHeaders());
+            organisation.value = res.data;
           };
 
           function brojDana(od, doo) {
@@ -170,11 +176,11 @@
           if (token.value) {
             fetchTravelOrder(id.value);
             fetchOrderEmployee(id.value);
-
+            fetchOrganisation(id.value);
           }
 
           return {
-            token, travel_order, t, id, brojDana, order_employees
+            token, travel_order, t, id, brojDana, order_employees, organisation
           };
         }
       }).mount('#app');

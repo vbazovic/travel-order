@@ -170,6 +170,21 @@ app.get('/organisation/:id', authenticate, (req, res) => {
   });
 });
 
+//GET ORGANISATION VIA TRAVEL ORDER -----------------
+app.get('/travel_order/:id/organisation', authenticate, (req, res) => {
+  const { id } = req.params;
+  db.query(`SELECT organisation.*
+            FROM travel_order
+            INNER JOIN organisation ON travel_order.fk_organisation = organisation.id
+            WHERE travel_order.id = ?;`, [id], (err, results) => {
+    if (err) throw err;
+    if (results.length === 0) {
+      return res.status(404).json({ error: 'Organisation not found for this travel order' });
+    }
+    res.json(results[0]);
+  });
+});
+
 // POST add organisation
 app.post('/organisation', authenticate, (req, res) => {
   const jsonData = req.body;
@@ -222,19 +237,6 @@ app.get('/travel_expence/:id', authenticate, (req, res) => {
   });
 });
 
-// //GET EXPENCES FROM ORDER ID -------------------------
-// app.get('/order_employee/:id', authenticate, (req, res) => {
-//   const { id } = req.params;
-//   db.query(`SELECT order_employee.*, travel_expence.expence_type 
-//             FROM order_employee 
-//             INNER JOIN oragnisation ON organisation.id = order_employee.fk_organisation
-//             WHERE fk_order = ?;`, [id], (err, results) => {
-//     if (results.length === 0) {
-//       return res.status(404).json({ error: `Organisatio not found` });
-//     }
-//     res.json(results);
-//   });
-// });
 
 
 // POST add travel expence
