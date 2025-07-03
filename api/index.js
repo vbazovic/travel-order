@@ -222,6 +222,21 @@ app.get('/travel_expence/:id', authenticate, (req, res) => {
   });
 });
 
+// //GET EXPENCES FROM ORDER ID -------------------------
+// app.get('/order_employee/:id', authenticate, (req, res) => {
+//   const { id } = req.params;
+//   db.query(`SELECT order_employee.*, travel_expence.expence_type 
+//             FROM order_employee 
+//             INNER JOIN oragnisation ON organisation.id = order_employee.fk_organisation
+//             WHERE fk_order = ?;`, [id], (err, results) => {
+//     if (results.length === 0) {
+//       return res.status(404).json({ error: `Organisatio not found` });
+//     }
+//     res.json(results);
+//   });
+// });
+
+
 // POST add travel expence
 app.post('/travel_expence', authenticate, (req, res) => {
   const jsonData = req.body;
@@ -336,15 +351,30 @@ app.get('/order_employee', authenticate, (req, res) => {
 });
 
 // GET one order employee by ID
-app.get('/order_employee/:fkOrder/:fkEmployee', authenticate, (req, res) => {
-  const { fkEmployee } = req.params;
-  const { fkOrder } = req.params;
-  db.query('SELECT * FROM order_employee WHERE fk_order = ? AND fk_employee = ?', [fkOrder, fkEmployee], (err, results) => {
-    if (err) throw err;
+// app.get('/order_employee/:fkOrder/:fkEmployee', authenticate, (req, res) => {
+//   console.log('bb');
+//   const { fkEmployee } = req.params;
+//   const { fkOrder } = req.params;
+//   db.query('SELECT * FROM order_employee WHERE fk_order = ? AND fk_employee = ?', [fkOrder, fkEmployee], (err, results) => {
+//     if (err) throw err;
+//     if (results.length === 0) {
+//       return res.status(404).json({ error: 'Order employee not found' });
+//     }
+//     res.json(results[0]);
+//   });
+// });
+
+//GET EMPLOYEES FROM ORDER ID -------------------------
+app.get('/order_employee/:id', authenticate, (req, res) => {
+  const { id } = req.params;
+  db.query(`SELECT order_employee.*, employee.name, employee.surname, employee.position 
+            FROM order_employee 
+            INNER JOIN employee ON employee.id = order_employee.fk_employee 
+            WHERE fk_order = ?;`, [id], (err, results) => {
     if (results.length === 0) {
-      return res.status(404).json({ error: 'Order employee not found' });
+      return res.status(404).json({ error: `Order employee for order ${id} not found` });
     }
-    res.json(results[0]);
+    res.json(results);
   });
 });
 

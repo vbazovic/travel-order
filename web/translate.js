@@ -69,7 +69,9 @@ const translations = {
   "Other": "Ostalo",
 
   "From": "Od",
-  "To": "Do"
+  "To": "Do",
+
+  "Report": "Izveštaj"
   }
 }
 

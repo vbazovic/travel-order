@@ -27,11 +27,18 @@
       <h1 class="text-center text-3xl font-bold text-gray-900 pt-4">NALOG ZA SLUŽBENO PUTOVANJE</h1>
 
       <section class="space-y-2">
-        <p>Radnik ... na poziciji ... upućuje se na službeni put dana <span
-            class="dbData">{{travel_order.formatted_start_date}}</span> u <span
+        <span v-for="employee in order_employees" :key="employee.id" :value="employee.id">
+          Radnik: <span class="dbData">{{ `${employee.name} ${employee.surname}`}}</span>
+          na poziciji <span class="dbData">{{employee.position}}</span> upućuje se na službeni put <br><br>
+        </span>
+
+        <span>
+          Dana: <span class="dbData">{{travel_order.formatted_start_date}}</span> u <span
             class="dbData">{{travel_order.location}}</span> sa zadatkom <span
-            class="dbData">{{travel_order.task}}</span>.</p>
-        <p>Na službenom putu koristi prevozno sredstvo <span class="dbData">{{travel_order.vehicle_name}}</span>.</p>
+            class="dbData">{{travel_order.task}}</span>.
+        </span>
+        <p>Na službenom putu se koristi prevozno sredstvo <span class="dbData">{{travel_order.vehicle_name}}</span>.</p>
+
         <p class="ml-4">Dnevnica iznosi <span class="dbData">{{travel_order.per_diem}}</span> EUR.</p>
         <p class="ml-4">Put traje najduže do <span class="dbData">{{travel_order.formatted_end_date}}</span>.</p>
         <p class="ml-8">Troškovi putovanja padaju na teret <span class="dbData">{{travel_order.org_name}}</span>.</p>
@@ -96,8 +103,16 @@
 
       <hr class="my-6">
 
-      <h1 class="text-center text-3xl font-bold text-gray-900">IZVEŠTAJ SA SLUŽBENOG PUTA</h1>
-      <p class="text-justify">Izveštaj: <span class="dbData">{{travel_order.report}}</span></p>
+      <div v-if="travel_order.report === ''">
+
+      </div>
+
+      <div v-else>
+        <h1 class="text-center text-3xl font-bold text-gray-900">IZVEŠTAJ SA SLUŽBENOG PUTA</h1>
+        <p class="text-justify">Izveštaj: <span class="dbData">{{travel_order.report}}</span></p>
+      </div>
+
+
     </main>
 
     <br><br>
@@ -113,6 +128,7 @@
           const token = ref(localStorage.getItem('token'));
 
           const travel_order = ref([]);
+          const order_employees = ref([]);
 
           const authHeaders = () => ({ headers: { Authorization: `Bearer ${token.value}` } });
 
@@ -123,6 +139,11 @@
           const fetchTravelOrder = async (id) => {
             const res = await axios.get(`${apiBase}/travel_order/${id}`, authHeaders());
             travel_order.value = res.data;
+          };
+
+          const fetchOrderEmployee = async (id) => {
+            const res = await axios.get(`${apiBase}/order_employee/${id}`, authHeaders());
+            order_employees.value = res.data;
           };
 
           function brojDana(od, doo) {
@@ -148,10 +169,12 @@
 
           if (token.value) {
             fetchTravelOrder(id.value);
+            fetchOrderEmployee(id.value);
+
           }
 
           return {
-            token, travel_order, t, id, brojDana
+            token, travel_order, t, id, brojDana, order_employees
           };
         }
       }).mount('#app');

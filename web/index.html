@@ -311,7 +311,7 @@
                         <textarea id="report" apiKey="'gpl|av1h8tw7btv65ttg51ee4i68yib9b3kwmeuu7ygjfxjmsz32'"
                           v-model="travel_order.report" class="formInputs"></textarea>
                       </label>
-                      <button class="formButtons reportButton" @click="openReport(travel_order.id)">REPORT</button>
+                      <button class="formButtons reportButton" @click="openReport(travel_order.id)">{{t("Report", lang)}}</button>
 
                       <label for="State">{{t("State", lang)}}:
                         <select v-model="travel_order.state" class="formInputs">
