@@ -85,9 +85,17 @@
       </div>
 
       <div class="text-right space-y-1">
-        <p>Svega ...</p>
+        <p>Svega: <span class="dbData">
+            {{
+            (brojDana(travel_order.formatted_start_date, travel_order.formatted_end_date) * travel_order.per_diem) +
+            travel_expence.reduce((sum, e) => sum + Number(e.price || 0), 0)}}
+          </span> EUR</p>
         <p>Primljena akontacija: <span class="dbData">{{travel_order.adv_payment}}</span> EUR</p>
-        <p>Ostaje za uplatu/isplatu ...</p>
+        <p>Ostaje za uplatu/isplatu <span class="dbData">
+          {{
+            (brojDana(travel_order.formatted_start_date, travel_order.formatted_end_date) * travel_order.per_diem) +
+            travel_expence.reduce((sum, e) => sum + Number(e.price || 0), 0) + travel_order.adv_payment}}
+        </span> EUR</p>
       </div>
 
       <div class="flex justify-between items-center border-t pt-4">
