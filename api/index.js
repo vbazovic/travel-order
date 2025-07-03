@@ -339,8 +339,13 @@ app.put('/travel_order/:id', authenticate, (req, res) => {
   const jsonData = req.body;
   const { id } = req.params;
   db.query('UPDATE travel_order SET start_date = ?, end_date = ?, task = ?, location = ?, per_diem = ?, report = ?, state = ?, adv_payment = ?, fk_vehicle = ?, fk_organisation = ?  WHERE id = ?', [jsonData.startDate, jsonData.endDate, jsonData.task, jsonData.location, jsonData.perDiem, jsonData.report, jsonData.state, jsonData.advPayment, jsonData.fkVehicle, jsonData.fkOrganisation, id], (err) => {
-    if (err) throw err;
-    res.json({ message: 'Travel order updated' });
+    if (err) {
+      res.json({ message: 'Cannot update travel order' });
+      console.log(err);
+    }
+    else
+      res.json({ message: 'Travel order updated' });
+
   });
 });
 
