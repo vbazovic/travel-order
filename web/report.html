@@ -92,10 +92,10 @@
           </span> EUR</p>
         <p>Primljena akontacija: <span class="dbData">{{travel_order.adv_payment}}</span> EUR</p>
         <p>Ostaje za uplatu/isplatu <span class="dbData">
-          {{
+            {{
             (brojDana(travel_order.formatted_start_date, travel_order.formatted_end_date) * travel_order.per_diem) +
             travel_expence.reduce((sum, e) => sum + Number(e.price || 0), 0) + travel_order.adv_payment}}
-        </span> EUR</p>
+          </span> EUR</p>
       </div>
 
       <div class="flex justify-between items-center border-t pt-4">
@@ -105,7 +105,11 @@
       </div>
 
       <p class="text-center">Potvrđujem da je putovanje izvršeno prema ovom nalogu i odobravam isplatu putnog računa od
-        ... EUR na teret <span class="dbData">{{travel_order.org_name}}</span></p>
+        <span class="dbData">{{
+          (brojDana(travel_order.formatted_start_date, travel_order.formatted_end_date) * travel_order.per_diem) +
+          travel_expence.reduce((sum, e) => sum + Number(e.price || 0), 0) + travel_order.adv_payment}}</span> EUR na
+        teret <span class="dbData">{{travel_order.org_name}}</span>
+      </p>
       <p class="text-center">U <span class="dbData">{{travel_order.location}}</span> dana <span
           class="dbData">{{travel_order.formatted_end_date}}</span></p>
 
