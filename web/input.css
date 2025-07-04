@@ -56,5 +56,10 @@
 
 #reportPage p{
   margin-bottom: 20px;
-  
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
 }
