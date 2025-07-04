@@ -70,8 +70,12 @@ app.get('/vehicle/:id', authenticate, (req, res) => {
 app.post('/vehicle', authenticate, (req, res) => {
   const jsonData = req.body;
   db.query('INSERT INTO travel_order.vehicle (name, avg_consumption) VALUES(?, ?)', [jsonData.name, jsonData.avgConsumption], (err) => {
-    if (err) throw err;
-    res.json({ message: 'Vehicle created' });
+    if (err){
+      res.json({ message: 'Vehicle not created!' });
+    }else{
+      res.json({ message: 'Vehicle created!' });      
+    } 
+    
   });
 });
 
@@ -80,8 +84,11 @@ app.put('/vehicle/:id', authenticate, (req, res) => {
   const jsonData = req.body;
   const { id } = req.params;
   db.query('UPDATE vehicle SET name = ?, avg_consumption = ? WHERE id = ?', [jsonData.name, jsonData.avgConsumption, id], (err) => {
-    if (err) throw err;
-    res.json({ message: 'Vehicle updated' });
+    if (err) {
+      res.json({ message: "Vehicle not updated!" });
+    } else {
+      res.json({ message: 'Vehicle updated' });
+    }
   });
 });
 
@@ -90,7 +97,7 @@ app.delete('/vehicle/:id', authenticate, (req, res) => {
   const { id } = req.params;
   db.query('DELETE FROM vehicle WHERE id = ?', [id], (err) => {
     if (err)
-      res.json({ message: 'Cannot delete, selected vehicle is in travel_order!' });
+      res.json({ message: 'Cannot delete vehicle, FK problem!' });
     else
       res.json({ message: 'Vehicle deleted' });
   });

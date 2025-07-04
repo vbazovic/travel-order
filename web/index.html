@@ -730,9 +730,10 @@
 
           const createVehicle = async () => {
             if (!newVehicleName.value || !newVehicleConsumption.value) return;
-            await axios.post(`${apiBase}/vehicle`, { name: newVehicleName.value, avgConsumption: newVehicleConsumption.value }, authHeaders());
+            const res = await axios.post(`${apiBase}/vehicle`, { name: newVehicleName.value, avgConsumption: newVehicleConsumption.value }, authHeaders());
             newVehicleName.value = '';
             newVehicleConsumption.value = '';
+            alert(res.data.message);
             fetchVehicles();
           };
 
@@ -799,7 +800,8 @@
           };
 
           const updateVehicle = async (vehicle) => {
-            await axios.put(`${apiBase}/vehicle/${vehicle.id}`, { name: vehicle.name, avgConsumption: vehicle.avg_consumption }, authHeaders());
+            const res = await axios.put(`${apiBase}/vehicle/${vehicle.id}`, { name: vehicle.name, avgConsumption: vehicle.avg_consumption }, authHeaders());
+            alert(res.data.message);
             fetchVehicles();
           };
 
