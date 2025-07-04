@@ -781,7 +781,7 @@
 
           const createTravelExpence = async () => {
             if (!newTravelExpenceExpenceType.value || !newTravelExpenceStartLocation.value || !newTravelExpenceEndLocation.value || !newTravelExpenceDistance.value || !newTravelExpenceReceipt.value || !newTravelExpencePrice.value || !newTravelExpenceFkTravelOrder) return;
-            await axios.post(`${apiBase}/travel_expence`, { expenceType: newTravelExpenceExpenceType.value, startLocation: newTravelExpenceStartLocation.value, endLocation: newTravelExpenceEndLocation.value, distance: newTravelExpenceDistance.value, receipt: newTravelExpenceReceipt.value, price: newTravelExpencePrice.value, fkTravelOrder: newTravelExpenceFkTravelOrder.value }, authHeaders());
+            const res = await axios.post(`${apiBase}/travel_expence`, { expenceType: newTravelExpenceExpenceType.value, startLocation: newTravelExpenceStartLocation.value, endLocation: newTravelExpenceEndLocation.value, distance: newTravelExpenceDistance.value, receipt: newTravelExpenceReceipt.value, price: newTravelExpencePrice.value, fkTravelOrder: newTravelExpenceFkTravelOrder.value }, authHeaders());
             newTravelExpenceExpenceType.value = '';
             newTravelExpenceStartLocation.value = '';
             newTravelExpenceEndLocation.value = '';
@@ -789,6 +789,7 @@
             newTravelExpenceReceipt.value = '';
             newTravelExpencePrice.value = '';
             newTravelExpenceFkTravelOrder.value = '';
+            alert(res.data.message);
             fetchTravelExpences();
           };
 
@@ -827,7 +828,8 @@
           };
 
           const updateTravelExpence = async (travel_expence) => {
-            await axios.put(`${apiBase}/travel_expence/${travel_expence.id}`, { expenceType: travel_expence.expence_type, startLocation: travel_expence.start_location, endLocation: travel_expence.end_location, distance: travel_expence.distance, receipt: travel_expence.receipt, price: travel_expence.price, fkTravelOrder: travel_expence.fk_travel_order }, authHeaders());
+            const res = await axios.put(`${apiBase}/travel_expence/${travel_expence.id}`, { expenceType: travel_expence.expence_type, startLocation: travel_expence.start_location, endLocation: travel_expence.end_location, distance: travel_expence.distance, receipt: travel_expence.receipt, price: travel_expence.price, fkTravelOrder: travel_expence.fk_travel_order }, authHeaders());
+            alert(res.data.message);
             fetchTravelExpences();
           };
 

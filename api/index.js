@@ -276,8 +276,10 @@ app.get('/travel_order/:id/travel_expence', authenticate, (req, res) => {
 app.post('/travel_expence', authenticate, (req, res) => {
   const jsonData = req.body;
   db.query('INSERT INTO travel_order.travel_expence (expence_type, start_location, end_location, distance, receipt, price, fk_travel_order) VALUES(?, ?, ?, ?, ?, ?, ?)', [jsonData.expenceType, jsonData.startLocation, jsonData.endLocation, jsonData.distance, jsonData.receipt, jsonData.price, jsonData.fkTravelOrder], (err) => {
-    if (err) throw err;
-    res.json({ message: 'Travel expence added' });
+    if (err){
+      res.json({ message: 'Travel expence not created!' });
+    }
+      res.json({ message: 'Travel expence created!' });
   });
 });
 
@@ -286,8 +288,12 @@ app.put('/travel_expence/:id', authenticate, (req, res) => {
   const jsonData = req.body;
   const { id } = req.params;
   db.query('UPDATE travel_expence SET expence_type = ?, start_location = ?, end_location = ?, distance = ?, receipt = ?, price = ?, fk_travel_order = ? WHERE id = ?', [jsonData.expenceType, jsonData.startLocation, jsonData.endLocation, jsonData.distance, jsonData.receipt, jsonData.price, jsonData.fkTravelOrder, id], (err) => {
-    if (err) throw err;
-    res.json({ message: 'Travel expence updated' });
+    if (err){
+      res.json({ message: 'Travel expence not updated!' });
+    }else{
+      res.json({ message: 'Travel expence updated!' });
+    }
+    
   });
 });
 
@@ -295,8 +301,12 @@ app.put('/travel_expence/:id', authenticate, (req, res) => {
 app.delete('/travel_expence/:id', authenticate, (req, res) => {
   const { id } = req.params;
   db.query('DELETE FROM travel_expence WHERE id = ?', [id], (err) => {
-    if (err) throw err;
-    res.json({ message: 'Travel expence deleted' });
+    if (err){
+      res.json({ message: 'Travel expence not deleted!' });
+    }else{
+      res.json({ message: 'Travel expence deleted!' });
+    }
+    
   });
 });
 
