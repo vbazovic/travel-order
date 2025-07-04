@@ -193,7 +193,7 @@ app.get('/travel_order/:id/organisation', authenticate, (req, res) => {
             WHERE travel_order.id = ?;`, [id], (err, results) => {
     if (err) throw err;
     if (results.length === 0) {
-      return res.status(404).json({ error: 'Organisation not found for this travel order' });
+      return res.status(404).json({ error: 'Organisation not found for this travel order!' });
     }
     res.json(results[0]);
   });
@@ -203,8 +203,11 @@ app.get('/travel_order/:id/organisation', authenticate, (req, res) => {
 app.post('/organisation', authenticate, (req, res) => {
   const jsonData = req.body;
   db.query('INSERT INTO travel_order.organisation (resp_person, seal, name, address, issuer) VALUES(?, ?, ?, ?, ?)', [jsonData.respPerson, jsonData.seal, jsonData.name, jsonData.address, jsonData.issuer], (err) => {
-    if (err) throw err;
-    res.json({ message: 'Organisation added' });
+    if (err){
+      res.json({ message: 'Organisation not added!' });
+    }else{
+      res.json({ message: 'Organisation added!' });
+    }
   });
 });
 
@@ -213,8 +216,11 @@ app.put('/organisation/:id', authenticate, (req, res) => {
   const jsonData = req.body;
   const { id } = req.params;
   db.query('UPDATE organisation SET resp_person = ?, seal = ?, name = ?, address = ?, issuer = ? WHERE id = ?', [jsonData.respPerson, jsonData.seal, jsonData.name, jsonData.address, jsonData.issuer, id], (err) => {
-    if (err) throw err;
-    res.json({ message: 'Organisation updated' });
+    if (err){
+      res.json({ message: 'Organisation not updated!' });
+    }else{
+      res.json({ message: 'Organisation updated!' });
+    }
   });
 });
 
@@ -223,9 +229,9 @@ app.delete('/organisation/:id', authenticate, (req, res) => {
   const { id } = req.params;
   db.query('DELETE FROM organisation WHERE id = ?', [id], (err) => {
     if (err)
-      res.json({ message: 'Cannot delete, selected organisation is in travel_order!' });
+      res.json({ message: 'Cannot delete, FK problem!' });
     else
-      res.json({ message: 'Organisation deleted' });
+      res.json({ message: 'Organisation deleted!' });
   });
 });
 

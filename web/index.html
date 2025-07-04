@@ -751,12 +751,13 @@
 
           const createOrganisation = async () => {
             if (!newOrganisationRespPerson.value || !newOrganisationSeal.value || !newOrganisationName.value || !newOrganisationAddress.value || !newOrganisationIssuer.value) return;
-            await axios.post(`${apiBase}/organisation`, { respPerson: newOrganisationRespPerson.value, seal: newOrganisationSeal.value, name: newOrganisationName.value, address: newOrganisationAddress.value, issuer: newOrganisationIssuer.value }, authHeaders());
+            const res = await axios.post(`${apiBase}/organisation`, { respPerson: newOrganisationRespPerson.value, seal: newOrganisationSeal.value, name: newOrganisationName.value, address: newOrganisationAddress.value, issuer: newOrganisationIssuer.value }, authHeaders());
             newOrganisationRespPerson.value = '';
             newOrganisationSeal.value = '';
             newOrganisationName.value = '';
             newOrganisationAddress.value = '';
             newOrganisationIssuer.value = '';
+            alert(res.data.message);
             fetchOrganisations();
           };
 
@@ -813,7 +814,8 @@
           };
 
           const updateOrganisation = async (organisation) => {
-            await axios.put(`${apiBase}/organisation/${organisation.id}`, { respPerson: organisation.resp_person, seal: organisation.seal, name: organisation.name, address: organisation.address, issuer: organisation.issuer }, authHeaders());
+            const res = await axios.put(`${apiBase}/organisation/${organisation.id}`, { respPerson: organisation.resp_person, seal: organisation.seal, name: organisation.name, address: organisation.address, issuer: organisation.issuer }, authHeaders());
+            alert(res.data.message);
             fetchOrganisations();
           };
 
