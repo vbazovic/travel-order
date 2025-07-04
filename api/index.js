@@ -348,9 +348,9 @@ app.post('/travel_order', authenticate, (req, res) => {
     [jsonData.startDate, jsonData.endDate, jsonData.task, jsonData.location, jsonData.perDiem,
     jsonData.report, jsonData.state, jsonData.advPayment, jsonData.fkVehicle, jsonData.fkOrganisation], (err) => {
       if (err)
-        res.json({ message: 'Cannot add travel order, Foreign key problem!' });
+        res.json({ message: 'Cannot create travel order' });
       else
-        res.json({ message: 'Travel order added' });
+        res.json({ message: 'Travel order created!' });
     });
 });
 
@@ -360,11 +360,10 @@ app.put('/travel_order/:id', authenticate, (req, res) => {
   const { id } = req.params;
   db.query('UPDATE travel_order SET start_date = ?, end_date = ?, task = ?, location = ?, per_diem = ?, report = ?, state = ?, adv_payment = ?, fk_vehicle = ?, fk_organisation = ?  WHERE id = ?', [jsonData.startDate, jsonData.endDate, jsonData.task, jsonData.location, jsonData.perDiem, jsonData.report, jsonData.state, jsonData.advPayment, jsonData.fkVehicle, jsonData.fkOrganisation, id], (err) => {
     if (err) {
-      res.json({ message: 'Cannot update travel order' });
-      console.log(err);
+      res.json({ message: 'Travel order not updated!' });
     }
     else
-      res.json({ message: 'Travel order updated' });
+      res.json({ message: 'Travel order updated!' });
 
   });
 });
@@ -374,7 +373,7 @@ app.delete('/travel_order/:id', authenticate, (req, res) => {
   const { id } = req.params;
   db.query('DELETE FROM travel_order WHERE id = ?', [id], (err) => {
     if (err)
-      res.json({ message: 'Cannot delete, selected travel order is in order_employee!' });
+      res.json({ message: 'Cannot delete, FK problem!' });
     else
       res.json({ message: 'Travel order deleted' });
   });
