@@ -308,8 +308,8 @@
                       </label>
 
                       <label for="Report">{{t("Report", lang)}}:
-                        <textarea id="myEditor" apiKey="'gpl|av1h8tw7btv65ttg51ee4i68yib9b3kwmeuu7ygjfxjmsz32'"
-                          v-model="travel_order.report" class="formInputs"></textarea>
+                        <textarea :id="`report-${travel_order.id}`" v-model="travel_order.report"
+                          class="formInputs myEditor"></textarea>
                       </label>
                       <button class="formButtons reportButton" @click="openReport(travel_order.id)">{{t("Report",
                         lang)}}</button>
@@ -367,7 +367,8 @@
                         class="formInputs" />
                       <input v-model="newTravelOrderPerDiem" :placeholder="t('Per Diem', lang)" type="number" step="0.1"
                         min="0" class="formInputs" />
-                      <input v-model="newTravelOrderReport" :placeholder="t('Report', lang)" class="formInputs" id="myEditor" />
+                      <textarea :id="`add-report-editor`" v-model="newTravelOrderReport"
+                        :placeholder="t('Report', lang)" class="formInputs myEditor"></textarea>
 
                       <select v-model="newTravelOrderState" required class="formInputs">
                         <option value="" disabled>{{t("-- Select a state --", lang)}}</option>
@@ -812,6 +813,7 @@
           };
 
           const updateTravelOrder = async (travel_order) => {
+            console.log(tinyMCE.get(`report-${travel_order.id}`).getContent()); 
             await axios.put(`${apiBase}/travel_order/${travel_order.id}`, { startDate: travel_order.start_date, endDate: travel_order.end_date, task: travel_order.task, location: travel_order.location, perDiem: travel_order.per_diem, report: travel_order.report, state: travel_order.state, advPayment: travel_order.adv_payment, fkVehicle: travel_order.fk_vehicle, fkOrganisation: travel_order.fk_organisation }, authHeaders());
             fetchTravelOrders();
           };
@@ -881,13 +883,20 @@
             deleteVehicle, deleteEmployee, deleteOrganisation, deleteTravelOrder, deleteTravelExpence, deleteOrderEmployee, t, openReport
           };
         }
-      }).mount('#app');
+      }).mount('#app')
     </script>
 
     <script>
       tinymce.init({
-        selector: '#myEditor',
-        license_key: 'gpl'
+        selector: '.myEditor',
+        license_key: 'gpl',
+        // setup: (editor) => {
+        //   editor.on('Change KeyUp', () => {
+        //     const id = editor.id.split('report-')[1];
+        //     const order = this.travel_orders.find(o => o.id == id);
+        //     if (order) order.report = editor.getContent();
+        //   });
+        // }
       });
     </script>
 </body>
