@@ -739,12 +739,13 @@
 
           const createEmployee = async () => {
             if (!newEmployeeName.value || !newEmployeeSurname.value || !newEmployeePosition.value || !newEmployeeCardNum.value || !newEmployeeSSN.value) return;
-            await axios.post(`${apiBase}/employee`, { name: newEmployeeName.value, surname: newEmployeeSurname.value, position: newEmployeePosition.value, cardIdNum: newEmployeeCardNum.value, ssn: newEmployeeSSN.value }, authHeaders());
+            const res = await axios.post(`${apiBase}/employee`, { name: newEmployeeName.value, surname: newEmployeeSurname.value, position: newEmployeePosition.value, cardIdNum: newEmployeeCardNum.value, ssn: newEmployeeSSN.value }, authHeaders());
             newEmployeeName.value = '';
             newEmployeeSurname.value = '';
             newEmployeePosition.value = '';
             newEmployeeCardNum.value = '';
             newEmployeeSSN.value = '';
+            alert(res.data.message);
             fetchEmployees();
           };
 
@@ -806,7 +807,8 @@
           };
 
           const updateEmployee = async (employee) => {
-            await axios.put(`${apiBase}/employee/${employee.id}`, { name: employee.name, surname: employee.surname, position: employee.position, cardIdNum: employee.card_id_num, ssn: employee.ssn }, authHeaders());
+            const res = await axios.put(`${apiBase}/employee/${employee.id}`, { name: employee.name, surname: employee.surname, position: employee.position, cardIdNum: employee.card_id_num, ssn: employee.ssn }, authHeaders());
+            alert(res.data.message);
             fetchEmployees();
           };
 

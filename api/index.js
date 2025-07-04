@@ -60,7 +60,7 @@ app.get('/vehicle/:id', authenticate, (req, res) => {
   db.query('SELECT * FROM vehicle WHERE id = ?', [id], (err, results) => {
     if (err) throw err;
     if (results.length === 0) {
-      return res.status(404).json({ error: 'Vehicle not found' });
+      return res.status(404).json({ error: 'Vehicle not found!' });
     }
     res.json(results[0]);
   });
@@ -70,12 +70,12 @@ app.get('/vehicle/:id', authenticate, (req, res) => {
 app.post('/vehicle', authenticate, (req, res) => {
   const jsonData = req.body;
   db.query('INSERT INTO travel_order.vehicle (name, avg_consumption) VALUES(?, ?)', [jsonData.name, jsonData.avgConsumption], (err) => {
-    if (err){
+    if (err) {
       res.json({ message: 'Vehicle not created!' });
-    }else{
-      res.json({ message: 'Vehicle created!' });      
-    } 
-    
+    } else {
+      res.json({ message: 'Vehicle created!' });
+    }
+
   });
 });
 
@@ -87,7 +87,7 @@ app.put('/vehicle/:id', authenticate, (req, res) => {
     if (err) {
       res.json({ message: "Vehicle not updated!" });
     } else {
-      res.json({ message: 'Vehicle updated' });
+      res.json({ message: 'Vehicle updated!' });
     }
   });
 });
@@ -99,7 +99,7 @@ app.delete('/vehicle/:id', authenticate, (req, res) => {
     if (err)
       res.json({ message: 'Cannot delete vehicle, FK problem!' });
     else
-      res.json({ message: 'Vehicle deleted' });
+      res.json({ message: 'Vehicle deleted!' });
   });
 });
 
@@ -119,7 +119,7 @@ app.get('/employee/:id', authenticate, (req, res) => {
   db.query('SELECT * FROM employee WHERE id = ?', [id], (err, results) => {
     if (err) throw err;
     if (results.length === 0) {
-      return res.status(404).json({ error: 'Employee not found' });
+      return res.status(404).json({ error: 'Employee not found!' });
     }
     res.json(results[0]);
   });
@@ -129,8 +129,12 @@ app.get('/employee/:id', authenticate, (req, res) => {
 app.post('/employee', authenticate, (req, res) => {
   const jsonData = req.body;
   db.query('INSERT INTO travel_order.employee (name, surname, position, card_id_num, ssn) VALUES(?, ?, ?, ?, ?)', [jsonData.name, jsonData.surname, jsonData.position, jsonData.cardIdNum, jsonData.ssn], (err) => {
-    if (err) throw err;
-    res.json({ message: 'Employee added' });
+    if (err) {
+      res.json({ message: 'Employee not added!' });
+    } else {
+      res.json({ message: 'Employee added!' });
+    }
+
   });
 });
 
@@ -139,8 +143,11 @@ app.put('/employee/:id', authenticate, (req, res) => {
   const jsonData = req.body;
   const { id } = req.params;
   db.query('UPDATE employee SET name = ?, surname = ?, position = ?, card_id_num = ?, ssn = ? WHERE id = ?', [jsonData.name, jsonData.surname, jsonData.position, jsonData.cardIdNum, jsonData.ssn, id], (err) => {
-    if (err) throw err;
-    res.json({ message: 'Employee updated' });
+    if (err) {
+      res.json({ message: 'Employee not updated!' });
+    } else {
+      res.json({ message: 'Employee updated!' });
+    }
   });
 });
 
@@ -149,9 +156,9 @@ app.delete('/employee/:id', authenticate, (req, res) => {
   const { id } = req.params;
   db.query('DELETE FROM employee WHERE id = ?', [id], (err) => {
     if (err)
-      res.json({ message: 'Cannot delete, selected employee is in order_employee!' });
+      res.json({ message: 'Cannot delete, FK problem!' });
     else
-      res.json({ message: 'Employee deleted' });
+      res.json({ message: 'Employee deleted!' });
   });
 });
 
