@@ -432,9 +432,9 @@ app.post('/order_employee', authenticate, (req, res) => {
   const jsonData = req.body;
   db.query('INSERT INTO travel_order.order_employee (fk_order, fk_employee) VALUES(?, ?)', [jsonData.fkOrder, jsonData.fkEmployee], (err) => {
     if (err)
-      res.json({ message: 'Data problem!' });
+      res.json({ message: 'Order employee not created!' });
     else
-      res.json({ message: 'Order employee added!' });
+      res.json({ message: 'Order employee created!' });
   });
 });
 
@@ -446,10 +446,14 @@ app.delete('/order_employee/:fkOrder/:fkEmployee', authenticate, (req, res) => {
   const { fkOrder } = req.params;
   const { fkEmployee } = req.params;
   db.query('DELETE FROM order_employee WHERE fk_order = ? AND fk_employee = ?', [fkOrder, fkEmployee], (err, results) => {
-    if (err) throw err;
-    res.json({ message: 'Order employee deleted' });
+    if (err){
+      res.json({ message: 'Order employee not deleted!' });
+    }else{
+      res.json({ message: 'Order employee deleted!' });
+    }
+    
     if (results.length === 0) {
-      return res.status(404).json({ error: 'Order employee not found' });
+      return res.status(404).json({ error: 'Order employee not found!' });
     }
     res.json(results[0]);
   });
