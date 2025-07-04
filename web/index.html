@@ -308,10 +308,11 @@
                       </label>
 
                       <label for="Report">{{t("Report", lang)}}:
-                        <textarea id="report" apiKey="'gpl|av1h8tw7btv65ttg51ee4i68yib9b3kwmeuu7ygjfxjmsz32'"
+                        <textarea id="myEditor" apiKey="'gpl|av1h8tw7btv65ttg51ee4i68yib9b3kwmeuu7ygjfxjmsz32'"
                           v-model="travel_order.report" class="formInputs"></textarea>
                       </label>
-                      <button class="formButtons reportButton" @click="openReport(travel_order.id)">{{t("Report", lang)}}</button>
+                      <button class="formButtons reportButton" @click="openReport(travel_order.id)">{{t("Report",
+                        lang)}}</button>
 
                       <label for="State">{{t("State", lang)}}:
                         <select v-model="travel_order.state" class="formInputs">
@@ -366,7 +367,7 @@
                         class="formInputs" />
                       <input v-model="newTravelOrderPerDiem" :placeholder="t('Per Diem', lang)" type="number" step="0.1"
                         min="0" class="formInputs" />
-                      <input v-model="newTravelOrderReport" :placeholder="t('Report', lang)" class="formInputs" />
+                      <input v-model="newTravelOrderReport" :placeholder="t('Report', lang)" class="formInputs" id="myEditor" />
 
                       <select v-model="newTravelOrderState" required class="formInputs">
                         <option value="" disabled>{{t("-- Select a state --", lang)}}</option>
@@ -882,12 +883,13 @@
         }
       }).mount('#app');
     </script>
-    <!-- <script>      
+
+    <script>
       tinymce.init({
-        selector: '#report',
-        license_key: 'gpl|av1h8tw7btv65ttg51ee4i68yib9b3kwmeuu7ygjfxjmsz32'
+        selector: '#myEditor',
+        license_key: 'gpl'
       });
-    </script> -->
+    </script>
 </body>
 
 </html>
