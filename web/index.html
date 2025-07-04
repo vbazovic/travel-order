@@ -759,6 +759,7 @@
           };
 
           const createTravelOrder = async () => {
+            newTravelOrderReport.value = tinyMCE.get(`add-report-editor`).getContent();
             if (!newTravelOrderStartDate.value || !newTravelOrderEndDate.value || !newTravelOrderTask.value || !newTravelOrderLocation.value || !newTravelOrderPerDiem.value || !newTravelOrderReport.value || !newTravelOrderState.value || !newTravelOrderAdvPayment.value || !newTravelOrderFkVehicle.value || !newTravelOrderFkOrganisation.value) return;
             const res = await axios.post(`${apiBase}/travel_order`, { startDate: newTravelOrderStartDate.value, endDate: newTravelOrderEndDate.value, task: newTravelOrderTask.value, location: newTravelOrderLocation.value, perDiem: newTravelOrderPerDiem.value, report: newTravelOrderReport.value, state: newTravelOrderState.value, advPayment: newTravelOrderAdvPayment.value, fkVehicle: newTravelOrderFkVehicle.value, fkOrganisation: newTravelOrderFkOrganisation.value }, authHeaders());
             newTravelOrderStartDate.value = '';
@@ -813,7 +814,7 @@
           };
 
           const updateTravelOrder = async (travel_order) => {
-            console.log(tinyMCE.get(`report-${travel_order.id}`).getContent()); 
+            travel_order.report = tinyMCE.get(`report-${travel_order.id}`).getContent();
             await axios.put(`${apiBase}/travel_order/${travel_order.id}`, { startDate: travel_order.start_date, endDate: travel_order.end_date, task: travel_order.task, location: travel_order.location, perDiem: travel_order.per_diem, report: travel_order.report, state: travel_order.state, advPayment: travel_order.adv_payment, fkVehicle: travel_order.fk_vehicle, fkOrganisation: travel_order.fk_organisation }, authHeaders());
             fetchTravelOrders();
           };
