@@ -39,10 +39,6 @@
           <span class="text-2xl font-bold text-blue-500 dark:text-red-900">{{t("Travel Order", lang)}}</span>
           <div class="flex items-center">
 
-
-            <!-- <button class="mr-8 rounded-full cursor-pointer" onclick="document.body.classList.toggle('dark');">
-              <i class="pi pi-moon"></i>
-            </button> -->
             <button @click="logout"
               class="bg-red-700 p-2 pl-4 pr-4 rounded-3xl text-white font-bold text-sm shadow-md cursor-pointer mr-4">{{t("Logout",
               lang)}}</button>
@@ -430,7 +426,6 @@
                     class="travel_expence md:w-2/3">
                     <div>
                       <label for="Expence Type">{{t("Expence Type", lang)}}:
-                        <!-- <input type="text" v-model="travel_expence.expence_type" hidden/> -->
                         <select v-model="travel_expence.expence_type" id="" class="formInputs">
                           <option value="Travel Costs">{{t("Travel Costs", lang)}}</option>
                           <option value="Food and Drinks">{{t("Food and Drinks", lang)}}</option>
@@ -447,7 +442,7 @@
                       </label>
 
                       <label for="Distance">{{t("Distance", lang)}} (km):
-                        <input v-model="travel_expence.distance" class="formInputs" type="number" min="0" step="0.1"/>
+                        <input v-model="travel_expence.distance" class="formInputs" type="number" min="0" step="0.1" />
                       </label>
 
                       <label for="Receipt">{{t("Receipt", lang)}}:
@@ -455,7 +450,7 @@
                       </label>
 
                       <label for="Price">{{t("Price", lang)}} (euro/s):
-                        <input v-model="travel_expence.price" class="formInputs" type="number" min="1" step="0.1"/>
+                        <input v-model="travel_expence.price" class="formInputs" type="number" min="1" step="0.1" />
                       </label>
 
                       <label for="Travel Order:">{{t("Travel Order", lang)}}:
@@ -732,10 +727,10 @@
           };
 
           const createVehicle = async () => {
-            if (!newVehicleName.value){
+            if (!newVehicleName.value) {
               alert('Enter Vehicle name!');
               return;
-            } 
+            }
             const res = await axios.post(`${apiBase}/vehicle`, { name: newVehicleName.value, avgConsumption: newVehicleConsumption.value }, authHeaders());
             newVehicleName.value = '';
             newVehicleConsumption.value = '';
@@ -744,11 +739,18 @@
           };
 
           const createEmployee = async () => {
-            if (!newEmployeeName.value || !newEmployeeSurname.value || !newEmployeePosition.value || !newEmployeeCardNum.value || !newEmployeeSSN.value){
+            if (!newEmployeeName.value || !newEmployeeSurname.value || !newEmployeePosition.value || !newEmployeeCardNum.value || !newEmployeeSSN.value) {
               alert('Fill in all the fields!');
               return;
-            } 
-            const res = await axios.post(`${apiBase}/employee`, { name: newEmployeeName.value, surname: newEmployeeSurname.value, position: newEmployeePosition.value, cardIdNum: newEmployeeCardNum.value, ssn: newEmployeeSSN.value }, authHeaders());
+            }
+            const res = await axios.post(`${apiBase}/employee`, {
+              name: newEmployeeName.value,
+              surname: newEmployeeSurname.value,
+              position: newEmployeePosition.value,
+              cardIdNum: newEmployeeCardNum.value,
+              ssn: newEmployeeSSN.value
+            }, authHeaders());
+
             newEmployeeName.value = '';
             newEmployeeSurname.value = '';
             newEmployeePosition.value = '';
@@ -759,11 +761,22 @@
           };
 
           const createOrganisation = async () => {
-            if (!newOrganisationRespPerson.value || !newOrganisationSeal.value || !newOrganisationName.value || !newOrganisationAddress.value || !newOrganisationIssuer.value){
+            if (!newOrganisationRespPerson.value ||
+              !newOrganisationSeal.value ||
+              !newOrganisationName.value ||
+              !newOrganisationAddress.value ||
+              !newOrganisationIssuer.value) {
               alert('Fill in all the fields!');
               return;
-            } 
-            const res = await axios.post(`${apiBase}/organisation`, { respPerson: newOrganisationRespPerson.value, seal: newOrganisationSeal.value, name: newOrganisationName.value, address: newOrganisationAddress.value, issuer: newOrganisationIssuer.value }, authHeaders());
+            }
+            const res = await axios.post(`${apiBase}/organisation`, {
+              respPerson: newOrganisationRespPerson.value,
+              seal: newOrganisationSeal.value,
+              name: newOrganisationName.value,
+              address: newOrganisationAddress.value,
+              issuer: newOrganisationIssuer.value
+            }, authHeaders());
+
             newOrganisationRespPerson.value = '';
             newOrganisationSeal.value = '';
             newOrganisationName.value = '';
@@ -775,17 +788,36 @@
 
           const createTravelOrder = async () => {
             newTravelOrderReport.value = tinyMCE.get(`add-report-editor`).getContent();
-            if (!newTravelOrderStartDate.value || !newTravelOrderEndDate.value || !newTravelOrderTask.value || !newTravelOrderLocation.value || !newTravelOrderReport.value || !newTravelOrderState.value || !newTravelOrderFkVehicle.value || !newTravelOrderFkOrganisation.value){
+            if (!newTravelOrderStartDate.value ||
+              !newTravelOrderEndDate.value ||
+              !newTravelOrderTask.value ||
+              !newTravelOrderLocation.value ||
+              !newTravelOrderReport.value ||
+              !newTravelOrderState.value ||
+              !newTravelOrderFkVehicle.value ||
+              !newTravelOrderFkOrganisation.value) {
               alert('Fill in all the fields, per diem and advance payment can be empty!');
               return;
             }
 
-            if(newTravelOrderEndDate.value < newTravelOrderStartDate.value){
+            if (newTravelOrderEndDate.value < newTravelOrderStartDate.value) {
               alert('End date can`t be before Start date!');
               return;
             }
 
-            const res = await axios.post(`${apiBase}/travel_order`, { startDate: newTravelOrderStartDate.value, endDate: newTravelOrderEndDate.value, task: newTravelOrderTask.value, location: newTravelOrderLocation.value, perDiem: newTravelOrderPerDiem.value, report: newTravelOrderReport.value, state: newTravelOrderState.value, advPayment: newTravelOrderAdvPayment.value, fkVehicle: newTravelOrderFkVehicle.value, fkOrganisation: newTravelOrderFkOrganisation.value }, authHeaders());
+            const res = await axios.post(`${apiBase}/travel_order`, {
+              startDate: newTravelOrderStartDate.value,
+              endDate: newTravelOrderEndDate.value,
+              task: newTravelOrderTask.value,
+              location: newTravelOrderLocation.value,
+              perDiem: newTravelOrderPerDiem.value,
+              report: newTravelOrderReport.value,
+              state: newTravelOrderState.value,
+              advPayment: newTravelOrderAdvPayment.value,
+              fkVehicle: newTravelOrderFkVehicle.value,
+              fkOrganisation: newTravelOrderFkOrganisation.value
+            }, authHeaders());
+
             newTravelOrderStartDate.value = '';
             newTravelOrderEndDate.value = '';
             newTravelOrderTask.value = '';
@@ -801,11 +833,25 @@
           };
 
           const createTravelExpence = async () => {
-            if (!newTravelExpenceExpenceType.value || !newTravelExpenceStartLocation.value || !newTravelExpenceEndLocation.value || !newTravelExpenceReceipt.value || !newTravelExpencePrice.value || !newTravelExpenceFkTravelOrder){
+            if (!newTravelExpenceExpenceType.value ||
+              !newTravelExpenceStartLocation.value ||
+              !newTravelExpenceEndLocation.value ||
+              !newTravelExpenceReceipt.value ||
+              !newTravelExpencePrice.value ||
+              !newTravelExpenceFkTravelOrder) {
               alert('Fill in all the fields, distance can be empty!');
               return;
-            } 
-            const res = await axios.post(`${apiBase}/travel_expence`, { expenceType: newTravelExpenceExpenceType.value, startLocation: newTravelExpenceStartLocation.value, endLocation: newTravelExpenceEndLocation.value, distance: newTravelExpenceDistance.value, receipt: newTravelExpenceReceipt.value, price: newTravelExpencePrice.value, fkTravelOrder: newTravelExpenceFkTravelOrder.value }, authHeaders());
+            }
+            const res = await axios.post(`${apiBase}/travel_expence`, {
+              expenceType: newTravelExpenceExpenceType.value,
+              startLocation: newTravelExpenceStartLocation.value,
+              endLocation: newTravelExpenceEndLocation.value,
+              distance: newTravelExpenceDistance.value,
+              receipt: newTravelExpenceReceipt.value,
+              price: newTravelExpencePrice.value,
+              fkTravelOrder: newTravelExpenceFkTravelOrder.value
+            }, authHeaders());
+
             newTravelExpenceExpenceType.value = '';
             newTravelExpenceStartLocation.value = '';
             newTravelExpenceEndLocation.value = '';
@@ -818,10 +864,10 @@
           };
 
           const createOrderEmployee = async () => {
-            if (!newOrderEmployeeFkOrder.value || !newOrderEmployeeFkEmployee.value){
+            if (!newOrderEmployeeFkOrder.value || !newOrderEmployeeFkEmployee.value) {
               alert('Fill in all the fields!');
               return;
-            } 
+            }
             const res = await axios.post(`${apiBase}/order_employee`, { fkOrder: newOrderEmployeeFkOrder.value, fkEmployee: newOrderEmployeeFkEmployee.value }, authHeaders());
             newOrderEmployeeFkOrder.value = '';
             newOrderEmployeeFkEmployee.value = '';
@@ -836,30 +882,65 @@
           };
 
           const updateEmployee = async (employee) => {
-            const res = await axios.put(`${apiBase}/employee/${employee.id}`, { name: employee.name, surname: employee.surname, position: employee.position, cardIdNum: employee.card_id_num, ssn: employee.ssn }, authHeaders());
+            const res = await axios.put(`${apiBase}/employee/${employee.id}`, {
+              name: employee.name,
+              surname: employee.surname,
+              position: employee.position,
+              cardIdNum: employee.card_id_num,
+              ssn: employee.ssn
+            }, authHeaders());
+
             alert(res.data.message);
             fetchEmployees();
           };
 
           const updateOrganisation = async (organisation) => {
-            const res = await axios.put(`${apiBase}/organisation/${organisation.id}`, { respPerson: organisation.resp_person, seal: organisation.seal, name: organisation.name, address: organisation.address, issuer: organisation.issuer }, authHeaders());
+            const res = await axios.put(`${apiBase}/organisation/${organisation.id}`, {
+              respPerson: organisation.resp_person,
+              seal: organisation.seal,
+              name: organisation.name,
+              address: organisation.address,
+              issuer: organisation.issuer
+            }, authHeaders());
+
             alert(res.data.message);
             fetchOrganisations();
           };
 
           const updateTravelOrder = async (travel_order) => {
-            if(travel_order.formatted_end_date < travel_order.formatted_start_date){
+            if (travel_order.formatted_end_date < travel_order.formatted_start_date) {
               alert('End date can`t be before Start date!');
               return;
             }
             travel_order.report = tinyMCE.get(`report-${travel_order.id}`).getContent();
-            const res = await axios.put(`${apiBase}/travel_order/${travel_order.id}`, { startDate: travel_order.formatted_start_date, endDate: travel_order.formatted_end_date, task: travel_order.task, location: travel_order.location, perDiem: travel_order.per_diem, report: travel_order.report, state: travel_order.state, advPayment: travel_order.adv_payment, fkVehicle: travel_order.fk_vehicle, fkOrganisation: travel_order.fk_organisation }, authHeaders());
+            const res = await axios.put(`${apiBase}/travel_order/${travel_order.id}`, {
+              startDate: travel_order.formatted_start_date,
+              endDate: travel_order.formatted_end_date,
+              task: travel_order.task,
+              location: travel_order.location,
+              perDiem: travel_order.per_diem,
+              report: travel_order.report,
+              state: travel_order.state,
+              advPayment: travel_order.adv_payment,
+              fkVehicle: travel_order.fk_vehicle,
+              fkOrganisation: travel_order.fk_organisation
+            }, authHeaders());
+
             alert(res.data.message);
             fetchTravelOrders();
           };
 
           const updateTravelExpence = async (travel_expence) => {
-            const res = await axios.put(`${apiBase}/travel_expence/${travel_expence.id}`, { expenceType: travel_expence.expence_type, startLocation: travel_expence.start_location, endLocation: travel_expence.end_location, distance: travel_expence.distance, receipt: travel_expence.receipt, price: travel_expence.price, fkTravelOrder: travel_expence.fk_travel_order }, authHeaders());
+            const res = await axios.put(`${apiBase}/travel_expence/${travel_expence.id}`, {
+              expenceType: travel_expence.expence_type,
+              startLocation: travel_expence.start_location,
+              endLocation: travel_expence.end_location,
+              distance: travel_expence.distance,
+              receipt: travel_expence.receipt,
+              price: travel_expence.price,
+              fkTravelOrder: travel_expence.fk_travel_order
+            }, authHeaders());
+
             alert(res.data.message);
             fetchTravelExpences();
           };
@@ -931,13 +1012,6 @@
       tinymce.init({
         selector: '.myEditor',
         license_key: 'gpl',
-        // setup: (editor) => {
-        //   editor.on('Change KeyUp', () => {
-        //     const id = editor.id.split('report-')[1];
-        //     const order = this.travel_orders.find(o => o.id == id);
-        //     if (order) order.report = editor.getContent();
-        //   });
-        // }
       });
     </script>
 </body>
