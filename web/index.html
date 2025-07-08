@@ -432,8 +432,8 @@
                       <label for="Expence Type">{{t("Expence Type", lang)}}:
                         <!-- <input type="text" v-model="travel_expence.expence_type" hidden/> -->
                         <select v-model="travel_expence.expence_type" id="" class="formInputs">
-                          <option value="Travel">{{t("Travel Costs", lang)}}</option>
-                          <option value="Food">{{t("Food and Drinks", lang)}}</option>
+                          <option value="Travel Costs">{{t("Travel Costs", lang)}}</option>
+                          <option value="Food and Drinks">{{t("Food and Drinks", lang)}}</option>
                           <option value="Other">{{t("Other", lang)}}</option>
                         </select>
                       </label>
@@ -447,7 +447,7 @@
                       </label>
 
                       <label for="Distance">{{t("Distance", lang)}} (km):
-                        <input v-model="travel_expence.distance" class="formInputs" />
+                        <input v-model="travel_expence.distance" class="formInputs" type="number" min="0" step="0.1"/>
                       </label>
 
                       <label for="Receipt">{{t("Receipt", lang)}}:
@@ -455,7 +455,7 @@
                       </label>
 
                       <label for="Price">{{t("Price", lang)}} (euro/s):
-                        <input v-model="travel_expence.price" class="formInputs" />
+                        <input v-model="travel_expence.price" class="formInputs" type="number" min="1" step="0.1"/>
                       </label>
 
                       <label for="Travel Order:">{{t("Travel Order", lang)}}:
@@ -495,11 +495,11 @@
                       <input v-model="newTravelExpenceEndLocation" required :placeholder="t('End Location', lang)"
                         class="formInputs" />
                       <input v-model="newTravelExpenceDistance" required :placeholder="t('Distance', lang)"
-                        class="formInputs" />
+                        class="formInputs" type="number" step="0.1" min="0" />
                       <input v-model="newTravelExpenceReceipt" required :placeholder="t('Receipt', lang)"
                         class="formInputs" />
                       <input v-model="newTravelExpencePrice" required :placeholder="t('Price', lang)" type="number"
-                        step="0.1" min="0" class="formInputs" />
+                        step="0.1" min="1" class="formInputs" />
                       <select v-model="newTravelExpenceFkTravelOrder" class="formInputs">
                         <option disabled value="">{{t("-- Select a Travel Order --", lang)}}</option>
                         <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
@@ -732,7 +732,10 @@
           };
 
           const createVehicle = async () => {
-            if (!newVehicleName.value) return;
+            if (!newVehicleName.value){
+              alert('Enter Vehicle name!');
+              return;
+            } 
             const res = await axios.post(`${apiBase}/vehicle`, { name: newVehicleName.value, avgConsumption: newVehicleConsumption.value }, authHeaders());
             newVehicleName.value = '';
             newVehicleConsumption.value = '';
@@ -741,7 +744,10 @@
           };
 
           const createEmployee = async () => {
-            if (!newEmployeeName.value || !newEmployeeSurname.value || !newEmployeePosition.value || !newEmployeeCardNum.value || !newEmployeeSSN.value) return;
+            if (!newEmployeeName.value || !newEmployeeSurname.value || !newEmployeePosition.value || !newEmployeeCardNum.value || !newEmployeeSSN.value){
+              alert('Fill in all the fields!');
+              return;
+            } 
             const res = await axios.post(`${apiBase}/employee`, { name: newEmployeeName.value, surname: newEmployeeSurname.value, position: newEmployeePosition.value, cardIdNum: newEmployeeCardNum.value, ssn: newEmployeeSSN.value }, authHeaders());
             newEmployeeName.value = '';
             newEmployeeSurname.value = '';
@@ -753,7 +759,10 @@
           };
 
           const createOrganisation = async () => {
-            if (!newOrganisationRespPerson.value || !newOrganisationSeal.value || !newOrganisationName.value || !newOrganisationAddress.value || !newOrganisationIssuer.value) return;
+            if (!newOrganisationRespPerson.value || !newOrganisationSeal.value || !newOrganisationName.value || !newOrganisationAddress.value || !newOrganisationIssuer.value){
+              alert('Fill in all the fields!');
+              return;
+            } 
             const res = await axios.post(`${apiBase}/organisation`, { respPerson: newOrganisationRespPerson.value, seal: newOrganisationSeal.value, name: newOrganisationName.value, address: newOrganisationAddress.value, issuer: newOrganisationIssuer.value }, authHeaders());
             newOrganisationRespPerson.value = '';
             newOrganisationSeal.value = '';
@@ -766,7 +775,16 @@
 
           const createTravelOrder = async () => {
             newTravelOrderReport.value = tinyMCE.get(`add-report-editor`).getContent();
-            if (!newTravelOrderStartDate.value || !newTravelOrderEndDate.value || !newTravelOrderTask.value || !newTravelOrderLocation.value || !newTravelOrderReport.value || !newTravelOrderState.value || !newTravelOrderFkVehicle.value || !newTravelOrderFkOrganisation.value) return;
+            if (!newTravelOrderStartDate.value || !newTravelOrderEndDate.value || !newTravelOrderTask.value || !newTravelOrderLocation.value || !newTravelOrderReport.value || !newTravelOrderState.value || !newTravelOrderFkVehicle.value || !newTravelOrderFkOrganisation.value){
+              alert('Fill in all the fields, per diem and advance payment can be empty!');
+              return;
+            }
+
+            if(newTravelOrderEndDate.value < newTravelOrderStartDate.value){
+              alert('End date can`t be before Start date!');
+              return;
+            }
+
             const res = await axios.post(`${apiBase}/travel_order`, { startDate: newTravelOrderStartDate.value, endDate: newTravelOrderEndDate.value, task: newTravelOrderTask.value, location: newTravelOrderLocation.value, perDiem: newTravelOrderPerDiem.value, report: newTravelOrderReport.value, state: newTravelOrderState.value, advPayment: newTravelOrderAdvPayment.value, fkVehicle: newTravelOrderFkVehicle.value, fkOrganisation: newTravelOrderFkOrganisation.value }, authHeaders());
             newTravelOrderStartDate.value = '';
             newTravelOrderEndDate.value = '';
@@ -783,7 +801,10 @@
           };
 
           const createTravelExpence = async () => {
-            if (!newTravelExpenceExpenceType.value || !newTravelExpenceStartLocation.value || !newTravelExpenceEndLocation.value || !newTravelExpenceDistance.value || !newTravelExpenceReceipt.value || !newTravelExpencePrice.value || !newTravelExpenceFkTravelOrder) return;
+            if (!newTravelExpenceExpenceType.value || !newTravelExpenceStartLocation.value || !newTravelExpenceEndLocation.value || !newTravelExpenceReceipt.value || !newTravelExpencePrice.value || !newTravelExpenceFkTravelOrder){
+              alert('Fill in all the fields, distance can be empty!');
+              return;
+            } 
             const res = await axios.post(`${apiBase}/travel_expence`, { expenceType: newTravelExpenceExpenceType.value, startLocation: newTravelExpenceStartLocation.value, endLocation: newTravelExpenceEndLocation.value, distance: newTravelExpenceDistance.value, receipt: newTravelExpenceReceipt.value, price: newTravelExpencePrice.value, fkTravelOrder: newTravelExpenceFkTravelOrder.value }, authHeaders());
             newTravelExpenceExpenceType.value = '';
             newTravelExpenceStartLocation.value = '';
@@ -797,7 +818,10 @@
           };
 
           const createOrderEmployee = async () => {
-            if (!newOrderEmployeeFkOrder.value || !newOrderEmployeeFkEmployee.value) return;
+            if (!newOrderEmployeeFkOrder.value || !newOrderEmployeeFkEmployee.value){
+              alert('Fill in all the fields!');
+              return;
+            } 
             const res = await axios.post(`${apiBase}/order_employee`, { fkOrder: newOrderEmployeeFkOrder.value, fkEmployee: newOrderEmployeeFkEmployee.value }, authHeaders());
             newOrderEmployeeFkOrder.value = '';
             newOrderEmployeeFkEmployee.value = '';
@@ -824,6 +848,10 @@
           };
 
           const updateTravelOrder = async (travel_order) => {
+            if(travel_order.formatted_end_date < travel_order.formatted_start_date){
+              alert('End date can`t be before Start date!');
+              return;
+            }
             travel_order.report = tinyMCE.get(`report-${travel_order.id}`).getContent();
             const res = await axios.put(`${apiBase}/travel_order/${travel_order.id}`, { startDate: travel_order.formatted_start_date, endDate: travel_order.formatted_end_date, task: travel_order.task, location: travel_order.location, perDiem: travel_order.per_diem, report: travel_order.report, state: travel_order.state, advPayment: travel_order.adv_payment, fkVehicle: travel_order.fk_vehicle, fkOrganisation: travel_order.fk_organisation }, authHeaders());
             alert(res.data.message);
