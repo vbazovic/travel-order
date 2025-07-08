@@ -284,11 +284,13 @@
                   <div v-for="travel_order in travel_orders" :key="travel_order.id" class="travel_order md:w-2/3">
                     <div>
                       <label for="Start date">{{t("Start Date", lang)}}:
-                        <input type="date" v-model="travel_order.formatted_start_date" class="formInputs" />
+                        <input type="date" v-model="travel_order.formatted_start_date" class="formInputs"
+                          min="1990-01-01" />
                       </label>
 
                       <label for="End date">{{t("End Date", lang)}}:
-                        <input type="date" v-model="travel_order.formatted_end_date" class="formInputs" />
+                        <input type="date" v-model="travel_order.formatted_end_date" class="formInputs"
+                          min="1990-01-01"/>
                       </label>
 
                       <label for="Order Task">{{t("Order Task", lang)}}:
@@ -311,7 +313,7 @@
                         lang)}}</button>
 
                       <label for="State">{{t("State", lang)}}:
-                        <select v-model="travel_order.state" required class="formInputs">
+                        <select v-model="travel_order.state" required class="formInputs" id="toState">
                           <option value="started">{{t("Started", lang)}}</option>
                           <option value="ended">{{t("Ended", lang)}}</option>
                           <option value="in progress">{{t("In proggress", lang)}}</option>
@@ -340,7 +342,8 @@
                     </div>
 
                     <div>
-                      <button @click="updateTravelOrder(travel_order)" class="formButtons updateButton">{{t("Update",
+                      <button @click="updateTravelOrder(travel_order)" class="formButtons updateButton"
+                        id="uptButton">{{t("Update",
                         lang)}}</button>
                       <button @click="deleteTravelOrder(travel_order.id)" class="formButtons deleteButton">{{t("Delete",
                         lang)}}</button>
@@ -604,7 +607,6 @@
       createApp({
 
         setup() {
-
           const apiBase = 'http://localhost:3000'; // or 3000 for Node.js
           const token = ref(localStorage.getItem('token'));
 
@@ -907,6 +909,15 @@
           };
 
           const updateTravelOrder = async (travel_order) => {
+            const uptButton = document.getElementById('uptButton');
+
+            // if (travel_order.state === 'ended') {
+            //   uptButton.disabled = true;
+            //   uptButton.classList.add('disable');
+            //   alert('Can`t update Travel Order! State is ended!')
+            //   return;
+            // }
+
             if (travel_order.formatted_end_date < travel_order.formatted_start_date) {
               alert('End date can`t be before Start date!');
               return;
@@ -924,6 +935,8 @@
               fkVehicle: travel_order.fk_vehicle,
               fkOrganisation: travel_order.fk_organisation
             }, authHeaders());
+
+
 
             alert(res.data.message);
             fetchTravelOrders();
