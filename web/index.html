@@ -315,11 +315,10 @@
                         lang)}}</button>
 
                       <label for="State">{{t("State", lang)}}:
-                        <select v-model="travel_order.state" class="formInputs">
-                          <option v-for="travel_order in travel_orders" :key="travel_order.state"
-                            :value="travel_order.state">
-                            {{ `${travel_order.state}`}}
-                          </option>
+                        <select v-model="travel_order.state" required class="formInputs">                          
+                          <option value="started">{{t("Started", lang)}}</option>
+                          <option value="ended">{{t("Ended", lang)}}</option>
+                          <option value="in progress">{{t("In proggress", lang)}}</option>
                         </select>
                       </label>
 

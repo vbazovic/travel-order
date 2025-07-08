@@ -17,9 +17,19 @@
 
 <body>
   <h1>TinyMCE test</h1>
-  <form method="post">
-    <textarea id="test-textarea">Hello, World! <b>TinyMCE</b></textarea>
-  </form>
+
+  <textarea id="test-textarea">Hello, World! <b>TinyMCE</b></textarea>
+
+  <h1>Grid</h1>
+    <form id="search">
+      Search <input name="query" v-model="searchQuery">
+    </form>
+    <DemoGrid :data="gridData" :columns="gridColumns" :filter-key="searchQuery">  
+  </template>
+
+  <script>
+    const { createApp, ref } = Vue;
+  </script>
 </body>
 
 </html>
