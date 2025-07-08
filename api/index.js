@@ -128,27 +128,37 @@ app.get('/employee/:id', authenticate, (req, res) => {
 // POST add employee
 app.post('/employee', authenticate, (req, res) => {
   const jsonData = req.body;
-  db.query('INSERT INTO travel_order.employee (name, surname, position, card_id_num, ssn) VALUES(?, ?, ?, ?, ?)', [jsonData.name, jsonData.surname, jsonData.position, jsonData.cardIdNum, jsonData.ssn], (err) => {
-    if (err) {
-      res.json({ message: 'Employee not added!' });
-    } else {
-      res.json({ message: 'Employee added!' });
-    }
+  db.query('INSERT INTO travel_order.employee (name, surname, position, card_id_num, ssn) VALUES(?, ?, ?, ?, ?)', [
+    jsonData.name,
+    jsonData.surname,
+    jsonData.position,
+    jsonData.cardIdNum,
+    jsonData.ssn], (err) => {
+      if (err) {
+        res.json({ message: 'Employee not added!' });
+      } else {
+        res.json({ message: 'Employee added!' });
+      }
 
-  });
+    });
 });
 
 // PUT update employee
 app.put('/employee/:id', authenticate, (req, res) => {
   const jsonData = req.body;
   const { id } = req.params;
-  db.query('UPDATE employee SET name = ?, surname = ?, position = ?, card_id_num = ?, ssn = ? WHERE id = ?', [jsonData.name, jsonData.surname, jsonData.position, jsonData.cardIdNum, jsonData.ssn, id], (err) => {
-    if (err) {
-      res.json({ message: 'Employee not updated!' });
-    } else {
-      res.json({ message: 'Employee updated!' });
-    }
-  });
+  db.query('UPDATE employee SET name = ?, surname = ?, position = ?, card_id_num = ?, ssn = ? WHERE id = ?', [
+    jsonData.name,
+    jsonData.surname,
+    jsonData.position,
+    jsonData.cardIdNum,
+    jsonData.ssn, id], (err) => {
+      if (err) {
+        res.json({ message: 'Employee not updated!' });
+      } else {
+        res.json({ message: 'Employee updated!' });
+      }
+    });
 });
 
 // DELETE employee
@@ -202,26 +212,36 @@ app.get('/travel_order/:id/organisation', authenticate, (req, res) => {
 // POST add organisation
 app.post('/organisation', authenticate, (req, res) => {
   const jsonData = req.body;
-  db.query('INSERT INTO travel_order.organisation (resp_person, seal, name, address, issuer) VALUES(?, ?, ?, ?, ?)', [jsonData.respPerson, jsonData.seal, jsonData.name, jsonData.address, jsonData.issuer], (err) => {
-    if (err){
-      res.json({ message: 'Organisation not added!' });
-    }else{
-      res.json({ message: 'Organisation added!' });
-    }
-  });
+  db.query('INSERT INTO travel_order.organisation (resp_person, seal, name, address, issuer) VALUES(?, ?, ?, ?, ?)', [
+    jsonData.respPerson,
+    jsonData.seal,
+    jsonData.name,
+    jsonData.address,
+    jsonData.issuer], (err) => {
+      if (err) {
+        res.json({ message: 'Organisation not added!' });
+      } else {
+        res.json({ message: 'Organisation added!' });
+      }
+    });
 });
 
 // PUT update organisation
 app.put('/organisation/:id', authenticate, (req, res) => {
   const jsonData = req.body;
   const { id } = req.params;
-  db.query('UPDATE organisation SET resp_person = ?, seal = ?, name = ?, address = ?, issuer = ? WHERE id = ?', [jsonData.respPerson, jsonData.seal, jsonData.name, jsonData.address, jsonData.issuer, id], (err) => {
-    if (err){
-      res.json({ message: 'Organisation not updated!' });
-    }else{
-      res.json({ message: 'Organisation updated!' });
-    }
-  });
+  db.query('UPDATE organisation SET resp_person = ?, seal = ?, name = ?, address = ?, issuer = ? WHERE id = ?', [
+    jsonData.respPerson,
+    jsonData.seal,
+    jsonData.name,
+    jsonData.address,
+    jsonData.issuer, id], (err) => {
+      if (err) {
+        res.json({ message: 'Organisation not updated!' });
+      } else {
+        res.json({ message: 'Organisation updated!' });
+      }
+    });
 });
 
 // DELETE organisation
@@ -275,38 +295,52 @@ app.get('/travel_order/:id/travel_expence', authenticate, (req, res) => {
 // POST add travel expence
 app.post('/travel_expence', authenticate, (req, res) => {
   const jsonData = req.body;
-  db.query('INSERT INTO travel_order.travel_expence (expence_type, start_location, end_location, distance, receipt, price, fk_travel_order) VALUES(?, ?, ?, ?, ?, ?, ?)', [jsonData.expenceType, jsonData.startLocation, jsonData.endLocation, jsonData.distance, jsonData.receipt, jsonData.price, jsonData.fkTravelOrder], (err) => {
-    if (err){
-      res.json({ message: 'Travel expence not created!' });
-    }
+  db.query('INSERT INTO travel_order.travel_expence (expence_type, start_location, end_location, distance, receipt, price, fk_travel_order) VALUES(?, ?, ?, ?, ?, ?, ?)', [
+    jsonData.expenceType,
+    jsonData.startLocation,
+    jsonData.endLocation,
+    jsonData.distance,
+    jsonData.receipt,
+    jsonData.price,
+    jsonData.fkTravelOrder], (err) => {
+      if (err) {
+        res.json({ message: 'Travel expence not created!' });
+      }
       res.json({ message: 'Travel expence created!' });
-  });
+    });
 });
 
 // PUT update travel expence
 app.put('/travel_expence/:id', authenticate, (req, res) => {
   const jsonData = req.body;
   const { id } = req.params;
-  db.query('UPDATE travel_expence SET expence_type = ?, start_location = ?, end_location = ?, distance = ?, receipt = ?, price = ?, fk_travel_order = ? WHERE id = ?', [jsonData.expenceType, jsonData.startLocation, jsonData.endLocation, jsonData.distance, jsonData.receipt, jsonData.price, jsonData.fkTravelOrder, id], (err) => {
-    if (err){
-      res.json({ message: 'Travel expence not updated!' });
-    }else{
-      res.json({ message: 'Travel expence updated!' });
-    }
-    
-  });
+  db.query('UPDATE travel_expence SET expence_type = ?, start_location = ?, end_location = ?, distance = ?, receipt = ?, price = ?, fk_travel_order = ? WHERE id = ?', [
+    jsonData.expenceType,
+    jsonData.startLocation,
+    jsonData.endLocation,
+    jsonData.distance,
+    jsonData.receipt,
+    jsonData.price,
+    jsonData.fkTravelOrder, id], (err) => {
+      if (err) {
+        res.json({ message: 'Travel expence not updated!' });
+      } else {
+        res.json({ message: 'Travel expence updated!' });
+      }
+
+    });
 });
 
 // DELETE travel expence
 app.delete('/travel_expence/:id', authenticate, (req, res) => {
   const { id } = req.params;
   db.query('DELETE FROM travel_expence WHERE id = ?', [id], (err) => {
-    if (err){
+    if (err) {
       res.json({ message: 'Travel expence not deleted!' });
-    }else{
+    } else {
       res.json({ message: 'Travel expence deleted!' });
     }
-    
+
   });
 });
 
@@ -355,9 +389,17 @@ app.get('/travel_order/:id', authenticate, (req, res) => {
 // POST add travel order
 app.post('/travel_order', authenticate, (req, res) => {
   const jsonData = req.body;
-  db.query('INSERT INTO travel_order (start_date, end_date, task, location, per_diem, report, state, adv_payment, fk_vehicle, fk_organisation) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    [jsonData.startDate, jsonData.endDate, jsonData.task, jsonData.location, jsonData.perDiem,
-    jsonData.report, jsonData.state, jsonData.advPayment, jsonData.fkVehicle, jsonData.fkOrganisation], (err) => {
+  db.query('INSERT INTO travel_order (start_date, end_date, task, location, per_diem, report, state, adv_payment, fk_vehicle, fk_organisation) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+    jsonData.startDate,
+    jsonData.endDate,
+    jsonData.task,
+    jsonData.location,
+    jsonData.perDiem,
+    jsonData.report,
+    jsonData.state,
+    jsonData.advPayment,
+    jsonData.fkVehicle,
+    jsonData.fkOrganisation], (err) => {
       if (err)
         res.json({ message: 'Cannot create travel order' });
       else
@@ -369,14 +411,24 @@ app.post('/travel_order', authenticate, (req, res) => {
 app.put('/travel_order/:id', authenticate, (req, res) => {
   const jsonData = req.body;
   const { id } = req.params;
-  db.query('UPDATE travel_order SET start_date = ?, end_date = ?, task = ?, location = ?, per_diem = ?, report = ?, state = ?, adv_payment = ?, fk_vehicle = ?, fk_organisation = ?  WHERE id = ?', [jsonData.startDate, jsonData.endDate, jsonData.task, jsonData.location, jsonData.perDiem, jsonData.report, jsonData.state, jsonData.advPayment, jsonData.fkVehicle, jsonData.fkOrganisation, id], (err) => {
-    if (err) {
-      res.json({ message: 'Travel order not updated!' });
-    }
-    else
-      res.json({ message: 'Travel order updated!' });
+  db.query('UPDATE travel_order SET start_date = ?, end_date = ?, task = ?, location = ?, per_diem = ?, report = ?, state = ?, adv_payment = ?, fk_vehicle = ?, fk_organisation = ?  WHERE id = ?', [
+    jsonData.startDate,
+    jsonData.endDate,
+    jsonData.task,
+    jsonData.location,
+    jsonData.perDiem,
+    jsonData.report,
+    jsonData.state,
+    jsonData.advPayment,
+    jsonData.fkVehicle,
+    jsonData.fkOrganisation, id], (err) => {
+      if (err) {
+        res.json({ message: 'Travel order not updated!' });
+      }
+      else
+        res.json({ message: 'Travel order updated!' });
 
-  });
+    });
 });
 
 // DELETE travel order
@@ -399,20 +451,6 @@ app.get('/order_employee', authenticate, (req, res) => {
     res.json(results);
   });
 });
-
-// GET one order employee by ID
-// app.get('/order_employee/:fkOrder/:fkEmployee', authenticate, (req, res) => {
-//   console.log('bb');
-//   const { fkEmployee } = req.params;
-//   const { fkOrder } = req.params;
-//   db.query('SELECT * FROM order_employee WHERE fk_order = ? AND fk_employee = ?', [fkOrder, fkEmployee], (err, results) => {
-//     if (err) throw err;
-//     if (results.length === 0) {
-//       return res.status(404).json({ error: 'Order employee not found' });
-//     }
-//     res.json(results[0]);
-//   });
-// });
 
 //GET EMPLOYEES FROM ORDER ID -------------------------
 app.get('/order_employee/:id', authenticate, (req, res) => {
@@ -447,12 +485,12 @@ app.delete('/order_employee/:fkOrder/:fkEmployee', authenticate, (req, res) => {
   const { fkOrder } = req.params;
   const { fkEmployee } = req.params;
   db.query('DELETE FROM order_employee WHERE fk_order = ? AND fk_employee = ?', [fkOrder, fkEmployee], (err, results) => {
-    if (err){
+    if (err) {
       res.json({ message: 'Order employee not deleted!' });
-    }else{
+    } else {
       res.json({ message: 'Order employee deleted!' });
     }
-    
+
     if (results.length === 0) {
       return res.status(404).json({ error: 'Order employee not found!' });
     }
