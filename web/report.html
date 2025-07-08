@@ -253,8 +253,11 @@
             const datum2 = new Date(y2, m2 - 1, d2);
 
             const razlika = datum2 - datum1;
-            const brDana = razlika / (1000 * 60 * 60 * 24);
+            let brDana = razlika / (1000 * 60 * 60 * 24);
 
+            if(brDana === 0){
+              brDana = 1;
+            }
             return brDana;
           }
 
