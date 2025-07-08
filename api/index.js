@@ -323,7 +323,8 @@ app.get('/travel_order', authenticate, (req, res) => {
   DATE_FORMAT(travel_order.end_date, '%d.%m.%Y.') AS formatted_end_date
   FROM travel_order
   INNER JOIN vehicle ON travel_order.fk_vehicle = vehicle.id
-  INNER JOIN organisation ON travel_order.fk_organisation = organisation.id;`
+  INNER JOIN organisation ON travel_order.fk_organisation = organisation.id
+  ORDER BY travel_order.id DESC;`
   db.query(sqlQuery, (err, results) => {
     if (err) throw err;
     res.json(results);
