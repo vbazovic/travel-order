@@ -285,12 +285,12 @@
                     <div>
                       <label for="Start date">{{t("Start Date", lang)}}:
                         <input type="date" v-model="travel_order.formatted_start_date" class="formInputs"
-                          min="1990-01-01" />
+                          min="2020-01-01" :max="maxDate()" />
                       </label>
 
                       <label for="End date">{{t("End Date", lang)}}:
-                        <input type="date" v-model="travel_order.formatted_end_date" class="formInputs"
-                          min="1990-01-01"/>
+                        <input type="date" v-model="travel_order.formatted_end_date" class="formInputs" min="2020-01-01"
+                          :max="maxDate()" />
                       </label>
 
                       <label for="Order Task">{{t("Order Task", lang)}}:
@@ -357,9 +357,9 @@
                   <div>
                     <div>
                       <input type="date" v-model="newTravelOrderStartDate" required :placeholder="t('Start Date', lang)"
-                        class="formInputs" />
+                        class="formInputs" min="2020-01-01" :max="maxDate()"/>
                       <input type="date" v-model="newTravelOrderEndDate" :placeholder="t('End Date', lang)"
-                        class="formInputs" />
+                        class="formInputs" min="2020-01-01" :max="maxDate()"/>
                       <input v-model="newTravelOrderTask" :placeholder="t('Order Task', lang)" class="formInputs" />
                       <input v-model="newTravelOrderLocation" required :placeholder="t('Location', lang)"
                         class="formInputs" />
@@ -654,10 +654,16 @@
           const newOrderEmployeeFkOrder = ref('');
           const newOrderEmployeeFkEmployee = ref('');
 
-
           const loginForm = ref({ username: '', password: '' });
 
           const authHeaders = () => ({ headers: { Authorization: `Bearer ${token.value}` } });
+
+          const maxDate = () => {
+            const nextYearDate = new Date();
+            nextYearDate.setFullYear(nextYearDate.getFullYear() + 1);
+
+            return nextYearDate.toISOString().split('T')[0];
+          }
 
           const fetchVehicles = async () => {
             const res = await axios.get(`${apiBase}/vehicle`, authHeaders());
@@ -1014,7 +1020,7 @@
             loginForm, login, logout,
             createVehicle, createEmployee, createOrganisation, createTravelOrder, createTravelExpence, createOrderEmployee,
             updateVehicle, updateEmployee, updateOrganisation, updateTravelOrder, updateTravelExpence,
-            deleteVehicle, deleteEmployee, deleteOrganisation, deleteTravelOrder, deleteTravelExpence, deleteOrderEmployee, t, openReport
+            deleteVehicle, deleteEmployee, deleteOrganisation, deleteTravelOrder, deleteTravelExpence, deleteOrderEmployee, t, openReport, maxDate
           };
         }
       }).mount('#app')
