@@ -315,7 +315,7 @@
                         lang)}}</button>
 
                       <label for="State">{{t("State", lang)}}:
-                        <select v-model="travel_order.state" required class="formInputs">                          
+                        <select v-model="travel_order.state" required class="formInputs">
                           <option value="started">{{t("Started", lang)}}</option>
                           <option value="ended">{{t("Ended", lang)}}</option>
                           <option value="in progress">{{t("In proggress", lang)}}</option>
@@ -541,20 +541,24 @@
                     class="order_employee md:w-2/3">
                     <div>
                       <label for="Travel Order">{{t("Travel Order", lang)}}:
-                        <select v-model="order_employee.fk_order" class="formInputs">
-                          <option v-for="travel_order in travel_orders" :key="travel_order.id" :value="travel_order.id">
-                            {{ `${t("From",lang)} ${travel_order.formatted_start_date} ${t("To",lang)}
-                            ${travel_order.formatted_end_date} ${t("Location",lang)}: ${travel_order.location}`}}
-                          </option>
-                        </select>
+                        <p class="formInputs">
+                          <template v-for="travel_order in travel_orders" :key="travel_order.id">
+                            <span v-if="travel_order.id === order_employee.fk_order">
+                              {{ `${t("From", lang)} ${travel_order.formatted_start_date} ${t("To", lang)}
+                              ${travel_order.formatted_end_date}, ${t("Location", lang)}: ${travel_order.location}` }}
+                            </span>
+                          </template>
+                        </p>
                       </label>
 
                       <label for="Employee">{{t("Employee", lang)}}:
-                        <select v-model="order_employee.fk_employee" class="formInputs">
-                          <option v-for="employee in employees" :key="employee.id" :value="employee.id">
-                            {{ `${employee.name} ${employee.surname}`}}
-                          </option>
-                        </select>
+                        <p class="formInputs">
+                          <template v-for="employee in employees" :key="employee.id">
+                            <span v-if="employee.id === order_employee.fk_employee">
+                              {{ `${employee.name} ${employee.surname}` }}
+                            </span>
+                          </template>
+                        </p>
                       </label>
                     </div>
 
