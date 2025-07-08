@@ -288,11 +288,11 @@
                   <div v-for="travel_order in travel_orders" :key="travel_order.id" class="travel_order md:w-2/3">
                     <div>
                       <label for="Start date">{{t("Start Date", lang)}}:
-                        <input type="datetime" v-model="travel_order.formatted_start_date" class="formInputs" />
+                        <input type="date" v-model="travel_order.formatted_start_date" class="formInputs" />
                       </label>
 
                       <label for="End date">{{t("End Date", lang)}}:
-                        <input type="datetime" v-model="travel_order.formatted_end_date" class="formInputs" />
+                        <input type="date" v-model="travel_order.formatted_end_date" class="formInputs" />
                       </label>
 
                       <label for="Order Task">{{t("Order Task", lang)}}:
@@ -821,7 +821,7 @@
 
           const updateTravelOrder = async (travel_order) => {
             travel_order.report = tinyMCE.get(`report-${travel_order.id}`).getContent();
-            const res = await axios.put(`${apiBase}/travel_order/${travel_order.id}`, { startDate: travel_order.start_date, endDate: travel_order.end_date, task: travel_order.task, location: travel_order.location, perDiem: travel_order.per_diem, report: travel_order.report, state: travel_order.state, advPayment: travel_order.adv_payment, fkVehicle: travel_order.fk_vehicle, fkOrganisation: travel_order.fk_organisation }, authHeaders());
+            const res = await axios.put(`${apiBase}/travel_order/${travel_order.id}`, { startDate: travel_order.formatted_start_date, endDate: travel_order.formatted_end_date, task: travel_order.task, location: travel_order.location, perDiem: travel_order.per_diem, report: travel_order.report, state: travel_order.state, advPayment: travel_order.adv_payment, fkVehicle: travel_order.fk_vehicle, fkOrganisation: travel_order.fk_organisation }, authHeaders());
             alert(res.data.message);
             fetchTravelOrders();
           };

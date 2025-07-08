@@ -319,8 +319,8 @@ app.get('/travel_order', authenticate, (req, res) => {
   travel_order.*, 
   vehicle.name AS vehicle_name,
   organisation.name AS organisation_name,
-  DATE_FORMAT(travel_order.start_date, '%d.%m.%Y.') AS formatted_start_date,
-  DATE_FORMAT(travel_order.end_date, '%d.%m.%Y.') AS formatted_end_date
+  DATE_FORMAT(travel_order.start_date, '%Y-%m-%d') AS formatted_start_date,
+  DATE_FORMAT(travel_order.end_date, '%Y-%m-%d') AS formatted_end_date
   FROM travel_order
   INNER JOIN vehicle ON travel_order.fk_vehicle = vehicle.id
   INNER JOIN organisation ON travel_order.fk_organisation = organisation.id
