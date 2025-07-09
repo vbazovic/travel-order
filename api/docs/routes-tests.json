@@ -1,16 +1,16 @@
 {
-	"info": {
-		"_postman_id": "657acd7b-cee2-4ed6-8b62-dabb9900f625",
-		"name": "travel_order",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "45994787",
-		"_collection_link": "https://lunar-space-1359353.postman.co/workspace/Aleksa-Milo%C5%A1evi%C4%87's-Workspace~1190b988-fdba-455d-8a82-c0d29371b83c/collection/45994787-657acd7b-cee2-4ed6-8b62-dabb9900f625?action=share&source=collection_link&creator=45994787"
-	},
-	"item": [
-		{
-			"name": "vehicle",
-			"item": [
-				{
+  "info": {
+    "_postman_id": "657acd7b-cee2-4ed6-8b62-dabb9900f625",
+    "name": "travel_order",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "45994787",
+    "_collection_link": "https://lunar-space-1359353.postman.co/workspace/Aleksa-Milo%C5%A1evi%C4%87's-Workspace~1190b988-fdba-455d-8a82-c0d29371b83c/collection/45994787-657acd7b-cee2-4ed6-8b62-dabb9900f625?action=share&source=collection_link&creator=45994787"
+  },
+  "item": [
+    {
+      "name": "vehicle",
+      "item": [
+        {
           "name": "GET all vehicles",
           "request": {
             "auth": {
@@ -28,9 +28,13 @@
             "url": {
               "raw": "http://localhost:3000/vehicle",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["vehicle"]
+              "path": [
+                "vehicle"
+              ]
             }
           },
           "response": [
@@ -74,9 +78,14 @@
             "url": {
               "raw": "http://localhost:3000/vehicle/2",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["vehicle", "2"]
+              "path": [
+                "vehicle",
+                "2"
+              ]
             }
           },
           "response": [
@@ -114,9 +123,13 @@
             "url": {
               "raw": "http://localhost:3000/vehicle",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["vehicle"]
+              "path": [
+                "vehicle"
+              ]
             }
           },
           "response": [
@@ -152,9 +165,14 @@
             "url": {
               "raw": "http://localhost:3000/vehicle/2",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["vehicle", "2"]
+              "path": [
+                "vehicle",
+                "2"
+              ]
             }
           },
           "response": [
@@ -181,9 +199,14 @@
             "url": {
               "raw": "http://localhost:3000/vehicle/4",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["vehicle", "4"]
+              "path": [
+                "vehicle",
+                "4"
+              ]
             }
           },
           "response": [
@@ -192,12 +215,12 @@
             }
           ]
         }
-			]
-		},
-		{
-			"name": "employee",
-			"item": [
-				{
+      ]
+    },
+    {
+      "name": "employee",
+      "item": [
+        {
           "name": "GET all employees",
           "request": {
             "auth": {
@@ -215,9 +238,13 @@
             "url": {
               "raw": "http://localhost:3000/employee",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["employee"]
+              "path": [
+                "employee"
+              ]
             }
           },
           "response": [
@@ -255,9 +282,14 @@
             "url": {
               "raw": "http://localhost:3000/employee/1",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["employee", "1"]
+              "path": [
+                "employee",
+                "1"
+              ]
             }
           },
           "response": [
@@ -297,9 +329,13 @@
             "url": {
               "raw": "http://localhost:3000/employee",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["employee"]
+              "path": [
+                "employee"
+              ]
             }
           },
           "response": [
@@ -335,9 +371,14 @@
             "url": {
               "raw": "http://localhost:3000/employee/2",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["employee", "2"]
+              "path": [
+                "employee",
+                "2"
+              ]
             }
           },
           "response": [
@@ -364,9 +405,14 @@
             "url": {
               "raw": "http://localhost:3000/employee/2",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["employee", "2"]
+              "path": [
+                "employee",
+                "2"
+              ]
             }
           },
           "response": [
@@ -375,611 +421,792 @@
             }
           ]
         }
-			]
-		},
-		{
-			"name": "organisation",
-			"item": [
-				{
-					"name": "GET all organisations",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/organisation",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"organisation"
-							]
-						}
-					},
-					"response": [
+      ]
+    },
+    {
+      "name": "organisation",
+      "item": [
+        {
+          "name": "GET all organisations",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
                 {
-                  "id": 1,
-                  "resp_person": "aleksa",
-                  "seal": "pecat",
-                  "name": "org1",
-                  "address": "adresa123",
-                  "issuer": "blabla"
-              },
-              {
-                  "id": 2,
-                  "resp_person": "Marko",
-                  "seal": "pecat123",
-                  "name": "firma123",
-                  "address": "adresa123",
-                  "issuer": "nekoneko"
-              }
-          ]
-				},
-				{
-					"name": "GET organisation by ID",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": [
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/organisation",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "organisation"
+              ]
+            }
+          },
+          "response": [
             {
-                "id": 1,
-                "resp_person": "aleksa",
-                "seal": "pecat",
-                "name": "org1",
-                "address": "adresa123",
-                "issuer": "blabla"
+              "id": 1,
+              "resp_person": "aleksa",
+              "seal": "pecat",
+              "name": "org1",
+              "address": "adresa123",
+              "issuer": "blabla"
+            },
+            {
+              "id": 2,
+              "resp_person": "Marko",
+              "seal": "pecat123",
+              "name": "firma123",
+              "address": "adresa123",
+              "issuer": "nekoneko"
             }
           ]
-				},
-				{
-					"name": "POST add organisation",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/organisation",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"organisation"
-							]
-						}
-					},
-					"response": [
+        },
+        {
+          "name": "GET organisation by ID",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "id": 1,
+              "resp_person": "aleksa",
+              "seal": "pecat",
+              "name": "org1",
+              "address": "adresa123",
+              "issuer": "blabla"
+            }
+          ]
+        },
+        {
+          "name": "POST add organisation",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/organisation",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "organisation"
+              ]
+            }
+          },
+          "response": [
             {
               "message": "Organisation added"
             }
           ]
-				},
-				{
-					"name": "PUT update organisation",
-					"request": {
-						"method": "PUT",
-						"header": []
-					},
-					"response": [
+        },
+        {
+          "name": "PUT update organisation",
+          "request": {
+            "method": "PUT",
+            "header": []
+          },
+          "response": [
             {
-                "message": "Organisation updated"
+              "message": "Organisation updated"
             }
           ]
-				},
-				{
-					"name": "DELETE organisation",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/organisation/3",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"organisation",
-								"3"
-							]
-						}
-					},
-					"response": [
+        },
+        {
+          "name": "DELETE organisation",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/organisation/3",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "organisation",
+                "3"
+              ]
+            }
+          },
+          "response": [
             {
-                "message": "Organisation deleted"
+              "message": "Organisation deleted"
             }
           ]
-				}
-			]
-		},
-		{
-			"name": "travel_expence",
-			"item": [
-				{
-					"name": "GET all travel expences",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": [
+        }
+      ]
+    },
+    {
+      "name": "travel_expence",
+      "item": [
+        {
+          "name": "GET all travel expences",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
             {
-                "id": 2,
-                "expence_type": "tip2",
-                "start_location": "mld",
-                "end_location": "bg",
-                "distance": 40,
-                "receipt": "racun",
-                "price": 55555
+              "id": 2,
+              "expence_type": "tip2",
+              "start_location": "mld",
+              "end_location": "bg",
+              "distance": 40,
+              "receipt": "racun",
+              "price": 55555
             }
           ]
-				},
-				{
-					"name": "GET travel expence by ID",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": [
+        },
+        {
+          "name": "GET travel expence by ID",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
             {
-                "id": 2,
-                "expence_type": "tip2",
-                "start_location": "mld",
-                "end_location": "bg",
-                "distance": 40,
-                "receipt": "racun",
-                "price": 55555
+              "id": 2,
+              "expence_type": "tip2",
+              "start_location": "mld",
+              "end_location": "bg",
+              "distance": 40,
+              "receipt": "racun",
+              "price": 55555
             }
           ]
-				},
-				{
-					"name": "POST add travel expence",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/travel_expence",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"travel_expence"
-							]
-						}
-					},
-					"response": [
+        },
+        {
+          "name": "POST add travel expence",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/travel_expence",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "travel_expence"
+              ]
+            }
+          },
+          "response": [
             {
-                "message": "Travel expence added"
+              "message": "Travel expence added"
             }
           ]
-				},
-				{
-					"name": "PUT update travel expence",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/travel_expence/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"travel_expence",
-								"1"
-							]
-						}
-					},
-					"response": [
+        },
+        {
+          "name": "PUT update travel expence",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/travel_expence/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "travel_expence",
+                "1"
+              ]
+            }
+          },
+          "response": [
             {
-                "message": "Travel expence updated"
+              "message": "Travel expence updated"
             }
           ]
-				},
-				{
-					"name": "DELETE travel expence",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/travel_expence/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"travel_expence",
-								"1"
-							]
-						}
-					},
-					"response": [
+        },
+        {
+          "name": "DELETE travel expence",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/travel_expence/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "travel_expence",
+                "1"
+              ]
+            }
+          },
+          "response": [
             {
-                "message": "Travel expence deleted"
+              "message": "Travel expence deleted"
             }
           ]
-				}
-			]
-		},
-		{
-			"name": "travel_order",
-			"item": [
-				{
-					"name": "GET all travel orders",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": [
+        }
+      ]
+    },
+    {
+      "name": "travel_order",
+      "item": [
+        {
+          "name": "GET all travel orders",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
             {
-                "id": 1,
-                "start_date": "2017-06-14T22:00:00.000Z",
-                "end_date": "2017-06-16T22:00:00.000Z",
-                "task": "zad",
-                "location": "bg",
-                "per_diem": 120,
-                "report": "izvestaj",
-                "state": "u toku",
-                "adv_payment": 100,
-                "fk_vehicle": 1,
-                "fk_organisation": 1
+              "id": 1,
+              "start_date": "2017-06-14T22:00:00.000Z",
+              "end_date": "2017-06-16T22:00:00.000Z",
+              "task": "zad",
+              "location": "bg",
+              "per_diem": 120,
+              "report": "izvestaj",
+              "state": "u toku",
+              "adv_payment": 100,
+              "fk_vehicle": 1,
+              "fk_organisation": 1
             }
           ]
-				},
-				{
-					"name": "GET travel order by ID",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": [
+        },
+        {
+          "name": "GET travel order by ID",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
             {
-                "id": 1,
-                "start_date": "2017-06-14T22:00:00.000Z",
-                "end_date": "2017-06-16T22:00:00.000Z",
-                "task": "zad",
-                "location": "bg",
-                "per_diem": 120,
-                "report": "izvestaj",
-                "state": "u toku",
-                "adv_payment": 100,
-                "fk_vehicle": 1,
-                "fk_organisation": 1
+              "id": 1,
+              "start_date": "2017-06-14T22:00:00.000Z",
+              "end_date": "2017-06-16T22:00:00.000Z",
+              "task": "zad",
+              "location": "bg",
+              "per_diem": 120,
+              "report": "izvestaj",
+              "state": "u toku",
+              "adv_payment": 100,
+              "fk_vehicle": 1,
+              "fk_organisation": 1
             }
           ]
-				},
-				{
-					"name": "POST add travel order",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/travel_order",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"travel_order"
-							]
-						}
-					},
-					"response": [
+        },
+        {
+          "name": "POST add travel order",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/travel_order",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "travel_order"
+              ]
+            }
+          },
+          "response": [
             {
-                "message": "Travel order added"
+              "message": "Travel order added"
             }
           ]
-				},
-				{
-					"name": "PUT update travel order",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"startDate\":\"tip1\",\r\n    \"endDate\":\"mld\",\r\n    \"task\":\"bg\",\r\n    \"location\":\"40\",\r\n    \"perDiem\":\"racun\",\r\n    \"report\":\"55555\",\r\n    \"state\":\"zavrseno\",\r\n    \"advPayment\":\"ne\",\r\n    \"fkVehicle\":2,\r\n    \"fkOrganisation\":1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/travel_order/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"travel_order",
-								"2"
-							]
-						}
-					},
-					"response": [
+        },
+        {
+          "name": "PUT update travel order",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"startDate\":\"tip1\",\r\n    \"endDate\":\"mld\",\r\n    \"task\":\"bg\",\r\n    \"location\":\"40\",\r\n    \"perDiem\":\"racun\",\r\n    \"report\":\"55555\",\r\n    \"state\":\"zavrseno\",\r\n    \"advPayment\":\"ne\",\r\n    \"fkVehicle\":2,\r\n    \"fkOrganisation\":1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/travel_order/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "travel_order",
+                "2"
+              ]
+            }
+          },
+          "response": [
             {
-                "message": "Travel order updated"
+              "message": "Travel order updated"
             }
           ]
-				},
-				{
-					"name": "DELETE travel order",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/travel_order/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"travel_order",
-								"2"
-							]
-						}
-					},
-					"response": [
+        },
+        {
+          "name": "DELETE travel order",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/travel_order/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "travel_order",
+                "2"
+              ]
+            }
+          },
+          "response": [
             {
-                "message": "Travel order deleted"
+              "message": "Travel order deleted"
             }
           ]
-				}
-			]
-		},
-		{
-			"name": "order_employee",
-			"item": [
-				{
-					"name": "GET all order employees",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": [
+        }
+      ]
+    },
+    {
+      "name": "order_employee",
+      "item": [
+        {
+          "name": "GET all order employees",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
             {
-                "fk_order": 3,
-                "fk_employee": 3
+              "fk_order": 3,
+              "fk_employee": 3
             }
           ]
-				},
-				{
-					"name": "GET order employee by ID",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/order_employee?fkEmployee=3&fkOrder=1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"order_employee"
-							],
-							"query": [
-								{
-									"key": "fkEmployee",
-									"value": "3"
-								},
-								{
-									"key": "fkOrder",
-									"value": "3"
-								}
-							]
-						}
-					},
-					"response": [
+        },
+        {
+          "name": "GET order employee by ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/order_employee?fkEmployee=3&fkOrder=1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "order_employee"
+              ],
+              "query": [
+                {
+                  "key": "fkEmployee",
+                  "value": "3"
+                },
+                {
+                  "key": "fkOrder",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": [
             {
-                "fk_order": 3,
-                "fk_employee": 3
+              "fk_order": 3,
+              "fk_employee": 3
             }
           ]
-				},
-				{
-					"name": "POST add order employee",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"fkEmployee\":3,\r\n    \"fkOrder\":1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/order_employee",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"order_employee"
-							]
-						}
-					},
-					"response": [
+        },
+        {
+          "name": "POST add order employee",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"fkEmployee\":3,\r\n    \"fkOrder\":1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/order_employee",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "order_employee"
+              ]
+            }
+          },
+          "response": [
             {
               "message": "Order employee added"
             }
           ]
-				},
-				{
-					"name": "PUT update order employee",
-					"request": {
-						"method": "PUT",
-						"header": []
-					},
-					"response": [
+        },
+        {
+          "name": "PUT update order employee",
+          "request": {
+            "method": "PUT",
+            "header": []
+          },
+          "response": [
             {
               "message": "Doesn't make sense"
             }
           ]
-				},
-				{
-					"name": "DELETE order employee",
-					"request": {
-						"method": "DELETE",
-						"header": []
-					},
-					"response": [
+        },
+        {
+          "name": "DELETE order employee",
+          "request": {
+            "method": "DELETE",
+            "header": []
+          },
+          "response": [
             {
-                "message": "Order employee deleted"
+              "message": "Order employee deleted"
             }
           ]
-				}
-			]
-		},
+        }
+      ]
+    },
     {
-			"name": "login",
-			"item": [
-				{
-					"name": "POST login",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"login"
-							]
-						}
-					},
-					"response": [
+      "name": "login",
+      "item": [
+        {
+          "name": "POST login",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": [
             {
-                "token": "530422ed-fa13-4697-9a74-1be8d7b5f45e"
+              "token": "530422ed-fa13-4697-9a74-1be8d7b5f45e"
             }
           ]
-				}
-			]
-		}
-	]
+        }
+      ]
+    },
+    {
+      "name": "user",
+      "item": [
+        {
+          "name": "GET all",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/user",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "user"
+              ]
+            }
+          },
+          "response": [
+            [
+              {
+                "id": 1,
+                "username": "user1",
+                "password": "user1",
+                "admin": 0,
+                "fk_organisation": 1
+              },
+              {
+                "id": 2,
+                "username": "admin1",
+                "password": "admin1",
+                "admin": 1,
+                "fk_organisation": 6
+              }
+            ]
+          ]
+        },
+        {
+          "name": "GET by ID",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "id": 1,
+              "username": "user1",
+              "password": "user1",
+              "admin": 0,
+              "fk_organisation": 1
+            }
+          ]
+        },
+        {
+          "name": "POST user",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/user",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "user"
+              ]
+            }
+          },
+          "response": [
+            {
+              "message": "User created!"
+            }
+          ]
+        },
+        {
+          "name": "UPDATE user",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"admin1\",\r\n    \"password\": \"admin1\",\r\n    \"admin\": 1,\r\n    \"fk_organisation\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/user/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "user",
+                "2"
+              ]
+            }
+          },
+          "response": [
+            {
+              "message": "User updated!"
+            }
+          ]
+        },
+        {
+          "name": "DELETE user",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "530422ed-fa13-4697-9a74-1be8d7b5f45e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"fkEmployee\":3,\r\n    \"fkOrder\":1\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/user/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "user",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "message": "User deleted"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
