@@ -627,10 +627,10 @@
                         <input v-model="user.password" class="formInputs"/>
                       </label>
 
-                      <label for="Admin">{{t("Admin", lang)}}:
+                      <label for="Privilege level">{{t("Privilege level", lang)}}:
                         <select v-model="user.admin" id="" class="formInputs">
-                          <option value="1">{{t("True", lang)}}</option>
-                          <option value="0">{{t("False", lang)}}</option>
+                          <option value="1">{{t("Admin", lang)}}</option>
+                          <option value="0">{{t("User", lang)}}</option>
                         </select>
                       </label>
 
@@ -662,7 +662,7 @@
                   <input v-model="newPassword" :placeholder="t('Password', lang)" class="formInputs" type="password"/>
 
                   <select v-model="newFkOrganisation" class="formInputs">
-                    <option selected disabled value="">{{ t("-- Select an Organisation --", lang) }}</option>
+                    <option selected disabled value="">{{ t("-- Select an organisation --", lang) }}</option>
                     <option v-for="organisation in organisations" :key="organisation.id" :value="organisation.id">
                       {{ organisation.name }}
                     </option>
