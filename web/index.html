@@ -624,7 +624,7 @@
                       </label>
 
                       <label for="Password">{{t("Password", lang)}}:
-                        <input v-model="user.password" class="formInputs"/>
+                        <input v-model="user.password" class="formInputs" />
                       </label>
 
                       <label for="Privilege level">{{t("Privilege level", lang)}}:
@@ -648,7 +648,7 @@
                     <div>
                       <button @click="updateUser(user)" class="formButtons updateButton">{{t("Update",
                         lang)}}</button>
-                      <button @click="deleteUser(user.id)" class="formButtons deleteButton">{{t("Delete",
+                      <button @click="deleteUser(user.id, user.admin)" class="formButtons deleteButton">{{t("Delete",
                         lang)}}</button>
                     </div>
                     <br>
@@ -659,7 +659,7 @@
                 <div>
                   <input v-model="newUsername" required :placeholder="t('Username', lang)" class="formInputs" />
 
-                  <input v-model="newPassword" :placeholder="t('Password', lang)" class="formInputs" type="password"/>
+                  <input v-model="newPassword" :placeholder="t('Password', lang)" class="formInputs" type="password" />
 
                   <select v-model="newFkOrganisation" class="formInputs">
                     <option selected disabled value="">{{ t("-- Select an organisation --", lang) }}</option>
@@ -1098,7 +1098,12 @@
             fetchUsers();
           };
 
-          const deleteUser = async (id) => {
+          const deleteUser = async (id, admin) => {
+            if (admin === 1) {
+              alert("You can`t delete a user that has admin status!");
+              return;
+            }
+
             const res = await axios.delete(`${adminBase}/user/${id}`, authHeaders());
             alert(res.data.message);
             fetchUsers();
@@ -1141,9 +1146,9 @@
             fetchOrderEmployeees();
           };
 
-          document.addEventListener('DOMContentLoaded', () => {
-            tinymce.init({ selector: '.myEditor' });
-          });
+          // document.addEventListener('DOMContentLoaded', () => {
+          //   tinymce.init({ selector: '.myEditor' });
+          // });
 
           if (token.value) {
             fetchVehicles();
