@@ -64,6 +64,22 @@
   }
 }
 
+.tox:not(.tox-fullscreen) .tox-menubar {
+  display: none;
+}
+
+.hide-editor {
+  height: 60px !important;
+  overflow: hidden;
+}
+
+.hide-editor .tox-edit-area__iframe,
+.hide-editor .tox-toolbar,
+.hide-editor .tox-statusbar,
+.hide-editor .tox-menubar {
+  display: none !important;
+}
+
 /* .disable{
   opacity: 0.5;
 } */

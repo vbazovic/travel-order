@@ -245,6 +245,9 @@
   .cursor-pointer {
     cursor: pointer;
   }
+  .resize {
+    resize: both;
+  }
   .grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
@@ -664,6 +667,16 @@
   .no-print {
     display: none !important;
   }
+}
+.tox:not(.tox-fullscreen) .tox-menubar {
+  display: none;
+}
+.hide-editor {
+  height: 60px !important;
+  overflow: hidden;
+}
+.hide-editor .tox-edit-area__iframe, .hide-editor .tox-toolbar, .hide-editor .tox-statusbar, .hide-editor .tox-menubar {
+  display: none !important;
 }
 @property --tw-rotate-x {
   syntax: "*";
