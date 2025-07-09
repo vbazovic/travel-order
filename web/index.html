@@ -594,6 +594,85 @@
               </div>
             </div>
           </div>
+          <br>
+
+          <!-- USER -->
+          <div data-accordion="collapse" class="accordion-collapse w-full bg-gray-200 rounded-xl shadow-md">
+            <span>
+              <button type="button"
+                class="flex items-center justify-between w-full px-4 py-3 text-left text-gray-800 font-medium rounded-t-xl focus:outline-none cursor-pointer"
+                data-accordion-target="#body7" aria-expanded="false" aria-controls="body7">
+                <span>
+                  <h1 class="headers">{{t("User", lang)}}</h1>
+                </span>
+
+                <svg data-accordion-icon class="w-5 h-5 transition-transform transform" fill="none"
+                  stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+            </span>
+
+            <div id="body7" class="hidden px-4 py-3 bg-gray-100 rounded-b-xl">
+              <div>
+                <h3 class="subHeaders">{{t("Users", lang)}}: {{users.length}}</h3>
+                <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
+                  <div v-for="user in users" :key="user.id" class="vehicle md:w-2/3">
+                    <div>
+                      <label for="Username">{{t("Username", lang)}}:
+                        <input v-model="user.username" class="formInputs" />
+                      </label>
+
+                      <label for="Password">{{t("Password", lang)}}:
+                        <input v-model="user.password" class="formInputs" />
+                      </label>
+
+                      <label for="Admin">{{t("Admin", lang)}}:
+                        <input v-model="user.admin" class="formInputs" />
+                      </label>
+
+                      <label for="Organisation">{{t("Organisation", lang)}}:
+                        <select v-model="user.fk_organisation" class="formInputs">
+                          <option disabled value="">{{t("-- Select an Organisation --", lang)}}</option>
+                          <option v-for="user in users" :key="user.id" :value="user.id">
+                            {{user.fkOrganisation}}
+                          </option>
+                        </select>
+                      </label>
+                    </div>
+
+                    <div>
+                      <button @click="updateUser(user)" class="formButtons updateButton">{{t("Update",
+                        lang)}}</button>
+                      <button @click="deleteUser(user.id)" class="formButtons deleteButton">{{t("Delete",
+                        lang)}}</button>
+                    </div>
+                    <br>
+                  </div>
+                </div>
+
+                <h3 class="subHeaders">{{t("Add User", lang)}}:</h3>
+                <div>
+                  <input v-model="newUsername" required :placeholder="t('Username', lang)" class="formInputs" />
+
+                  <input v-model="newPassword" :placeholder="t('Password', lang)" class="formInputs" />
+
+                  <label for="">{{t("Admin", lang)}}:
+                    <input v-model="newAdmin" :placeholder="t('Admin', lang)" class="formInputs" type="checkbox" />
+                  </label>
+
+                  <select v-model="newFkOrganisation" class="formInputs">
+                    <option disabled value="">{{ t("-- Select an Organisation --", lang) }}</option>
+                    <option v-for="user in users" :key="user.id" :value="user.id">
+                      Org ID: {{ user.fk_organisation ?? 'N/A' }}
+                    </option>
+                  </select>
+
+                  <button @click="createUser" class="formButtons addButton">{{t("Add", lang)}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </main>
 
         <footer class="bg-white flex justify-center pt-4 pb-4 rounded-xl mb-10">
@@ -608,6 +687,7 @@
 
         setup() {
           const apiBase = 'http://localhost:3000'; // or 3000 for Node.js
+          const adminBase = 'http://localhost:3001'; // or 3001 for Node.js
           const token = ref(localStorage.getItem('token'));
 
           const vehicles = ref([]);
@@ -616,6 +696,7 @@
           const travel_orders = ref([]);
           const travel_expences = ref([]);
           const order_employees = ref([]);
+          const users = ref([]);
 
           const newVehicleName = ref('');
           const newVehicleConsumption = ref('');
@@ -653,6 +734,11 @@
 
           const newOrderEmployeeFkOrder = ref('');
           const newOrderEmployeeFkEmployee = ref('');
+
+          const newUsername = ref('');
+          const newPassword = ref('');
+          const newAdmin = ref('');
+          const newFkOrganisation = ref('');
 
           const loginForm = ref({ username: '', password: '' });
 
@@ -695,6 +781,12 @@
             order_employees.value = res.data;
           };
 
+          const fetchUsers = async () => {
+            const res = await axios.get(`${adminBase}/user`, authHeaders());
+            users.value = res.data;
+          };
+
+
           const t = (message, lang = localStorage.getItem("lang")) => {
             if (!lang || !translations[lang] || !translations[lang][message]) {
               return message;
@@ -718,6 +810,7 @@
               fetchTravelOrders();
               fetchTravelExpences();
               fetchOrderEmployeees();
+              fetchUsers();
             } catch {
               alert('Login failed');
             }
@@ -732,6 +825,7 @@
             travel_orders.value = [];
             travel_expences.value = [];
             order_employees.value = [];
+            users.value = [];
           };
 
           const createVehicle = async () => {
@@ -882,6 +976,29 @@
             fetchOrderEmployeees();
           };
 
+          const createUser = async () => {
+            if (
+              !newUsername.value ||
+              !newPassword.value) {
+              alert('Fill in all the fields, organisation and admin can be empty!');
+              return;
+            }
+            const res = await axios.post(`${adminBase}/user`, {
+              username: newUsername.value,
+              password: newPassword.value,
+              admin: newAdmin.value,
+              fkOrganisation: newFkOrganisation.value,
+            }, authHeaders());
+
+            newUsername.value = '';
+            newPassword.value = '';
+            newAdmin.value = '';
+            newFkOrganisation.value = '';;
+            alert(res.data.message);
+            fetchUsers();
+          };
+
+
           const updateVehicle = async (vehicle) => {
             const res = await axios.put(`${apiBase}/vehicle/${vehicle.id}`, { name: vehicle.name, avgConsumption: vehicle.avg_consumption }, authHeaders());
             alert(res.data.message);
@@ -963,6 +1080,24 @@
             fetchTravelExpences();
           };
 
+          const updateUser = async (user) => {
+            const res = await axios.put(`${adminBase}/user/${user.id}`, {
+              username: user.username,
+              password: user.password,
+              admin: user.admin,
+              fkOrganisation: user.fk_organisation
+            }, authHeaders());
+
+            alert(res.data.message);
+            fetchUsers();
+          };
+
+          const deleteUser = async (id) => {
+            const res = await axios.delete(`${adminBase}/user/${id}`, authHeaders());
+            alert(res.data.message);
+            fetchUsers();
+          };
+
           const deleteVehicle = async (id) => {
             const res = await axios.delete(`${apiBase}/vehicle/${id}`, authHeaders());
             alert(res.data.message);
@@ -1011,20 +1146,22 @@
             fetchTravelOrders();
             fetchTravelExpences();
             fetchOrderEmployeees();
+            fetchUsers();
           }
 
           return {
-            token, vehicles, employees, organisations, travel_orders, travel_expences, order_employees,
+            token, vehicles, employees, organisations, travel_orders, travel_expences, order_employees, users,
             newVehicleName, newVehicleConsumption,
             newEmployeeName, newEmployeeSurname, newEmployeePosition, newEmployeeCardNum, newEmployeeSSN,
             newOrganisationRespPerson, newOrganisationSeal, newOrganisationName, newOrganisationAddress, newOrganisationIssuer,
             newTravelOrderStartDate, newTravelOrderEndDate, newTravelOrderTask, newTravelOrderLocation, newTravelOrderPerDiem, newTravelOrderReport, newTravelOrderState, newTravelOrderAdvPayment, newTravelOrderFkVehicle, newTravelOrderFkOrganisation,
             newTravelExpenceExpenceType, newTravelExpenceStartLocation, newTravelExpenceEndLocation, newTravelExpenceDistance, newTravelExpenceReceipt, newTravelExpencePrice, newTravelExpenceFkTravelOrder,
             newOrderEmployeeFkOrder, newOrderEmployeeFkEmployee,
+            newUsername, newPassword, newAdmin, newFkOrganisation,
             loginForm, login, logout,
-            createVehicle, createEmployee, createOrganisation, createTravelOrder, createTravelExpence, createOrderEmployee,
-            updateVehicle, updateEmployee, updateOrganisation, updateTravelOrder, updateTravelExpence,
-            deleteVehicle, deleteEmployee, deleteOrganisation, deleteTravelOrder, deleteTravelExpence, deleteOrderEmployee, t, openReport, maxDate
+            createVehicle, createEmployee, createOrganisation, createTravelOrder, createTravelExpence, createOrderEmployee, createUser,
+            updateVehicle, updateEmployee, updateOrganisation, updateTravelOrder, updateTravelExpence, updateUser,
+            deleteVehicle, deleteEmployee, deleteOrganisation, deleteTravelOrder, deleteTravelExpence, deleteOrderEmployee, t, openReport, maxDate, deleteUser
           };
         }
       }).mount('#app')

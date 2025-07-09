@@ -6,7 +6,7 @@ const settings = require('./settings.json');
 
 const app = express();
 const appHost = settings.app_host;
-const port = settings.app_port;
+const port = settings.admin_port;
 
 app.use(cors())
 app.use(express.json());
