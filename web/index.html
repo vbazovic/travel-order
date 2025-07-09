@@ -624,18 +624,22 @@
                       </label>
 
                       <label for="Password">{{t("Password", lang)}}:
-                        <input v-model="user.password" class="formInputs" />
+                        <input v-model="user.password" class="formInputs"/>
                       </label>
 
                       <label for="Admin">{{t("Admin", lang)}}:
-                        <input v-model="user.admin" class="formInputs" />
+                        <select v-model="user.admin" id="" class="formInputs">
+                          <option value="1">{{t("True", lang)}}</option>
+                          <option value="0">{{t("False", lang)}}</option>
+                        </select>
                       </label>
+
+
 
                       <label for="Organisation">{{t("Organisation", lang)}}:
                         <select v-model="user.fk_organisation" class="formInputs">
-                          <option disabled value="">{{t("-- Select an Organisation --", lang)}}</option>
-                          <option v-for="user in users" :key="user.id" :value="user.id">
-                            {{user.fkOrganisation}}
+                          <option v-for="organisation in organisations" :key="organisation.id" :value="organisation.id">
+                            {{ organisation.name }}
                           </option>
                         </select>
                       </label>
@@ -655,18 +659,20 @@
                 <div>
                   <input v-model="newUsername" required :placeholder="t('Username', lang)" class="formInputs" />
 
-                  <input v-model="newPassword" :placeholder="t('Password', lang)" class="formInputs" />
-
-                  <label for="">{{t("Admin", lang)}}:
-                    <input v-model="newAdmin" :placeholder="t('Admin', lang)" class="formInputs" type="checkbox" />
-                  </label>
+                  <input v-model="newPassword" :placeholder="t('Password', lang)" class="formInputs" type="password"/>
 
                   <select v-model="newFkOrganisation" class="formInputs">
-                    <option disabled value="">{{ t("-- Select an Organisation --", lang) }}</option>
-                    <option v-for="user in users" :key="user.id" :value="user.id">
-                      Org ID: {{ user.fk_organisation ?? 'N/A' }}
+                    <option selected disabled value="">{{ t("-- Select an Organisation --", lang) }}</option>
+                    <option v-for="organisation in organisations" :key="organisation.id" :value="organisation.id">
+                      {{ organisation.name }}
                     </option>
                   </select>
+
+                  <label for="" class="flex items-center justify-around w-full mt-3 mb-3">{{t("Admin", lang)}}:
+                    <input v-model="newAdmin" type="checkbox" class="size-5" />
+                  </label>
+
+
 
                   <button @click="createUser" class="formButtons addButton">{{t("Add", lang)}}</button>
                 </div>
