@@ -46,7 +46,7 @@ function authenticate(req, res, next) {
 
 // GET all users
 app.get('/user', authenticate, (req, res) => {
-  const sqlQuery = "SELECT * FROM `user`;"
+  const sqlQuery = "SELECT * FROM `user` ORDER BY id DESC;"
   db.query(sqlQuery, (err, results) => {
     if (err) throw err;
     res.json(results);
