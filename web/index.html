@@ -983,23 +983,30 @@
           };
 
           const createUser = async () => {
-            if (
-              !newUsername.value ||
-              !newPassword.value) {
-              alert('Fill in all the fields, organisation and admin can be empty!');
+            const isAdmin = newAdmin.value === true;
+
+            if (!newUsername.value || !newPassword.value) {
+              alert("Fill in all the fields!");
               return;
             }
+
+            if (!isAdmin && !newFkOrganisation.value) {
+              alert("Organisation is required for non-admin users!");
+              return;
+            }
+
             const res = await axios.post(`${adminBase}/user`, {
               username: newUsername.value,
               password: newPassword.value,
-              admin: newAdmin.value,
+              admin: isAdmin ? 1 : 0,
               fkOrganisation: newFkOrganisation.value,
             }, authHeaders());
 
+            // Reset
             newUsername.value = '';
             newPassword.value = '';
-            newAdmin.value = '';
-            newFkOrganisation.value = '';;
+            newAdmin.value = false;
+            newFkOrganisation.value = '';
             alert(res.data.message);
             fetchUsers();
           };
