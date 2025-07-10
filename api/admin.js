@@ -25,14 +25,24 @@ db.connect(err => {
   console.log('Connected to MySQL');
 });
 
-// Login route
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-  if (username === settings.app_user && password === settings.app_passwd) {
+
+  const dbQuery = 'SELECT username, password FROM `user` WHERE username = ? AND password = ?';
+
+  db.query(dbQuery, [username, password], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+
+    if (results.length === 0) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    // Ako je korisnik pronađen
     res.json({ token: AUTH_TOKEN });
-  } else {
-    res.status(401).json({ error: 'Invalid credentials' });
-  }
+  });
 });
 
 // Middleware to check token
