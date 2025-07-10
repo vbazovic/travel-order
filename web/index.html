@@ -815,6 +815,7 @@
           const fetchTravelOrders = async () => {
             const res = await axios.get(`${apiBase}/travel_order`, authHeaders());
             travel_orders.value = res.data;
+            updateAllowed();
           };
 
           const fetchTravelExpences = async () => {
