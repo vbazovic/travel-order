@@ -29,9 +29,6 @@ to change styles change the input.css and run npx @tailwindcss/cli -i input.css 
 ```
 start tailwind in folder web with command npx tailwindcss -i ./input.css -o ./main.css --watch
 
-initial users: 
-  username: user
-  password: user
-
+initial user: 
   username: admin
   password: admin
