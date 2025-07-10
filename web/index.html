@@ -280,7 +280,8 @@
             <div id="body4" class="px-4 py-3 bg-gray-100 rounded-b-xl">
               <div class="text-gray-700">
                 <h3 class="subHeaders">{{t("Travel Orders", lang)}}: {{travel_orders.length}}</h3>
-                <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center">
+                <div class="md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-10 md:place-items-center"
+                  id="travelOrders">
                   <div v-for="travel_order in travel_orders" :key="travel_order.id" class="travel_order md:w-2/3">
                     <div>
                       <label for="Start date">{{t("Start Date", lang)}}:
@@ -313,7 +314,7 @@
                         lang)}}</button>
 
                       <label for="State">{{t("State", lang)}}:
-                        <select v-model="travel_order.state" required class="formInputs" id="toState">
+                        <select v-model="travel_order.state" required class="formInputs travelState" id="toState">
                           <option value="started">{{t("Started", lang)}}</option>
                           <option value="ended">{{t("Ended", lang)}}</option>
                           <option value="in progress">{{t("In proggress", lang)}}</option>
@@ -339,9 +340,7 @@
                           </option>
                         </select>
                       </label>
-                    </div>
 
-                    <div>
                       <button @click="updateTravelOrder(travel_order)" class="formButtons updateButton"
                         id="uptButton">{{t("Update",
                         lang)}}</button>
@@ -690,8 +689,34 @@
     <script>
       const { createApp, ref } = Vue;
       createApp({
-
         setup() {
+          document.addEventListener('DOMContentLoaded', () => {
+            tinymce.init({
+              selector: '.myEditor',
+              license_key: 'gpl',
+              branding: false,
+              plugins: 'fullscreen',
+              toolbar: 'fullscreen',
+              fullscreen_native: true,
+              promotion: false,
+              resize: false,
+              setup: function (editor) {
+                editor.on('init', function () {
+                  editor.getContainer().classList.add('hide-editor');
+                });
+
+                editor.on('FullscreenStateChanged', function (e) {
+                  if (e.state) {
+                    editor.getContainer().classList.remove('hide-editor');
+                  } else {
+                    editor.getContainer().classList.add('hide-editor');
+                  }
+                });
+              }
+            });
+            console.log(updateAllowed());
+          });
+
           const apiBase = 'http://localhost:3000'; // or 3000 for Node.js
           const adminBase = 'http://localhost:3001'; // or 3001 for Node.js
           const token = ref(localStorage.getItem('token'));
@@ -755,6 +780,21 @@
             nextYearDate.setFullYear(nextYearDate.getFullYear() + 1);
 
             return nextYearDate.toISOString().split('T')[0];
+          }
+
+          const updateAllowed = () => {
+            const container = document.getElementById('travelOrders');
+
+            const updateButtons = container.querySelectorAll('button.updateButton');
+            const stateSelect = container.querySelectorAll('select.travelState');
+
+            for (let i = 0; i < stateSelect.length; i++) {
+              if (stateSelect[i].value === 'ended') {
+                updateButtons[i].classList.add('disable');
+                updateButtons[i].disabled = true;
+              }
+            }
+            return { updateButtons, stateSelect };
           }
 
           const fetchVehicles = async () => {
@@ -1047,13 +1087,6 @@
           const updateTravelOrder = async (travel_order) => {
             const uptButton = document.getElementById('uptButton');
 
-            // if (travel_order.state === 'ended') {
-            //   uptButton.disabled = true;
-            //   uptButton.classList.add('disable');
-            //   alert('Can`t update Travel Order! State is ended!')
-            //   return;
-            // }
-
             if (travel_order.formatted_end_date < travel_order.formatted_start_date) {
               alert('End date can`t be before Start date!');
               return;
@@ -1071,8 +1104,6 @@
               fkVehicle: travel_order.fk_vehicle,
               fkOrganisation: travel_order.fk_organisation
             }, authHeaders());
-
-
 
             alert(res.data.message);
             fetchTravelOrders();
@@ -1183,32 +1214,6 @@
           };
         }
       }).mount('#app')
-    </script>
-
-    <script>
-      tinymce.init({
-        selector: '.myEditor',
-        license_key: 'gpl',
-        branding: false,
-        plugins: 'fullscreen',
-        toolbar: 'fullscreen',
-        fullscreen_native: true,
-        promotion: false,
-        resize: false,
-        setup: function (editor) {
-          editor.on('init', function () {
-            editor.getContainer().classList.add('hide-editor');
-          });
-
-          editor.on('FullscreenStateChanged', function (e) {
-            if (e.state) {
-              editor.getContainer().classList.remove('hide-editor');
-            } else {
-              editor.getContainer().classList.add('hide-editor');
-            }
-          });
-        }
-      });
     </script>
 </body>
 

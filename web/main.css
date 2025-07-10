@@ -191,6 +191,24 @@
   .collapse {
     visibility: collapse;
   }
+  .container {
+    width: 100%;
+    @media (width >= 40rem) {
+      max-width: 40rem;
+    }
+    @media (width >= 48rem) {
+      max-width: 48rem;
+    }
+    @media (width >= 64rem) {
+      max-width: 64rem;
+    }
+    @media (width >= 80rem) {
+      max-width: 80rem;
+    }
+    @media (width >= 96rem) {
+      max-width: 96rem;
+    }
+  }
   .mx-auto {
     margin-inline: auto;
   }
@@ -233,21 +251,9 @@
   .table {
     display: table;
   }
-  .size-4 {
-    width: calc(var(--spacing) * 4);
-    height: calc(var(--spacing) * 4);
-  }
   .size-5 {
     width: calc(var(--spacing) * 5);
     height: calc(var(--spacing) * 5);
-  }
-  .size-6 {
-    width: calc(var(--spacing) * 6);
-    height: calc(var(--spacing) * 6);
-  }
-  .size-8 {
-    width: calc(var(--spacing) * 8);
-    height: calc(var(--spacing) * 8);
   }
   .h-5 {
     height: calc(var(--spacing) * 5);
@@ -712,6 +718,9 @@
 }
 .hide-editor .tox-edit-area__iframe, .hide-editor .tox-toolbar, .hide-editor .tox-statusbar, .hide-editor .tox-menubar {
   display: none !important;
+}
+.disable {
+  opacity: 0.5;
 }
 @property --tw-rotate-x {
   syntax: "*";
