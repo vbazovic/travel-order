@@ -30,5 +30,16 @@ to change styles change the input.css and run npx @tailwindcss/cli -i input.css 
 start tailwind in folder web with command npx tailwindcss -i ./input.css -o ./main.css --watch
 
 initial user: 
+  id: auto_increment
   username: admin
   password: admin
+  admin: 1
+  fk_organisation: null
+
+initial organisation:
+  id: auto_increment
+  resp_person: Aleksa Milosevic
+  seal: Seal - Beograd - ESCO
+  name: ESCO Control Project
+  address: Zdravka Celara 80, Zemun,
+  issuer: Vladimir Bazovic
