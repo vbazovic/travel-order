@@ -977,7 +977,8 @@
             newTravelOrderFkVehicle.value = '';
             newTravelOrderFkOrganisation.value = '';
             alert(res.data.message);
-            fetchTravelOrders();
+            //fetchTravelOrders();
+            window.location.reload();
           };
 
           const createTravelExpence = async () => {
@@ -1183,7 +1184,7 @@
             console.log(`${apiBase}/order_employee/${fk_order}/${fk_employee}`);
             alert(res.data.message);
             fetchOrderEmployeees();
-          };
+          };          
 
           // document.addEventListener('DOMContentLoaded', () => {
           //   tinymce.init({ selector: '.myEditor' });
