@@ -696,24 +696,24 @@
               selector: '.myEditor',
               license_key: 'gpl',
               branding: false,
-              // plugins: 'fullscreen',
-              // toolbar: 'fullscreen',
-              // fullscreen_native: true,
+              plugins: 'fullscreen',
+              toolbar: 'fullscreen',
+              fullscreen_native: true,
               promotion: false,
               resize: false,
-              setup: function (editor) {
-                editor.on('init', function () {
-                  editor.getContainer().classList.add('hide-editor');
-                });
+              // setup: function (editor) {
+              //   editor.on('init', function () {
+              //     editor.getContainer().classList.add('hide-editor');
+              //   });
 
-                editor.on('FullscreenStateChanged', function (e) {
-                  if (e.state) {
-                    editor.getContainer().classList.remove('hide-editor');
-                  } else {
-                    editor.getContainer().classList.add('hide-editor');
-                  }
-                });
-              }
+              //   editor.on('FullscreenStateChanged', function (e) {
+              //     if (e.state) {
+              //       editor.getContainer().classList.remove('hide-editor');
+              //     } else {
+              //       editor.getContainer().classList.add('hide-editor');
+              //     }
+              //   });
+              // }
             });
             console.log(updateAllowed());
           });
