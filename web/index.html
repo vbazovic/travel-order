@@ -690,7 +690,7 @@
       const { createApp, ref } = Vue;
       createApp({
         setup() {
-          document.addEventListener('DOMContentLoaded', () => {
+          document.addEventListener('load', () => {
             tinymce.init({
               selector: '.myEditor',
               license_key: 'gpl',
