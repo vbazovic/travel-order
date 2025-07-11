@@ -623,7 +623,7 @@
                       </label>
 
                       <label for="Password">{{t("Password", lang)}}:
-                        <input v-model="user.password" class="formInputs" />
+                        <input v-model="user.password" class="formInputs" type="password"/>
                       </label>
 
                       <label for="Privilege level">{{t("Privilege level", lang)}}:
@@ -1170,7 +1170,7 @@
           const deleteTravelOrder = async (id) => {
             const res = await axios.delete(`${apiBase}/travel_order/${id}`, authHeaders());
             alert(res.data.message);
-            fetchTravelOrders();
+            window.location.reload();
           };
 
           const deleteTravelExpence = async (id) => {
