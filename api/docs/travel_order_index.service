@@ -1,0 +1,16 @@
+    [Unit]
+    Description=Travel order index
+    After=network.target
+
+    [Service]
+    ExecStart=/usr/local/bin/node /var/www/html/travel-order/api/index.js
+    WorkingDirectory=/var/www/html/travel-order/api
+    Restart=always
+    RestartSec=10
+    StandardOutput=syslog
+    StandardError=syslog
+    SyslogIdentifier=travel-order-index
+    Environment=NODE_ENV=production PORT=3000
+
+    [Install]
+    WantedBy=multi-user.target
