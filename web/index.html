@@ -8,7 +8,6 @@
   <script src="node_modules/vue/dist/vue.global.js"></script>
   <script src="node_modules/axios/dist/axios.js"></script>
   <script src="node_modules/tinymce/tinymce.min.js"></script>
-  <script src="node_modules/@tinymce/tinymce-vue/lib/browser/tinymce-vue.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css">
   <link href="main.css?ver=1" rel="stylesheet">
   <script src="translate.js"></script>
@@ -1185,10 +1184,6 @@
             alert(res.data.message);
             fetchOrderEmployeees();
           };          
-
-          // document.addEventListener('DOMContentLoaded', () => {
-          //   tinymce.init({ selector: '.myEditor' });
-          // });
 
           if (token.value) {
             fetchVehicles();
