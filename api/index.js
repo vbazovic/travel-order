@@ -380,8 +380,8 @@ app.get('/travel_order', authenticate, (req, res) => {
 app.get('/travel_order/:id', authenticate, (req, res) => {
   const { id } = req.params;
   db.query(`SELECT *,
-          DATE_FORMAT(travel_order.start_date, '%d.%m.%Y.') AS formatted_start_date,
-          DATE_FORMAT(travel_order.end_date, '%d.%m.%Y.') AS formatted_end_date,
+          DATE_FORMAT(travel_order.start_date, '%Y-%m-%d') AS formatted_start_date,
+          DATE_FORMAT(travel_order.end_date, '%Y-%m-%d') AS formatted_end_date,
           organisation.name AS org_name,
           vehicle.name AS vehicle_name
           FROM travel_order 

@@ -246,8 +246,8 @@
           };
 
           function brojDana(od, doo) {
-            const [d1, m1, y1] = od.split('.').map(Number);
-            const [d2, m2, y2] = doo.split('.').map(Number);
+            const [y1,m1,d1] = od.split('-').map(Number);
+            const [y2,m2,d2] = doo.split('-').map(Number);
 
             const datum1 = new Date(y1, m1 - 1, d1);
             const datum2 = new Date(y2, m2 - 1, d2);
