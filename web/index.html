@@ -690,7 +690,7 @@
       const { createApp, ref } = Vue;
       createApp({
         setup() {
-          document.addEventListener('load', () => {
+          window.addEventListener('load', () => {
             alert('ucitao');
             tinymce.init({
               selector: '.myEditor',
