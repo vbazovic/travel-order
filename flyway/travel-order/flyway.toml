@@ -32,3 +32,8 @@ schemas = [ "travel_test" ]
 url = "jdbc:mysql://localhost"
 schemas = [ "travel_order" ]
 displayName = "Travel Order"
+
+[environments.server_travel_order]
+url = "jdbc:mysql://10.88.85.1"
+schemas = [ "travel_order" ]
+displayName = "server_travel_order"
