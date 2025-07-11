@@ -623,7 +623,7 @@
                       </label>
 
                       <label for="Password">{{t("Password", lang)}}:
-                        <input v-model="user.password" class="formInputs" type="password"/>
+                        <input v-model="user.password" class="formInputs" type="password" />
                       </label>
 
                       <label for="Privilege level">{{t("Privilege level", lang)}}:
@@ -690,33 +690,6 @@
       const { createApp, ref } = Vue;
       createApp({
         setup() {
-          window.addEventListener('load', () => {
-            tinymce.init({
-              selector: '.myEditor',
-              license_key: 'gpl',
-              branding: false,
-              plugins: 'fullscreen',
-              toolbar: 'undo redo | styles | bold italic | forecolor backcolor | fullscreen',
-              fullscreen_native: true,
-              promotion: false,
-              resize: false,
-              // setup: function (editor) {
-              //   editor.on('init', function () {
-              //     editor.getContainer().classList.add('hide-editor');
-              //   });
-
-              //   editor.on('FullscreenStateChanged', function (e) {
-              //     if (e.state) {
-              //       editor.getContainer().classList.remove('hide-editor');
-              //     } else {
-              //       editor.getContainer().classList.add('hide-editor');
-              //     }
-              //   });
-              // }
-            });
-            console.log(updateAllowed());
-          });
-
           const apiBase = 'http://93.87.127.171:3000'; // or 3000 for Node.js
           const adminBase = 'http://93.87.127.171:3001'; // or 3001 for Node.js
           const token = ref(localStorage.getItem('token'));
@@ -1184,7 +1157,7 @@
             console.log(`${apiBase}/order_employee/${fk_order}/${fk_employee}`);
             alert(res.data.message);
             fetchOrderEmployeees();
-          };          
+          };
 
           if (token.value) {
             fetchVehicles();
@@ -1212,6 +1185,34 @@
           };
         }
       }).mount('#app')
+    </script>
+    <script>
+      window.addEventListener('load', () => {
+        tinymce.init({
+          selector: '.myEditor',
+          license_key: 'gpl',
+          branding: false,
+          plugins: 'fullscreen',
+          toolbar: 'undo redo | styles | bold italic | forecolor backcolor | fullscreen',
+          fullscreen_native: true,
+          promotion: false,
+          resize: false,
+          // setup: function (editor) {
+          //   editor.on('init', function () {
+          //     editor.getContainer().classList.add('hide-editor');
+          //   });
+
+          //   editor.on('FullscreenStateChanged', function (e) {
+          //     if (e.state) {
+          //       editor.getContainer().classList.remove('hide-editor');
+          //     } else {
+          //       editor.getContainer().classList.add('hide-editor');
+          //     }
+          //   });
+          // }
+        });
+        console.log(updateAllowed());
+      });
     </script>
 </body>
 
