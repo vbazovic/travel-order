@@ -309,8 +309,8 @@
                       <label for="Report">{{t("Report", lang)}}:
                         <!-- <textarea :id="`report-${travel_order.id}`" v-model="travel_order.report"
                           class="formInputs myEditor"></textarea> -->
-                          <textarea :id="`report-${travel_order.id}`" v-html="travel_order.report"
-                          class="formInputs"></textarea>
+                          <div :id="`report-${travel_order.id}`" v-html="travel_order.report"
+                          class="formInputs"></div>
                       </label>
                       <button class="formButtons reportButton" @click="openReport(travel_order.id)">{{t("Report",
                         lang)}}</button>
