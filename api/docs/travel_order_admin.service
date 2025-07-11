@@ -7,8 +7,8 @@
     WorkingDirectory=/var/www/html/travel-order/api
     Restart=always
     RestartSec=10
-    StandardOutput=syslog
-    StandardError=syslog
+    StandardOutput=journal
+    StandardError=journal
     SyslogIdentifier=travel-order-admin
     Environment=NODE_ENV=production PORT=3001
 
