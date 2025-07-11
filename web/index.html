@@ -691,13 +691,12 @@
       createApp({
         setup() {
           window.addEventListener('load', () => {
-            alert('ucitao');
             tinymce.init({
               selector: '.myEditor',
               license_key: 'gpl',
               branding: false,
               plugins: 'fullscreen',
-              toolbar: 'undo redo | styles | bold italic | fullscreen | forecolor backcolor',
+              toolbar: 'undo redo | styles | bold italic | forecolor backcolor | fullscreen',
               fullscreen_native: true,
               promotion: false,
               resize: false,
