@@ -1,9 +1,9 @@
-# travel-order
+# Travel Order
 Travel order by Serbian law
 
-# install procedure
+# Install procedure
 
-## backend
+## Backend
 
 Go to api folder and run:
 
@@ -14,20 +14,31 @@ npm ci
 Copy settings.json.template into settings.json and edit settings.json to match your settings.
 
 From api folder run app:
-````
+
+```
 node index.js
 ```
 
-## frontend
+## Frontend
 
 Go to web folder and run:
 
 ```
 npm ci
 ```
-to change styles change the input.css and run npx @tailwindcss/cli -i input.css -o main.css --watch inside web
+
+To change styles change the input.css and run inside web folder:
+
 ```
-start tailwind in folder web with command npx tailwindcss -i ./input.css -o ./main.css --watch
+npx @tailwindcss/cli -i input.css -o main.css --watch
+```
+
+start tailwind in folder web with command:
+```
+npx tailwindcss -i ./input.css -o ./main.css --watch
+```
+
+# Application initial data
 
 initial user: 
   id: auto_increment
