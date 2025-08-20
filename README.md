@@ -3,6 +3,8 @@ Travel order by Serbian law
 
 # Install procedure
 
+git clone -LINK-
+
 ## Backend
 
 Go to api folder and run:
@@ -10,6 +12,10 @@ Go to api folder and run:
 ```
 npm ci
 ```
+Open xampp and run MySQL and Apache  
+Create database travel_order   
+Go to flyway/travel-order and in SQL script run full-migration.sql
+
 Create setting.json file in the api folder  
 Copy settings.json.template into settings.json and edit settings.json to match your settings.
 
@@ -19,10 +25,6 @@ From api folder run apps:
 node index.js
 node admin.js
 ```
-
-Open xampp and run MySQL and Apache  
-Create database travel_order   
-Do a migration from flyway/travel-order/migrations (from migration script 2 to the end, first script is creating the database)  
 
 ## Frontend
 
