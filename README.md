@@ -3,7 +3,7 @@ Travel order by Serbian law
 
 # Install procedure
 
-git clone -LINK-
+git clone [-LINK-](https://github.com/vbazovic/travel-order.git)
 
 ## Backend
 
