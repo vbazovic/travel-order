@@ -3,7 +3,7 @@ Travel order by Serbian law
 
 # Install procedure
 
-git clone <github-repo-link>
+git clone (github-repo-link)
 
 ## Backend
 
