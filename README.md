@@ -35,6 +35,12 @@ Go to web folder and run:
 npm ci
 ```
 
-Run npm run dev
+#Start the project in development mode
+
+Go to web folder and run:
+
+```
+npm run dev
+```
 
 # Logging in: admin/admin
