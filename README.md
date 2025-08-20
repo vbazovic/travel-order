@@ -34,6 +34,10 @@ Go to web folder and run:
 npm ci
 ```
 
+Run npm run dev
+
+### Optional
+
 To change styles change the input.css and run inside web folder:
 
 ```
@@ -44,7 +48,6 @@ Start tailwind in folder web with command:
 ```
 npx tailwindcss -i ./input.css -o ./main.css --watch
 ```
-Run npm run dev or just open web/index.html
 
 # Application initial data
 
