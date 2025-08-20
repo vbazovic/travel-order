@@ -37,40 +37,4 @@ npm ci
 
 Run npm run dev
 
-### Optional
-
-To change styles change the input.css and run inside web folder:
-
-```
-npx @tailwindcss/cli -i input.css -o main.css --watch
-```
-
-Start tailwind in folder web with command:
-```
-npx tailwindcss -i ./input.css -o ./main.css --watch
-```
-
-# Application initial data
-
-initial user:
-
-``` 
-id: auto_increment
-username: admin
-password: admin
-admin: 1
-fk_organisation: null
-```
-
-initial organisation:
-
-```
-id: auto_increment
-resp_person: Aleksa Milosevic
-seal: Seal - Beograd - ESCO
-name: ESCO Control Project
-address: Zdravka Celara 80, Zemun,
-issuer: Vladimir Bazovic
-```
-
 # Logging in: admin/admin
