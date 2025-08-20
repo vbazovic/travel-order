@@ -17,7 +17,8 @@ Create database travel_order
 Go to flyway/travel-order and in SQL script run full-migration.sql
 
 Create setting.json file in the api folder  
-Copy settings.json.template into settings.json and edit settings.json to match your settings.
+Copy settings.json.template into settings.json and edit settings.json to match your settings.  
+(app_token, db_user and db_passwd)
 
 From api folder run apps:
 
