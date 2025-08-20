@@ -10,14 +10,19 @@ Go to api folder and run:
 ```
 npm ci
 ```
-
+Create setting.json file in the api folder
 Copy settings.json.template into settings.json and edit settings.json to match your settings.
 
-From api folder run app:
+From api folder run apps:
 
 ```
 node index.js
+node admin.js
 ```
+
+Open xampp and run MySQL and Apache
+Create database travel_order 
+Do a migration from flyway/travel-order/migrations (from migration script 2 to the end, first script is creating the database)
 
 ## Frontend
 
@@ -37,6 +42,7 @@ Start tailwind in folder web with command:
 ```
 npx tailwindcss -i ./input.css -o ./main.css --watch
 ```
+Run npm run dev or just open web/index.html
 
 # Application initial data
 
@@ -60,3 +66,5 @@ name: ESCO Control Project
 address: Zdravka Celara 80, Zemun,
 issuer: Vladimir Bazovic
 ```
+
+# Logging in: admin/admin
