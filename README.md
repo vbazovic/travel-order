@@ -35,7 +35,7 @@ Go to web folder and run:
 npm ci
 ```
 
-#Start the project in development mode
+# Start the project (dev mode)
 
 Go to web folder and run:
 
