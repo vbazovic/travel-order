@@ -44,3 +44,7 @@ npm run dev
 ```
 
 # Logging in: admin/admin
+
+#Bugs:
+
+If the website is not responding just refresh the page.
