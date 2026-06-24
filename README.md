@@ -1,50 +1,103 @@
 # Travel Order
-Travel order by Serbian law
 
-# Install procedure
+Travel Order is a web application for creating and managing travel orders based on Serbian legal requirements.
 
-git clone (github-repo-link)
+## Installation
 
-## Backend
+Clone the repository:
 
-Go to api folder and run:
-
+```bash
+git clone <github-repo-link>
 ```
+
+## Backend setup
+
+Go to the `api` folder:
+
+```bash
+cd api
+```
+
+Install dependencies:
+
+```bash
 npm ci
 ```
-Open xampp and run MySQL and Apache  
-Create database travel_order   
-Go to flyway/travel-order and in SQL script run full-migration.sql
 
-Create setting.json file in the api folder  
-Copy settings.json.template into settings.json and edit settings.json to match your settings.  
-(app_token, db_user and db_passwd)
+Open XAMPP and start:
 
-From api folder run apps:
+* Apache
+* MySQL
 
+Create a MySQL database named:
+
+```sql
+travel_order
 ```
+
+Run the database migration script located in:
+
+```text
+flyway/travel-order/full-migration.sql
+```
+
+Create a `settings.json` file inside the `api` folder.
+
+Copy the contents from:
+
+```text
+settings.json.template
+```
+
+into:
+
+```text
+settings.json
+```
+
+Then update the following values according to your local environment:
+
+* `app_token`
+* `db_user`
+* `db_passwd`
+
+Start the backend applications from the `api` folder:
+
+```bash
 node index.js
+```
+
+In another terminal, run:
+
+```bash
 node admin.js
 ```
 
-## Frontend
+## Frontend setup
 
-Go to web folder and run:
+Go to the `web` folder:
 
+```bash
+cd web
 ```
+
+Install dependencies:
+
+```bash
 npm ci
 ```
 
-# Start the project (dev mode)
+## Running the project in development mode
 
-Go to web folder and run:
+From the `web` folder, run:
 
-```
+```bash
 npm run dev
 ```
 
-# Logging in: admin/admin
+## Login credentials
 
-# Bugs:
-
-If the website is not responding just refresh the page.
+```text
+Username: admin/user
+Password: admin/user
+```
